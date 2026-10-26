@@ -62,11 +62,11 @@ export function App() {
   return (
     <main className="app">
       <header>
-        <p className="kicker">Spookython 2026 · Track B · Manta</p>
-        <h1>Comité de Contención</h1>
+        <p className="kicker">Spookython 2026 · Track B · Manta · The Last of Us</p>
+        <h1>Comité de Contención — Cordyceps (CBI)</h1>
         <p>
-          Gripe Z se mueve por hogares, aulas, buses y mercados. Hay pocas dosis. Esta mesa compara
-          vacunar por centralidad contra no hacer nada y contra gastar las mismas dosis al azar.
+          El hongo Cordyceps (CBI) se propaga por mordeduras y esporas en hogares, aulas, buses y mercados de Manta. Hay pocas dosis de antígeno. Esta mesa compara
+          vacunar por anillo y centralidad contra no hacer nada y contra gastar las mismas dosis al azar.
         </p>
       </header>
 

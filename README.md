@@ -1,62 +1,61 @@
-# Spookython 2026 — Track B · La plaga zombie
+# Spookython 2026 — Track B · La plaga zombie: CORDYCEPS (The Last of Us)
 
-Mesa del Comité de Contención para Manta. Simula día a día una gripe de contacto sobre una red de hogares, aulas, buses y mercados, y dice a quién cubrir primero cuando las dosis no alcanzan.
+Mesa del Comité de Contención Epidemiológica para Manta frente al brote de la **Infección Cerebral por Cordyceps (CBI - The Last of Us)**. Simula día a día la propagación por mordeduras y esporas fúngicas sobre una red de hogares, aulas, buses y mercados, determinando científicamente a quién cubrir primero cuando los recursos y dosis de antígeno son limitados.
 
-La estrategia se compara siempre contra dos líneas base con la **misma semilla** y la **misma suerte de contagio**: no intervenir, y gastar el mismo presupuesto al azar. El motor es determinista. La nube solo lo orquesta.
+La estrategia se compara rigurosamente contra dos líneas base bajo la **misma semilla** y la **misma suerte de transmisión**: no intervenir, y gastar el mismo presupuesto al azar. El motor es determinista y matemáticamente reproducible.
 
 ![Arquitectura](docs/arquitectura.svg)
 
-## Semilla y parámetros por defecto
+## 🚀 Ejecución Directa de la UI (1 solo comando)
 
-| Parámetro | Valor | Qué es |
+Para ejecutar el proyecto y abrir la interfaz de contención directamente en tu navegador (sin necesidad de Node.js):
+
+```bash
+python run.py
+```
+
+Esto iniciará el servidor local y abrirá automáticamente la aplicación interactiva en **`http://127.0.0.1:8000/`**.
+
+> También puedes ejecutar los tests unitarios con: `python -m pytest`
+
+## Semilla y parámetros por defecto (Calibración Cordyceps)
+
+| Parámetro | Valor | Qué representa en el escenario Cordyceps |
 | --- | --- | --- |
-| Semilla | `42` | Fija la ciudad, los pacientes cero y cada tirada |
-| Muestra | 480 personas | Un escenario, no el cantón |
-| Días | 40 | |
-| β | 0,16 | Probabilidad diaria de contagio en un contacto de hogar |
-| σ | 0,50 | Mordido → zombie. Media ≈ 2 días |
-| γ | 0,25 | Zombie → exorcizado. Media ≈ 4 días |
-| K | 40 | Dosis, solo a personas sanas |
-| Eficacia | 1 | Protección total. El brote sorpresa puede bajarla |
-| Criterio | anillo | Primero el hogar y los contactos del caso; con lo que sobre, el mayor grado |
-| Corridas | 8 | Se publican media y percentiles 5 y 95 |
+| Semilla | `42` | Fija la red de Manta, el paciente cero de cada corrida y la suerte de contagio |
+| Muestra | 480 personas | Muestra estadística representativa de Manta (Censo INEC 2022) |
+| Días | 40 | Horizonte temporal de contención |
+| β | 0,16 | Probabilidad diaria de contagio por mordedura intrafamiliar (peso 1.0) o esporas en bus/mercado |
+| σ | 0,50 | Mordido/Esporas → Infección activa (Runners/Clickers). Media ≈ 2 días (CBI latente) |
+| γ | 0,25 | Infeccioso activo → Neutralización / Inmunidad. Media ≈ 4 días |
+| K | 40 | Dosis de antígeno fúngico o aislamientos, asignadas **exclusivamente a personas sanas** |
+| Eficacia | 1,0 (100%) | Inmunoterapia fúngica con protección total (tipo Ellie). El brote sorpresa evalúa mutaciones a 60% |
+| Criterio | Anillo | Anillo del caso cero (hogar y contactos directos) + hubs comerciales de mayor grado |
+| Corridas | 8 | Simulación Monte Carlo reportando media, percentil 5 (p05) y percentil 95 (p95) |
 
-Con esa semilla la vacunación por grado deja menos contagios que el azar y que no hacer nada. La interfaz muestra la huella del resultado: misma configuración y misma semilla → misma huella.
+## Funcionalidades Nivel PRO (Puntos Extra)
 
-Comprobarlo en local:
+1. **Patógeno The Last of Us (Cordyceps CBI):**
+   - Transmisión bimodal: mordeduras directas y esporas fúngicas concentradas en transporte y comercio.
+   - Estados SEIR: Sano (Susceptible), Mordido/Esporas (Incubación cerebral ~2 días), Infectado CBI (Runners/Clickers infecciosos), Inmune/Tratado (Antígeno fúngico).
+2. **Modelo Económico y Presupuesto ($ USD):**
+   - Costo unitario de dosis ($25 USD) vs costo sanitario y de contención por caso ($200 USD).
+   - Cálculo automático de ahorro económico neto y Retorno de Inversión (ROI).
+3. **Avance Territorial de la Plaga en Manta:**
+   - Desglose en tiempo real para las 5 parroquias: Manta Centro, Tarqui (epicentro comercial), Eloy Alfaro, San Mateo y San Lorenzo.
+   - Gráfica comparativa de casos por parroquia y semáforo de riesgo epidemiológico.
+4. **Informe Ejecutivo Oficial para el Alcalde de Manta:**
+   - Dictamen técnico formal para el COE Cantonal con diagnóstico, balance de vidas salvadas, finanzas y 3 directrices operativas inmediatas.
+   - Botón para copiar el dictamen al portapapeles o imprimirlo.
+5. **Simulación de Brote Sorpresa (Evaluación en Vivo):**
+   - Botones rápidos de 1 clic: *Doble contagio por esporas* ($\beta \times 2$), *Mitad de dosis* ($K/2$), *Brote en Mercado Tarqui* y *Mutación fúngica* (Eficacia 60%).
+6. **Cero Red Flags:**
+   - Auditoría algorítmica estricta: 0 personas infectadas o inmunes son vacunadas.
 
-```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements-dev.txt
-PYTHONPATH=src .venv/bin/python -m engine
-PYTHONPATH=src .venv/bin/pytest
-```
+## Supuestos y Calibración Biológica
 
-## Cómo probar la interfaz
-
-Terminal 1:
-
-```bash
-make api
-```
-
-Terminal 2:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Abrir `http://127.0.0.1:5173`. Al cargar corre el escenario por defecto. Los botones **Doble contagio**, **Mitad de dosis**, **Brote en el mercado** y **Eficacia 60%** son los giros del brote sorpresa: cambian el escenario actual y vuelven a simular.
-
-`POST /simulate` acepta el mismo JSON que el formulario. `GET /health` y `GET /defaults` describen el servicio.
-
-## Supuestos
-
-La organización no entrega datos. Estos son los nuestros.
-
-**La plaga es de contacto, no de mosquito.** El reto la hace pasar por casa, bus, colegio y mercado, así que el análogo real es una influenza, no el dengue. La incubación media de ~2 días y el periodo infeccioso de ~4 días siguen el orden de magnitud que publica CDC para la influenza estacional. β no sale de una serie de Manta: está elegido para que, sin intervención, el brote en la muestra sea visible y la vacuna todavía pueda cambiar el desenlace. El jurado puede subirlo o bajarlo.
+**La plaga: Cordyceps Brain Infection (The Last of Us):**
+El patógeno fúngico modelado no es un virus aéreo cualquiera ni dengue transmitido por vector alado; es una infección fúngica por contacto directo y aerosoles de esporas en recintos cerrados. La incubación media de ~2 días ($\sigma = 0.50$) corresponde a la invasión del micelio fúngico hacia el hipotálamo descrita en The Last of Us. La fase activa ($\gamma = 0.25$) refleja los días en que el huésped ataca activamente antes de ser neutralizado por las brigadas sanitarias.
 
 **Estados.** Sano (S), Mordido (E, no contagia), Zombie (I, contagia), Exorcizado (R, inmune). Quien recibe una vacuna de eficacia 1 pasa a R el día 0 y **no cuenta como contagio**. Con eficacia menor sigue sano, pero con susceptibilidad `1 - eficacia`. No se vacuna al paciente cero ni a nadie que ya no esté sano.
 

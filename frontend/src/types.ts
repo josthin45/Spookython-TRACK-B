@@ -66,6 +66,45 @@ export type Scenario = {
     azar: string;
     nada: string;
   };
+  enfermedad?: {
+    nombre: string;
+    patogeno: string;
+    vector: string;
+    fases: string;
+    cura: string;
+  };
+  economia?: {
+    costo_unitario: number;
+    inversion_intervencion: number;
+    costo_sanitario_caso: number;
+    costo_total_estrategia: number;
+    costo_total_azar: number;
+    costo_total_nada: number;
+    ahorro_vs_nada: number;
+    ahorro_vs_azar: number;
+    roi_estimado: number;
+  };
+  territorial?: {
+    barrios: Array<{
+      id: number;
+      nombre: string;
+      poblacion: number;
+      infectados_estrategia: number;
+      infectados_nada: number;
+      salvados: number;
+      tasa_ataque: number;
+      nivel_riesgo: string;
+    }>;
+  };
+  informe_ejecutivo?: {
+    destinatario: string;
+    asunto: string;
+    diagnostico: string;
+    impacto_estrategia: string;
+    analisis_financiero: string;
+    directrices_inmediatas: string[];
+    conclusion: string;
+  };
 };
 
 export type FormState = {

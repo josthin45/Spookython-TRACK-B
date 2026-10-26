@@ -46,12 +46,19 @@ def simulate(
     initial_state: np.ndarray,
     susceptibility: np.ndarray,
     seed: int,
+    barrios: np.ndarray | None = None,
 ) -> dict:
     states = initial_state.astype(np.int8, copy=True)
     sus = susceptibility.astype(np.float64, copy=True)
     ever = (states == I) | (states == E)
     hist = np.zeros((days + 1, 4), dtype=np.int32)
     hist[0] = np.bincount(states, minlength=4)
+
+    n_barrios = 5
+    barrio_hist = np.zeros((days + 1, n_barrios), dtype=np.int32) if barrios is not None else None
+    if barrios is not None:
+        for b in range(n_barrios):
+            barrio_hist[0, b] = int(np.sum((states == I) & (barrios == b)))
 
     rng = np.random.default_rng(np.random.SeedSequence([int(seed) & 0x7FFFFFFF, 404]))
     prob = transmission_probability(beta, weight)
@@ -82,14 +89,22 @@ def simulate(
         states[to_r] = R
         hist[day + 1] = np.bincount(states, minlength=4)
 
+        if barrios is not None:
+            for b in range(n_barrios):
+                barrio_hist[day + 1, b] = int(np.sum((states == I) & (barrios == b)))
+
     peak_day = int(np.argmax(hist[:, I]))
-    return {
+    out = {
         "hist": hist,
         "incidence": int(ever.sum()),
         "peak_i": int(hist[:, I].max()),
         "peak_day": peak_day,
         "final_state": states,
     }
+    if barrios is not None:
+        out["barrio_hist"] = barrio_hist
+        out["barrio_incidence"] = [int(np.sum(ever & (barrios == b))) for b in range(n_barrios)]
+    return out
 
 
 def apply_initial_state(

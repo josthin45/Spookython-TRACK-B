@@ -1,15 +1,18 @@
-"""API local. Misma forma que el orquestador de Lambda: valida y llama al motor."""
+from pathlib import Path
 
 from fastapi import Body, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import FileResponse, HTMLResponse
 
 from engine.compare import run_scenario
 from engine.config import Params, parse_params
 
+STATIC_INDEX = Path(__file__).resolve().parent / "static" / "index.html"
+
 app = FastAPI(
     title="Comité de Contención — Manta",
-    version="0.1.0",
-    summary="Simulador SEIR de la plaga sobre la red de contactos de Manta.",
+    version="0.2.0",
+    summary="Simulador SEIR de la plaga Cordyceps (CBI) sobre la red de contactos de Manta.",
 )
 app.add_middleware(
     CORSMiddleware,
@@ -17,6 +20,14 @@ app.add_middleware(
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
+
+
+@app.get("/", response_class=HTMLResponse)
+@app.get("/app", response_class=HTMLResponse)
+def index() -> FileResponse:
+    if STATIC_INDEX.exists():
+        return FileResponse(STATIC_INDEX)
+    return HTMLResponse("<h1>UI no encontrada</h1>", status_code=404)
 
 
 @app.get("/health")
