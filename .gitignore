@@ -13,3 +13,8 @@ frontend/dist/
 frontend/.vite/
 
 src/**/__pycache__/
+
+# Contexto y artefactos de diseño generados por IA (Impeccable)
+PRODUCT.md
+DESIGN.md
+.impeccable/
