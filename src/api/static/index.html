@@ -6,714 +6,1586 @@
   <title>Comité de Contención Manta — Infección por Cordyceps (The Last of Us)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Courier+Prime:wght@400;700&family=Saira+Stencil+One&family=Special+Elite&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b0f14;
-      --panel: #121820;
-      --panel-border: #1e293b;
-      --card: #16202c;
-      --card-border: #233246;
-      --text: #e2e8f0;
-      --text-muted: #8b9bb4;
-      --accent: #10b981; /* Verde esmeralda de vidas salvadas */
-      --accent-glow: rgba(16, 185, 129, 0.2);
-      --cordyceps: #dc2626; /* Rojo infección / Clicker */
-      --cordyceps-glow: rgba(220, 38, 38, 0.25);
-      --spore: #d97706; /* Ámbar esporas / mordido */
-      --spore-glow: rgba(217, 119, 6, 0.2);
-      --immune: #2563eb; /* Azul inmune / vacuna */
-      --gold: #f59e0b;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-display: 'Chakra Petch', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --void: #0b0d09;
+      --void-2: #12150e;
+      --void-3: #1a1e15;
+      --steel: #2a2f23;
+      --steel-2: #3e4632;
+      --paper: #d8d0b8;
+      --paper-2: #c9c0a5;
+      --paper-3: #e6dfc9;
+      --paper-4: #f0ead8;
+      --paper-edge: #a89f86;
+      --paper-shadow: #8f876f;
+      --ink: #1a1b15;
+      --ink-2: #3d3f31;
+      --ink-3: #555644;
+      --olive: #6f7a54;
+      --olive-2: #8b936c;
+      --olive-dark: #3e4632;
+      --rust: #9b3b2c;
+      --rust-2: #b24a37;
+      --rust-deep: #6f291e;
+      --amber: #b8843b;
+      --amber-2: #d2a052;
+      --sage: #4f6b52;
+      --sage-2: #6f8f70;
+      --blue-ink: #4b6472;
+      --mustard: #c2a94f;
+      --white: #f0ead8;
+
+      --font-display: 'Saira Stencil One', 'Arial Narrow', Impact, sans-serif;
+      --font-label: 'Special Elite', 'Courier New', monospace;
+      --font-ui: 'Archivo', 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Courier Prime', 'Courier New', monospace;
+
+      color-scheme: dark;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
+      background-color: var(--void);
+      color: var(--white);
+      font-family: var(--font-ui);
       min-height: 100vh;
       line-height: 1.5;
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(220, 38, 38, 0.04) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
-        linear-gradient(rgba(11, 15, 20, 0.95), rgba(11, 15, 20, 0.98)),
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.15) 2px, rgba(0, 0, 0, 0.15) 4px);
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(111, 122, 84, 0.10) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 100%, rgba(155, 59, 44, 0.08) 0%, transparent 42%),
+        linear-gradient(180deg, #0e110b 0%, var(--void) 55%, #090b07 100%);
+      background-attachment: fixed;
     }
 
-    /* TOP HEADER */
+    /* ---------- Browser surfaces belong to the dossier ---------- */
+    ::selection { background: var(--rust); color: var(--paper-4); }
+    ::-webkit-scrollbar { width: 11px; height: 11px; }
+    ::-webkit-scrollbar-track { background: #10130c; }
+    ::-webkit-scrollbar-thumb {
+      background: #3f4634;
+      border: 2px solid #10130c;
+      border-radius: 0;
+    }
+    ::-webkit-scrollbar-thumb:hover { background: #566048; }
+    * { scrollbar-color: #3f4634 #10130c; scrollbar-width: thin; }
+
+    :focus-visible {
+      outline: 2px solid var(--rust-2);
+      outline-offset: 2px;
+    }
+
+    .icon {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      flex: 0 0 auto;
+      vertical-align: -0.12em;
+      overflow: visible;
+    }
+
+    .icon-sprite {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    /* ---------- Header: dark board, FEDRA seal ---------- */
     header.topbar {
-      border-bottom: 1px solid var(--panel-border);
-      background: rgba(18, 24, 32, 0.9);
-      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--rust);
+      border-bottom: 1px solid var(--steel-2);
+      background:
+        linear-gradient(180deg, rgba(26, 30, 21, 0.96), rgba(11, 13, 9, 0.98));
+      box-shadow: 0 1px 0 rgba(240, 234, 216, 0.05), 0 10px 30px rgba(0, 0, 0, 0.55);
       position: sticky;
       top: 0;
       z-index: 50;
-      padding: 0.85rem 1.5rem;
+      padding: 0.75rem 1.4rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      gap: 0.9rem;
     }
     .brand {
       display: flex;
       align-items: center;
       gap: 0.85rem;
+      min-width: 0;
     }
     .biohazard-badge {
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(217, 119, 6, 0.1));
-      border: 1px solid rgba(220, 38, 38, 0.4);
-      border-radius: 8px;
+      width: 46px;
+      height: 46px;
+      color: #c97058;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(155, 59, 44, 0.16), rgba(155, 59, 44, 0.04) 70%);
+      border: 1px solid rgba(155, 59, 44, 0.55);
+      box-shadow: inset 0 0 0 3px var(--void), inset 0 0 0 4px rgba(155, 59, 44, 0.45);
       display: grid;
       place-items: center;
-      font-size: 1.5rem;
-      color: var(--cordyceps);
-      box-shadow: 0 0 12px var(--cordyceps-glow);
+      flex: 0 0 auto;
     }
+    .biohazard-badge .icon { width: 28px; height: 28px; stroke-width: 1.3; }
+    .brand-text { min-width: 0; }
     .brand-text h1 {
       font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-size: clamp(1.02rem, 1.85vw, 1.45rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--white);
+      text-wrap: balance;
     }
     .brand-text p {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
+      margin-top: 0.22rem;
+      font-family: var(--font-label);
+      font-size: 0.7rem;
+      color: #a29d87;
+      letter-spacing: 0.03em;
+      line-height: 1.4;
     }
     .status-tags {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.38rem;
       align-items: center;
       flex-wrap: wrap;
     }
     .pill {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      line-height: 1.2;
+      padding: 0.24rem 0.5rem;
+      border-radius: 1px;
+      border: 1px solid rgba(240, 234, 216, 0.18);
+      background: rgba(240, 234, 216, 0.03);
+      color: #b9b5a1;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      font-family: var(--font-mono);
+      gap: 0.36rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
     }
-    .pill.green {
-      background: rgba(16, 185, 129, 0.12);
-      border-color: rgba(16, 185, 129, 0.3);
-      color: #34d399;
+    .status-tags .pill.green {
+      background: rgba(79, 107, 82, 0.14);
+      border-color: rgba(111, 143, 112, 0.55);
+      color: #a9c0a5;
     }
-    .pill.red {
-      background: rgba(220, 38, 38, 0.12);
-      border-color: rgba(220, 38, 38, 0.3);
-      color: #f87171;
+    .status-tags .pill.red {
+      background: rgba(155, 59, 44, 0.14);
+      border-color: rgba(155, 59, 44, 0.6);
+      color: #d0907d;
     }
 
-    /* MAIN APP LAYOUT */
+    /* ---------- Layout ---------- */
     .app-container {
-      max-width: 1540px;
+      max-width: 1560px;
       margin: 0 auto;
-      padding: 1.25rem;
+      padding: 1.5rem 1.25rem 0.5rem;
       display: grid;
-      grid-template-columns: 380px 1fr;
-      gap: 1.25rem;
+      grid-template-columns: 392px minmax(0, 1fr);
+      gap: 1.35rem;
+      align-items: start;
+      min-width: 0;
     }
-    @media (max-width: 1080px) {
+    @media (max-width: 1120px) {
       .app-container { grid-template-columns: 1fr; }
     }
 
-    /* SIDEBAR CONTROLS */
+    /* ---------- Paper sheet system ---------- */
+    .sheet {
+      position: relative;
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 12% 8%, rgba(120, 108, 76, 0.10), transparent 42%),
+        radial-gradient(ellipse at 88% 92%, rgba(120, 108, 76, 0.09), transparent 46%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 26%);
+      color: var(--ink);
+      border: 1px solid var(--paper-edge);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 1px 0 var(--paper-shadow),
+        0 14px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    /* ---------- Sidebar: control form clipped to the board ---------- */
     .sidebar {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 12px;
-      padding: 1.25rem;
+      padding: 1.45rem 1.15rem 1.2rem;
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.15rem;
       height: fit-content;
+      border-radius: 2px;
+      min-width: 0;
     }
+    .sidebar::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 22px;
+      height: 30px;
+      border: 3px solid #7d7a67;
+      border-radius: 11px 11px 7px 7px;
+      background: linear-gradient(90deg, #5c5949 0%, #94907a 42%, #6a6755 72%, #4c4a3c 100%);
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
+    .sidebar::after {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--void-3);
+      border: 2px solid #a8a38c;
+      z-index: 3;
+    }
+
     .panel-header {
-      border-bottom: 1px solid var(--panel-border);
-      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 0.6rem;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 0.5rem 0.75rem;
     }
     .panel-header h2 {
       font-family: var(--font-display);
-      font-size: 1rem;
+      font-size: 0.94rem;
+      font-weight: 400;
       text-transform: uppercase;
-      letter-spacing: 0.75px;
-      color: #f8fafc;
+      letter-spacing: 0.05em;
+      color: var(--ink);
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
+      line-height: 1.15;
     }
+    .panel-header h2 .icon { color: var(--rust); width: 1.05em; height: 1.05em; }
+
     .surprise-box {
-      background: rgba(220, 38, 38, 0.06);
-      border: 1px solid rgba(220, 38, 38, 0.25);
-      border-radius: 8px;
-      padding: 0.75rem;
+      background: var(--paper-2);
+      border: 1px dashed rgba(26, 27, 21, 0.42);
+      padding: 0.7rem;
+      position: relative;
     }
     .surprise-title {
-      font-size: 0.72rem;
-      font-family: var(--font-display);
+      font-family: var(--font-label);
+      font-size: 0.69rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #f87171;
+      letter-spacing: 0.08em;
+      color: var(--rust-deep);
       margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
     }
+    .surprise-title .icon { color: var(--rust); }
     .surprise-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0.4rem;
     }
     .btn-surprise {
-      background: #1e293b;
-      border: 1px solid #334155;
-      color: #e2e8f0;
-      font-size: 0.74rem;
-      padding: 0.4rem 0.5rem;
-      border-radius: 6px;
+      background: var(--paper-3);
+      border: 1px solid rgba(26, 27, 21, 0.42);
+      color: var(--ink);
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      padding: 0.42rem 0.48rem;
+      border-radius: 0;
       cursor: pointer;
       text-align: left;
-      transition: all 0.15s ease;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
       display: flex;
       flex-direction: column;
+      gap: 0.1rem;
+      line-height: 1.25;
     }
-    .btn-surprise strong { color: #fff; font-size: 0.76rem; }
-    .btn-surprise span { font-size: 0.67rem; color: #94a3b8; }
+    .btn-surprise strong {
+      color: var(--ink);
+      font-size: 0.73rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.28rem;
+    }
+    .btn-surprise strong .icon { color: var(--rust); }
+    .btn-surprise span { font-size: 0.69rem; color: var(--ink-3); }
     .btn-surprise:hover {
-      background: #334155;
-      border-color: #f87171;
+      background: var(--paper-4);
+      border-color: var(--rust);
       transform: translateY(-1px);
     }
+    .btn-surprise:active { transform: translateY(0); }
 
-    /* FORM FIELDS */
+    /* ---------- Fields ---------- */
     .field-group {
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 0.9rem;
     }
     .field {
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: 0.28rem;
+      min-width: 0;
     }
+    .field-group, .row-inputs { min-width: 0; }
     .field-label {
       display: flex;
       justify-content: space-between;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #cbd5e1;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
     }
     .field-label .val {
       font-family: var(--font-mono);
-      color: #38bdf8;
-      font-size: 0.8rem;
+      color: var(--rust-deep);
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
-    .field input, .field select {
-      background: #0d131a;
-      border: 1px solid #28374a;
-      color: #fff;
-      padding: 0.55rem 0.75rem;
-      border-radius: 6px;
-      font-size: 0.86rem;
+    .field input,
+    .field select {
+      background: rgba(240, 234, 216, 0.35);
+      border: 1px solid rgba(26, 27, 21, 0.38);
+      color: var(--ink);
+      padding: 0.48rem 0.6rem;
+      border-radius: 0;
+      font-size: 0.84rem;
       outline: none;
-      transition: border 0.15s ease;
-      font-family: inherit;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      font-family: var(--font-mono);
+      color-scheme: light;
+      width: 100%;
+      min-width: 0;
     }
-    .field input:focus, .field select:focus {
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    .field input::placeholder { color: var(--ink-3); }
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--rust);
+      box-shadow: 0 0 0 2px rgba(155, 59, 44, 0.18);
     }
     .field input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
       padding: 0;
-      accent-color: #10b981;
-      cursor: pointer;
+      height: 22px;
       background: transparent;
+      border: 0;
+      cursor: pointer;
+      accent-color: var(--rust);
+    }
+    .field input[type="range"]::-webkit-slider-runnable-track {
+      height: 5px;
+      background: var(--paper-2);
+      border: 1px solid rgba(26, 27, 21, 0.45);
+    }
+    .field input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      margin-top: -6px;
+      background: var(--rust);
+      border: 1px solid var(--rust-deep);
+      border-radius: 0;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+    }
+    .field input[type="range"]::-moz-range-track {
+      height: 5px;
+      background: var(--paper-2);
+      border: 1px solid rgba(26, 27, 21, 0.45);
+    }
+    .field input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      background: var(--rust);
+      border: 1px solid var(--rust-deep);
+      border-radius: 0;
     }
     .field-hint {
+      font-family: var(--font-label);
       font-size: 0.69rem;
-      color: var(--text-muted);
+      color: var(--ink-3);
+      line-height: 1.45;
     }
     .row-inputs {
       display: grid;
-      grid-template-columns: 1fr 85px;
+      grid-template-columns: 1fr 88px;
       gap: 0.5rem;
       align-items: center;
     }
+    .row-inputs .val {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--rust-deep);
+      text-align: right;
+      white-space: nowrap;
+    }
 
-    /* ACTION BUTTONS */
+    /* ---------- Buttons ---------- */
     .actions-bar {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      margin-top: 0.5rem;
+      margin-top: 0.6rem;
     }
     .btn-primary {
-      background: linear-gradient(135deg, #059669, #10b981);
-      border: 1px solid #34d399;
-      color: #fff;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 0.98rem;
-      padding: 0.85rem;
-      border-radius: 8px;
+      background: var(--rust);
+      border: 1px solid var(--rust-deep);
+      color: var(--paper-4);
+      font-family: var(--font-ui);
+      font-weight: 800;
+      font-size: 0.92rem;
+      padding: 0.82rem 0.9rem;
+      border-radius: 0;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      box-shadow: 0 4px 14px var(--accent-glow);
-      transition: all 0.2s ease;
+      box-shadow:
+        inset 0 0 0 2px rgba(240, 234, 216, 0.16),
+        0 3px 0 var(--rust-deep);
+      transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.1s ease;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.06em;
     }
     .btn-primary:hover:not(:disabled) {
-      filter: brightness(1.1);
-      transform: translateY(-1px);
+      background: var(--rust-2);
+    }
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: inset 0 0 0 2px rgba(240, 234, 216, 0.16), 0 1px 0 var(--rust-deep);
     }
     .btn-primary:disabled {
-      opacity: 0.6;
+      opacity: 0.62;
       cursor: not-allowed;
     }
     .btn-secondary {
-      background: #1e293b;
-      border: 1px solid #334155;
-      color: #94a3b8;
-      font-size: 0.8rem;
-      padding: 0.5rem;
-      border-radius: 6px;
+      background: transparent;
+      border: 1px solid rgba(26, 27, 21, 0.45);
+      color: var(--ink-2);
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.34rem 0.55rem;
+      border-radius: 0;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
     }
-    .btn-secondary:hover { background: #334155; color: #fff; }
+    .btn-secondary:hover {
+      background: var(--ink);
+      color: var(--paper-4);
+      border-color: var(--ink);
+    }
 
-    /* DASHBOARD CONTENT */
+    /* ---------- Dashboard ---------- */
     .dashboard {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.15rem;
+      min-width: 0;
     }
 
-    /* NAV TABS */
+    /* Folder tabs */
     .tab-bar {
       display: flex;
-      gap: 0.35rem;
-      border-bottom: 1px solid var(--panel-border);
-      padding-bottom: 0.5rem;
-      overflow-x: auto;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      row-gap: 0.25rem;
+      border-bottom: 2px solid var(--ink-2);
+      padding: 0 0 0 0.15rem;
+      align-items: flex-end;
+      min-width: 0;
+    }
+    @media (max-width: 1120px) {
+      .tab-bar { flex-wrap: nowrap; overflow-x: auto; }
     }
     .tab-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.5rem 0.85rem;
-      border-radius: 6px;
+      background: var(--paper-2);
+      border: 1px solid var(--paper-edge);
+      border-top: 1px solid transparent;
+      border-bottom: none;
+      color: var(--ink-2);
+      font-family: var(--font-ui);
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 0.5rem 0.62rem 0.44rem;
+      border-radius: 2px 2px 0 0;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-    }
-    .tab-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.04); }
-    .tab-btn.active {
-      color: #fff;
-      background: #1e293b;
-      border-color: #334155;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-    .badge-sub {
-      background: rgba(16, 185, 129, 0.2);
-      color: #34d399;
-      font-size: 0.65rem;
-      padding: 1px 5px;
-      border-radius: 4px;
-    }
-
-    /* RECOMMENDATION BANNER */
-    .recommendation-banner {
-      background: linear-gradient(90deg, rgba(16, 185, 129, 0.12), rgba(18, 24, 32, 0.95));
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      border-left: 5px solid #10b981;
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      display: flex;
-      flex-direction: column;
       gap: 0.35rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      transition: background 0.15s ease, color 0.15s ease;
+      white-space: nowrap;
+      transform: translateY(2px);
+      line-height: 1.2;
     }
-    .recommendation-banner.warn {
-      background: linear-gradient(90deg, rgba(220, 38, 38, 0.12), rgba(18, 24, 32, 0.95));
-      border-color: rgba(220, 38, 38, 0.4);
-      border-left-color: #dc2626;
+    .tab-btn .icon { color: var(--ink-3); width: 1.05em; height: 1.05em; }
+    .tab-btn:hover { background: var(--paper-3); color: var(--ink); }
+    .tab-btn.active {
+      background: var(--paper-3);
+      border-top-color: var(--rust);
+      color: var(--ink);
+      padding-bottom: 0.54rem;
     }
-    .recommendation-banner .title {
-      font-family: var(--font-display);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #34d399;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .recommendation-banner.warn .title { color: #f87171; }
-    .recommendation-banner p { font-size: 0.92rem; color: #f1f5f9; }
-
-    /* METRIC CARDS */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-    .metric-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 1.15rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .metric-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: #334155;
-    }
-    .metric-card.green::before { background: #10b981; }
-    .metric-card.gold::before { background: #f59e0b; }
-    .metric-card.red::before { background: #dc2626; }
-    .metric-card.blue::before { background: #3b82f6; }
-
-    .metric-label {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .metric-value {
-      font-family: var(--font-display);
-      font-size: 1.95rem;
-      font-weight: 700;
-      color: #fff;
-    }
-    .metric-sub {
-      font-size: 0.74rem;
-      color: #94a3b8;
+    .tab-btn.active .icon { color: var(--rust); }
+    .badge-sub {
+      background: var(--rust);
+      color: var(--paper-4);
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      letter-spacing: 0.08em;
+      padding: 1px 4px;
+      border-radius: 0;
       line-height: 1.4;
     }
 
-    /* CHARTS CONTAINER */
-    .chart-panel {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 10px;
-      padding: 1.25rem;
+    /* Verdict banner */
+    .recommendation-banner {
+      position: relative;
+      background-color: var(--paper-3);
+      background-image:
+        radial-gradient(ellipse at 8% 10%, rgba(120, 108, 76, 0.10), transparent 40%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 32%);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      box-shadow: inset 0 0 0 3px var(--paper-3), inset 0 0 0 4px rgba(26, 27, 21, 0.28), 0 8px 20px rgba(0, 0, 0, 0.35);
+      padding: 0.95rem 1.15rem;
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 0.3rem;
+    }
+    .recommendation-banner::before {
+      content: "DICTAMEN";
+      position: absolute;
+      top: 0.5rem;
+      right: 0.7rem;
+      transform: rotate(-6deg);
+      border: 2px solid var(--rust);
+      color: var(--rust);
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      letter-spacing: 0.14em;
+      padding: 0.12rem 0.4rem;
+      opacity: 0.78;
+      pointer-events: none;
+    }
+    .recommendation-banner.warn::before { content: "ALERTA"; }
+    .recommendation-banner .title {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #405a43;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding-right: 5.5rem;
+    }
+    .recommendation-banner.warn .title { color: var(--rust-deep); }
+    .recommendation-banner p {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: var(--ink-2);
+      line-height: 1.55;
+      max-width: 78ch;
+    }
+
+    /* Index cards */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 0.9rem;
+    }
+    .metric-card {
+      background-color: var(--paper-3);
+      background-image:
+        radial-gradient(ellipse at 85% 10%, rgba(120, 108, 76, 0.10), transparent 45%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 30%);
+      border: 1px solid var(--paper-edge);
+      border-top: 1px solid var(--ink);
+      border-radius: 1px;
+      padding: 0.85rem 0.95rem 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+      position: relative;
+      box-shadow: 0 1px 0 var(--paper-shadow), 0 10px 22px rgba(0, 0, 0, 0.38);
+      color: var(--ink);
+    }
+    .metric-card.green { --card-accent: var(--sage); }
+    .metric-card.gold { --card-accent: #8a5a1e; }
+    .metric-card.red { --card-accent: var(--rust); }
+    .metric-card.blue { --card-accent: var(--blue-ink); }
+    .metric-label {
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      color: var(--ink-2);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.35;
+    }
+    .metric-label .icon {
+      width: 20px;
+      height: 20px;
+      padding: 2px;
+      border: 1px solid var(--card-accent);
+      color: var(--card-accent);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: clamp(1.7rem, 2.8vw, 2.15rem);
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+      font-variant-numeric: tabular-nums;
+      margin-top: 0.15rem;
+    }
+    .metric-sub {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-3);
+      line-height: 1.45;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Plot sheets */
+    .chart-panel {
+      background-color: var(--paper-3);
+      background-image:
+        radial-gradient(ellipse at 10% 6%, rgba(120, 108, 76, 0.09), transparent 38%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.13), transparent 28%);
+      border: 1px solid var(--paper-edge);
+      border-radius: 1px;
+      padding: 1rem 1.05rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      color: var(--ink);
+      box-shadow: 0 1px 0 var(--paper-shadow), 0 10px 24px rgba(0, 0, 0, 0.36);
     }
     .chart-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
     .chart-title {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #f1f5f9;
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink);
       display: flex;
       align-items: center;
       gap: 0.4rem;
+      line-height: 1.3;
     }
+    .chart-title .icon { color: var(--rust); width: 1.05em; height: 1.05em; }
     .chart-legend {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.7rem;
       flex-wrap: wrap;
+      align-items: center;
     }
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 0.35rem;
-      font-size: 0.75rem;
-      color: var(--text-muted);
+      gap: 0.32rem;
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      color: var(--ink-2);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
     .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
+      width: 14px;
+      height: 3px;
+      border-radius: 0;
+      flex: 0 0 auto;
     }
+    .dot-sage { background: var(--sage); }
+    .dot-amber { background: var(--amber); }
+    .dot-rust { background: var(--rust); }
+    .dot-blue { background: var(--blue-ink); }
     .chart-svg-wrap {
       width: 100%;
       height: 260px;
       position: relative;
+      background-color: #e2dbc5;
+      background-image:
+        linear-gradient(rgba(26, 27, 21, 0.085) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 27, 21, 0.085) 1px, transparent 1px),
+        linear-gradient(rgba(26, 27, 21, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 27, 21, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px, 10px 10px, 10px 10px;
+      border: 1px solid rgba(26, 27, 21, 0.26);
+      padding: 0.35rem;
     }
     svg.epidemic-chart {
       width: 100%;
       height: 100%;
       overflow: visible;
+      font-family: var(--font-ui);
     }
 
-    /* TERRITORIAL MANTA MAP (NIVEL PRO) */
-    .territory-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.85rem;
+    /* Interactive 3D territorial map */
+    .map-panel { gap: 0.85rem; }
+    .map-legend {
+      display: flex;
+      gap: 0.55rem;
+      align-items: center;
+      flex-wrap: wrap;
     }
-    .barrio-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 0.9rem;
+    .risk-swatch {
+      width: 9px;
+      height: 9px;
+      display: inline-block;
+      border: 1px solid rgba(26, 27, 21, 0.4);
+      flex: 0 0 auto;
+    }
+    .risk-swatch.Controlado { background: #4f5c3d; }
+    .risk-swatch.Alerta { background: #8a5a1e; }
+    .risk-swatch.Crítico { background: #7e2f24; }
+
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 0.9rem;
+      align-items: stretch;
+      min-width: 0;
+    }
+    .map-stage {
+      position: relative;
+      min-height: 560px;
+      overflow: hidden;
+      border: 1px solid var(--steel-2);
+      background:
+        radial-gradient(ellipse at 28% 14%, rgba(111, 122, 84, 0.18), transparent 55%),
+        linear-gradient(160deg, #151a11, #090b07 72%);
+      box-shadow:
+        inset 0 0 0 1px rgba(240, 234, 216, 0.04),
+        inset 0 20px 46px rgba(0, 0, 0, 0.4);
+      min-width: 0;
+    }
+    .map-stage svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .map-stage-tag {
+      position: absolute;
+      top: 0.55rem;
+      left: 0.65rem;
+      z-index: 2;
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      letter-spacing: 0.06em;
+      color: rgba(210, 160, 82, 0.65);
+      pointer-events: none;
+      line-height: 1.4;
+    }
+    .map-tooltip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 6;
+      width: 252px;
+      max-width: calc(100% - 16px);
+      padding: 0.6rem 0.7rem;
+      background: var(--paper-3);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      box-shadow:
+        inset 0 0 0 3px var(--paper-3),
+        inset 0 0 0 4px rgba(26, 27, 21, 0.24),
+        0 10px 26px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s ease;
+      pointer-events: none;
+    }
+    .map-tooltip.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .map-tooltip-top {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid var(--ink);
+      flex-wrap: wrap;
+    }
+    .map-tooltip-top strong {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .map-tooltip-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.15rem 0.55rem;
+      margin-top: 0.4rem;
+    }
+    .map-tooltip-stats div {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      transition: border 0.15s ease;
+      border-top: 1px solid rgba(26, 27, 21, 0.18);
+      padding-top: 0.18rem;
+      min-width: 0;
     }
-    .barrio-card.focus {
-      border-color: #ef4444;
-      background: linear-gradient(135deg, rgba(220, 38, 38, 0.08), var(--card));
+    .map-tooltip-stats dt {
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink-3);
+      line-height: 1.3;
     }
-    .barrio-name {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
+    .map-tooltip-stats dd {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.25;
+    }
+    .map-tooltip-hint {
+      margin-top: 0.4rem;
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--rust-deep);
+    }
+
+    .map-detail {
+      background: var(--paper-2);
+      border: 1px solid rgba(26, 27, 21, 0.4);
+      padding: 0.85rem 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 0;
+      color: var(--ink);
+    }
+    .map-detail-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 0.4rem;
+      flex-wrap: wrap;
     }
-    .risk-badge {
-      font-size: 0.65rem;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 700;
+    .map-detail-kicker {
+      font-family: var(--font-label);
+      font-size: 0.69rem;
       text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-3);
     }
-    .risk-badge.Controlado { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-    .risk-badge.Alerta { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-    .risk-badge.Crítico { background: rgba(220, 38, 38, 0.25); color: #f87171; }
-    .barrio-stats {
-      font-size: 0.75rem;
-      color: var(--text-muted);
+    #btn-all-parishes[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--paper-4);
+      border-color: var(--ink);
+    }
+    .map-detail h3 {
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      line-height: 1.12;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .map-detail-risk {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .map-detail-sub {
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      color: var(--ink-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .map-detail-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem 0.6rem;
+      margin-top: 0.1rem;
+    }
+    .map-stat {
+      border-top: 1px solid rgba(26, 27, 21, 0.2);
+      padding-top: 0.22rem;
+      min-width: 0;
+    }
+    .map-stat dt {
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink-3);
+      line-height: 1.3;
+    }
+    .map-stat dd {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+    .map-spark {
+      margin-top: auto;
+      border-top: 1px solid rgba(26, 27, 21, 0.25);
+      padding-top: 0.35rem;
+    }
+    .map-spark-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.4rem;
+      align-items: center;
+      flex-wrap: wrap;
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink-3);
+      margin-bottom: 0.2rem;
+    }
+    .map-spark-legend {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .map-spark-legend i {
+      width: 9px;
+      height: 2px;
+      display: inline-block;
+      margin-right: 2px;
+      vertical-align: middle;
+    }
+    .map-spark svg {
+      width: 100%;
+      height: 72px;
+      display: block;
+      overflow: visible;
+    }
+    .map-spark-empty {
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      color: var(--ink-3);
+    }
+    .map-hint {
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      color: var(--ink-3);
+      line-height: 1.5;
+      max-width: 82ch;
+    }
+
+    .map-parish { cursor: pointer; outline: none; }
+    .map-parish .parish-lift { transition: transform 0.18s ease; }
+    .map-parish.is-hover .parish-lift,
+    .map-parish:focus-visible .parish-lift { transform: translateY(-6px); }
+    .map-parish.is-selected .parish-lift { transform: translateY(-4px); }
+    .map-parish .parish-top { transition: stroke 0.15s ease, stroke-width 0.15s ease; }
+    .map-parish.is-hover .parish-top,
+    .map-parish:focus-visible .parish-top { stroke: var(--paper-4); stroke-width: 2; }
+    .map-parish.is-selected .parish-top { stroke: var(--paper-4); stroke-width: 2.5; }
+    .map-parish:focus-visible { outline: none; }
+    .map-parish-label {
+      pointer-events: none;
+      font-family: var(--font-ui);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      paint-order: stroke;
+      stroke: rgba(11, 13, 9, 0.7);
+      stroke-width: 3px;
+    }
+    @media (max-width: 1000px) {
+      .map-layout { grid-template-columns: 1fr; }
+      .map-stage { min-height: 400px; max-width: 720px; width: 100%; margin-left: auto; margin-right: auto; }
+      .map-detail { max-width: 720px; width: 100%; margin-left: auto; margin-right: auto; }
+    }
+    @media (max-width: 520px) {
+      .map-stage { min-height: 320px; }
+      .map-parish-label { font-size: 22px; }
+    }
+
+    /* Territorial specimen labels */
+    .territory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: 0.75rem;
+    }
+    .barrio-card {
+      background: var(--paper-2);
+      border: 1px solid rgba(26, 27, 21, 0.38);
+      border-radius: 0;
+      padding: 0.75rem 0.8rem;
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
+      gap: 0.35rem;
+      transition: border-color 0.15s ease, background 0.15s ease;
+      position: relative;
+      cursor: pointer;
+      min-width: 0;
     }
-    .barrio-stats strong { color: #f1f5f9; }
+    .barrio-card:hover {
+      border-color: var(--rust);
+      background: var(--paper-3);
+    }
+    .barrio-card.hub {
+      border-color: rgba(184, 132, 59, 0.65);
+    }
+    .barrio-card.hub::before {
+      content: "HUB";
+      position: absolute;
+      top: 0.35rem;
+      right: 0.4rem;
+      border: 1px solid var(--amber);
+      color: #8a5a1e;
+      font-family: var(--font-label);
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      padding: 0 0.25rem;
+      transform: rotate(4deg);
+      opacity: 0.85;
+    }
+    .barrio-card.selected {
+      border: 2px solid var(--rust);
+      background: var(--paper-4);
+      box-shadow: 0 0 0 2px rgba(155, 59, 44, 0.14);
+    }
+    .barrio-card.selected::before {
+      content: "FOCO";
+      border-color: var(--rust);
+      color: var(--rust);
+    }
+    .barrio-name {
+      font-family: var(--font-ui);
+      font-size: 0.86rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      padding-right: 2.2rem;
+    }
+    .risk-badge {
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      padding: 1px 4px;
+      border-radius: 0;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid currentColor;
+      white-space: nowrap;
+    }
+    .risk-badge.Controlado { color: #3f5a43; background: rgba(79, 107, 82, 0.10); }
+    .risk-badge.Alerta { color: #8a5a1e; background: rgba(184, 132, 59, 0.12); }
+    .risk-badge.Crítico { color: var(--rust-deep); background: rgba(155, 59, 44, 0.12); }
+    .barrio-stats {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-2);
+      display: flex;
+      flex-direction: column;
+      gap: 0.12rem;
+      line-height: 1.45;
+      font-variant-numeric: tabular-nums;
+    }
+    .barrio-stats strong { color: var(--ink); }
 
-    /* TABLE */
+    /* Typed manifest */
     .table-panel {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 10px;
-      padding: 1.25rem;
+      background-color: var(--paper-3);
+      background-image:
+        radial-gradient(ellipse at 90% 5%, rgba(120, 108, 76, 0.09), transparent 40%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.13), transparent 26%);
+      border: 1px solid var(--paper-edge);
+      border-radius: 1px;
+      padding: 1rem 1.05rem;
       overflow-x: auto;
+      color: var(--ink);
+      box-shadow: 0 1px 0 var(--paper-shadow), 0 10px 24px rgba(0, 0, 0, 0.36);
     }
     table.data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       text-align: left;
+      font-variant-numeric: tabular-nums;
     }
     table.data-table th {
-      padding: 0.6rem 0.75rem;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--panel-border);
-      font-weight: 600;
+      padding: 0.5rem 0.65rem;
+      color: var(--ink-2);
+      border-bottom: 2px solid var(--ink);
+      font-family: var(--font-label);
+      font-weight: 400;
       text-transform: uppercase;
-      font-size: 0.7rem;
-      letter-spacing: 0.5px;
+      font-size: 0.69rem;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
     }
     table.data-table td {
-      padding: 0.6rem 0.75rem;
-      border-bottom: 1px solid #1a2533;
-      color: #cbd5e1;
+      padding: 0.5rem 0.65rem;
+      border-bottom: 1px solid rgba(26, 27, 21, 0.22);
+      color: var(--ink-2);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
     }
     table.data-table tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(26, 27, 21, 0.05);
+      color: var(--ink);
     }
     .badge-role {
-      font-size: 0.7rem;
-      padding: 2px 7px;
-      border-radius: 4px;
-      background: #1e293b;
-      color: #94a3b8;
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      padding: 1px 5px;
+      border-radius: 0;
+      border: 1px solid rgba(26, 27, 21, 0.4);
+      background: rgba(26, 27, 21, 0.04);
+      color: var(--ink-2);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
     }
-    .badge-role.Comerciante { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
-    .badge-role.Estudiante { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .badge-role.Comerciante { border-color: #8a5a1e; color: #7a4f18; background: rgba(184, 132, 59, 0.12); }
+    .badge-role.Estudiante { border-color: #3b5260; color: #3b5260; background: rgba(75, 100, 114, 0.10); }
+    .data-table .pill {
+      color: var(--rust-deep);
+      border-color: rgba(155, 59, 44, 0.5);
+      background: rgba(155, 59, 44, 0.06);
+      font-size: 0.69rem;
+    }
 
-    /* EXECUTIVE REPORT MEMO (NIVEL PRO) */
+    /* Official memo */
     .memo-card {
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 10px;
-      padding: 1.5rem;
-      font-family: var(--font-sans);
+      background-color: var(--paper-4);
+      background-image:
+        radial-gradient(ellipse at 15% 5%, rgba(120, 108, 76, 0.09), transparent 38%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 22%);
+      border: 1px solid var(--paper-edge);
+      border-radius: 1px;
+      padding: 1.6rem 1.7rem 1.8rem;
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
-      color: #e2e8f0;
+      gap: 1.15rem;
+      color: var(--ink);
       position: relative;
+      box-shadow: 0 1px 0 var(--paper-shadow), 0 16px 34px rgba(0, 0, 0, 0.4);
+    }
+    .memo-card::before {
+      content: "CONFIDENCIAL";
+      position: absolute;
+      top: 1.1rem;
+      right: 1.2rem;
+      border: 2px solid var(--rust);
+      color: var(--rust);
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      letter-spacing: 0.16em;
+      padding: 0.14rem 0.45rem;
+      transform: rotate(-5deg);
+      opacity: 0.72;
+      pointer-events: none;
     }
     .memo-header {
-      border-bottom: 2px solid #1e293b;
-      padding-bottom: 1rem;
+      border-bottom: 3px double var(--ink);
+      padding-bottom: 0.9rem;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.9rem;
+      padding-right: 9rem;
     }
     .memo-title h3 {
       font-family: var(--font-display);
-      font-size: 1.25rem;
-      color: #f8fafc;
-      letter-spacing: 0.5px;
+      font-size: 1.18rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+      line-height: 1.15;
     }
     .memo-title p {
-      font-size: 0.8rem;
-      color: #94a3b8;
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--ink-3);
+      letter-spacing: 0.02em;
+      margin-top: 0.25rem;
     }
     .memo-actions {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.45rem;
+      flex-wrap: wrap;
     }
     .btn-memo {
-      background: #1e293b;
-      border: 1px solid #475569;
-      color: #f1f5f9;
-      font-size: 0.78rem;
-      padding: 0.45rem 0.75rem;
-      border-radius: 6px;
+      background: transparent;
+      border: 1px solid var(--ink-2);
+      color: var(--ink);
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.4rem 0.6rem;
+      border-radius: 0;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      transition: background 0.15s ease;
+      gap: 0.32rem;
+      transition: background 0.15s ease, color 0.15s ease;
     }
-    .btn-memo:hover { background: #334155; }
+    .btn-memo:hover { background: var(--ink); color: var(--paper-4); }
     .memo-section {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.3rem;
     }
     .memo-section h4 {
-      font-size: 0.78rem;
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #38bdf8;
-      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--rust-deep);
+      font-weight: 800;
     }
-    .memo-section p, .memo-section li {
-      font-size: 0.88rem;
-      color: #cbd5e1;
-      line-height: 1.6;
+    .memo-section p,
+    .memo-section li {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: var(--ink-2);
+      line-height: 1.65;
     }
     .memo-section ul {
       padding-left: 1.25rem;
       display: flex;
       flex-direction: column;
+      gap: 0.3rem;
+    }
+    .memo-section strong { color: var(--ink); }
+
+    /* Lore sheet */
+    .lore-copy {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: var(--ink-2);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      line-height: 1.7;
+    }
+    .lore-copy ul {
+      padding-left: 1.35rem;
+      display: flex;
+      flex-direction: column;
       gap: 0.35rem;
     }
+    .lore-copy strong { color: var(--ink); }
+    .lead-note {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--ink-3);
+      line-height: 1.55;
+      max-width: 82ch;
+    }
 
-    /* FOOTER */
+    /* ---------- Footer ---------- */
     footer.app-footer {
-      border-top: 1px solid var(--panel-border);
-      padding: 1.25rem;
-      margin-top: 2rem;
-      font-size: 0.75rem;
-      color: var(--text-muted);
+      border-top: 1px solid var(--steel-2);
+      padding: 1.1rem 1.4rem;
+      margin-top: 1.8rem;
+      font-family: var(--font-label);
+      font-size: 0.69rem;
+      color: #8d8a76;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.9rem;
       align-items: center;
+      letter-spacing: 0.03em;
+      background: linear-gradient(180deg, rgba(18, 21, 14, 0.4), rgba(9, 11, 7, 0.8));
     }
+    footer.app-footer strong { color: #b9b5a1; font-weight: 400; }
     .mono-hash {
       font-family: var(--font-mono);
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
-      padding: 2px 6px;
-      border-radius: 4px;
+      color: var(--amber-2);
+      background: rgba(184, 132, 59, 0.10);
+      border: 1px solid rgba(184, 132, 59, 0.3);
+      padding: 1px 5px;
+      border-radius: 0;
+      text-transform: none;
+      letter-spacing: 0;
     }
 
-    /* LOADING SPINNER */
+    /* ---------- Feedback ---------- */
     .spinner {
       display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(240, 234, 216, 0.3);
       border-radius: 50%;
-      border-top-color: #fff;
+      border-top-color: var(--paper-4);
       animation: spin 0.8s linear infinite;
+      vertical-align: -0.1em;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .toast {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #10b981;
-      color: #fff;
-      font-size: 0.82rem;
-      padding: 0.6rem 1rem;
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      bottom: 22px;
+      right: 22px;
+      max-width: min(92vw, 420px);
+      background: var(--paper-3);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      box-shadow: inset 0 0 0 3px var(--paper-3), inset 0 0 0 4px rgba(26, 27, 21, 0.25), 0 10px 26px rgba(0, 0, 0, 0.5);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      padding: 0.65rem 0.85rem;
       z-index: 100;
       opacity: 0;
       transform: translateY(10px);
-      transition: all 0.25s ease;
+      transition: opacity 0.25s ease, transform 0.25s ease;
       pointer-events: none;
     }
     .toast.show {
       opacity: 1;
       transform: translateY(0);
     }
+    .toast.error {
+      box-shadow: inset 0 0 0 3px var(--paper-3), inset 0 0 0 4px rgba(155, 59, 44, 0.5), 0 10px 26px rgba(0, 0, 0, 0.5);
+    }
+    .toast.error::before {
+      content: "ALERTA · ";
+      color: var(--rust-deep);
+      font-weight: 700;
+    }
+
+    /* ---------- Authored motion: the file is laid on the table ---------- */
+    @keyframes sheet-in {
+      from { opacity: 0; transform: translateY(12px) rotate(-0.25deg); }
+      to { opacity: 1; transform: translateY(0) rotate(0); }
+    }
+    header.topbar,
+    .sidebar,
+    .dashboard {
+      animation: sheet-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .sidebar { animation-delay: 0.06s; }
+    .dashboard { animation-delay: 0.12s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 760px) {
+      header.topbar { padding: 0.7rem 0.85rem; }
+      .status-tags { width: 100%; }
+      .app-container { padding: 1.1rem 0.75rem 0.4rem; gap: 1rem; }
+      .sidebar { padding: 1.35rem 0.95rem 1rem; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .chart-svg-wrap { height: 220px; }
+      .memo-card { padding: 1.2rem 1rem 1.4rem; }
+      .memo-header { padding-right: 0; }
+      .memo-card::before { font-size: 0.52rem; top: 0.7rem; right: 0.7rem; }
+      .recommendation-banner .title { padding-right: 4.4rem; }
+    }
+    @media (max-width: 520px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .surprise-grid { grid-template-columns: 1fr; }
+      .row-inputs { grid-template-columns: 1fr; }
+      .row-inputs .btn-secondary { justify-self: start; }
+      .tab-btn { font-size: 0.7rem; padding: 0.48rem 0.6rem 0.44rem; }
+      .brand-text h1 { font-size: 0.98rem; }
+      .biohazard-badge { width: 38px; height: 38px; }
+      .chart-svg-wrap { height: 190px; }
+      footer.app-footer { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+      .btn-primary { font-size: 0.8rem; padding: 0.78rem 0.6rem; white-space: normal; line-height: 1.25; }
+      .memo-card::before { display: none; }
+    }
+
+    /* ---------- Print the memo, not the board ---------- */
+    @media print {
+      body { background: #fff; }
+      header.topbar,
+      .sidebar,
+      .tab-bar,
+      footer.app-footer,
+      #recommendation-banner,
+      #toast { display: none !important; }
+      .app-container { display: block; padding: 0; }
+      .dashboard { display: block; }
+      .tab-content { display: none !important; }
+      #tab-memo { display: block !important; }
+      .memo-card {
+        box-shadow: none;
+        border: 0;
+        padding: 0;
+        background: #fff;
+        color: #000;
+      }
+      .memo-card::before { opacity: 0.5; color: #000; border-color: #000; }
+      .memo-actions { display: none; }
+    }
   </style>
 </head>
 <body>
 
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-bio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="2.2"/>
+      <path d="M12 9.8V4.2M10.1 13.1 5.2 16M13.9 13.1l4.9 2.9"/>
+      <circle cx="12" cy="2.6" r="1.9"/>
+      <circle cx="3.9" cy="16.7" r="1.9"/>
+      <circle cx="20.1" cy="16.7" r="1.9"/>
+    </symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6h8M16 6h4M4 12h3M11 12h9M4 18h10M18 18h2"/>
+      <circle cx="14" cy="6" r="1.7"/><circle cx="9" cy="12" r="1.7"/><circle cx="16" cy="18" r="1.7"/>
+    </symbol>
+    <symbol id="i-spore" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 11a8 8 0 0 1 16 0H4Z"/><path d="M12 11v6a2 2 0 0 0 4 0"/><path d="M8 7.5h.01M12 5.5h.01M16 7.5h.01"/>
+    </symbol>
+    <symbol id="i-dose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m14 4 6 6M17 7l-9 9-3 1 1-3 9-9M12 12l-2-2M9 15l-2-2M4 20h4"/>
+    </symbol>
+    <symbol id="i-market" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 9h16M5 9V7l2-3h10l2 3v2M6 9v10h12V9M9 19v-6h6v6"/>
+    </symbol>
+    <symbol id="i-dna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 3c0 6 8 6 8 12M16 3c0 6-8 6-8 12M8 21c0-1.2 8-1.2 8 0M16 21c0 1.2-8 1.2-8 0M9 7h6M9 11h6M9 15h6"/>
+    </symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4v16h16M8 16l4-5 3 3 4-6"/>
+    </symbol>
+    <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6ZM9 3v15M15 6v15"/>
+    </symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+    </symbol>
+    <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 11h6M9 15h6M9 19h4"/>
+    </symbol>
+    <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5ZM4 20.5A2.5 2.5 0 0 1 6.5 18H20"/>
+    </symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/>
+    </symbol>
+    <symbol id="i-dice" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="1.5"/>
+      <circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/>
+      <circle cx="12" cy="12" r="1" fill="currentColor"/>
+      <circle cx="9" cy="15" r="1" fill="currentColor"/><circle cx="15" cy="15" r="1" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-infected" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="7" r="3"/><path d="M6 21v-3.5a6 6 0 0 1 12 0V21M9.4 13.4 8 16M14.6 13.4 16 16"/>
+    </symbol>
+    <symbol id="i-money" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="6" width="18" height="12" rx="1"/><circle cx="12" cy="12" r="3"/><path d="M6 9h.01M18 15h.01"/>
+    </symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m4 12 5 5L20 6"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>
+    </symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="8" y="8" width="12" height="12" rx="1"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>
+    </symbol>
+    <symbol id="i-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2M7 14h10v7H7z"/>
+    </symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4v6h6"/><path d="M4.5 13a8 8 0 1 0 2-7.5L4 10"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+    </symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9v5M12 17h.01"/>
+    </symbol>
+    <symbol id="i-hash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 3 7 21M17 3l-2 18M4 9h16M3 15h16"/>
+    </symbol>
+  </svg>
+
   <!-- TOP BAR -->
   <header class="topbar">
     <div class="brand">
-      <div class="biohazard-badge">☣</div>
+      <div class="biohazard-badge" aria-hidden="true">
+        <svg class="icon"><use href="#i-bio"></use></svg>
+      </div>
       <div class="brand-text">
         <h1>MANTA · COMITÉ DE CONTENCIÓN CORDYCEPS</h1>
         <p>Spookython 2026 · Track B · Infección Cerebral por Cordyceps (CBI - The Last of Us)</p>
       </div>
     </div>
     <div class="status-tags">
-      <span class="pill green">● Motor Determinista Calibrado</span>
-      <span class="pill red">☣ Patógeno: Cordyceps (CBI)</span>
-      <span class="pill">📍 Manta (271.145 habs - INEC 2022)</span>
+      <span class="pill green"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> Motor Determinista Calibrado</span>
+      <span class="pill red"><svg class="icon" aria-hidden="true"><use href="#i-bio"></use></svg> Patógeno: Cordyceps (CBI)</span>
+      <span class="pill"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> Manta (271.145 habs - INEC 2022)</span>
     </div>
   </header>
 
@@ -721,30 +1593,32 @@
   <main class="app-container">
 
     <!-- SIDEBAR FORM -->
-    <aside class="sidebar">
+    <aside class="sidebar sheet">
       <div class="panel-header">
-        <h2>⚙️ Parámetros de Simulación</h2>
-        <button type="button" class="btn-secondary" id="btn-reset" title="Restaurar parámetros iniciales">Restaurar</button>
+        <h2><svg class="icon" aria-hidden="true"><use href="#i-sliders"></use></svg> Parámetros de Simulación</h2>
+        <button type="button" class="btn-secondary" id="btn-reset" title="Restaurar parámetros iniciales">
+          <svg class="icon" aria-hidden="true"><use href="#i-reset"></use></svg> Restaurar
+        </button>
       </div>
 
       <!-- SURPRISE PRESETS -->
       <div class="surprise-box">
-        <div class="surprise-title">⚡ Brote Sorpresa (Prueba del Jurado)</div>
+        <div class="surprise-title"><svg class="icon" aria-hidden="true"><use href="#i-bolt"></use></svg> Brote Sorpresa (Prueba del Jurado)</div>
         <div class="surprise-grid">
           <button type="button" class="btn-surprise" onclick="applySurprise('doble')">
-            <strong>🍄 Doble Contagio</strong>
+            <strong><svg class="icon" aria-hidden="true"><use href="#i-spore"></use></svg> Doble Contagio</strong>
             <span>β × 2 (Esporas masivas)</span>
           </button>
           <button type="button" class="btn-surprise" onclick="applySurprise('mitad')">
-            <strong>📉 Mitad de Dosis</strong>
+            <strong><svg class="icon" aria-hidden="true"><use href="#i-dose"></use></svg> Mitad de Dosis</strong>
             <span>K ÷ 2 (Escasez antígeno)</span>
           </button>
           <button type="button" class="btn-surprise" onclick="applySurprise('mercado')">
-            <strong>🏬 Brote en Mercado</strong>
+            <strong><svg class="icon" aria-hidden="true"><use href="#i-market"></use></svg> Brote en Mercado</strong>
             <span>Epicentro en Tarqui</span>
           </button>
           <button type="button" class="btn-surprise" onclick="applySurprise('eficacia')">
-            <strong>🧬 Mutación Fúngica</strong>
+            <strong><svg class="icon" aria-hidden="true"><use href="#i-dna"></use></svg> Mutación Fúngica</strong>
             <span>Eficacia parcial 60%</span>
           </button>
         </div>
@@ -759,7 +1633,9 @@
           </div>
           <div class="row-inputs">
             <input type="number" id="input-seed" min="0" max="2147483647" value="42" required />
-            <button type="button" class="btn-secondary" onclick="randomSeed()">🎲 Azar</button>
+            <button type="button" class="btn-secondary" onclick="randomSeed()">
+              <svg class="icon" aria-hidden="true"><use href="#i-dice"></use></svg> Azar
+            </button>
           </div>
           <span class="field-hint">Misma semilla + misma configuración = mismo resultado exacto.</span>
         </div>
@@ -881,7 +1757,7 @@
 
         <div class="actions-bar">
           <button type="submit" class="btn-primary" id="btn-submit">
-            <span id="btn-text">⚡ Simular Contención Cordyceps</span>
+            <span id="btn-text">Simular Contención Cordyceps</span>
           </button>
         </div>
       </form>
@@ -892,28 +1768,28 @@
 
       <!-- TABS -->
       <nav class="tab-bar">
-        <button class="tab-btn active" onclick="switchTab('tab-kpis')">📊 Resumen Epidemiológico</button>
-        <button class="tab-btn" onclick="switchTab('tab-territorial')">🗺️ Avance Territorial Manta <span class="badge-sub">PRO</span></button>
-        <button class="tab-btn" onclick="switchTab('tab-priority')">🎯 A quién vacunar primero</button>
-        <button class="tab-btn" onclick="switchTab('tab-memo')">📋 Informe para el Alcalde <span class="badge-sub">PRO</span></button>
-        <button class="tab-btn" onclick="switchTab('tab-lore')">☣ Biología del Cordyceps</button>
+        <button class="tab-btn active" onclick="switchTab('tab-kpis')"><svg class="icon" aria-hidden="true"><use href="#i-chart"></use></svg> Resumen Epidemiológico</button>
+        <button class="tab-btn" onclick="switchTab('tab-territorial')"><svg class="icon" aria-hidden="true"><use href="#i-map"></use></svg> Avance Territorial Manta <span class="badge-sub">PRO</span></button>
+        <button class="tab-btn" onclick="switchTab('tab-priority')"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg> A quién vacunar primero</button>
+        <button class="tab-btn" onclick="switchTab('tab-memo')"><svg class="icon" aria-hidden="true"><use href="#i-file"></use></svg> Informe para el Alcalde <span class="badge-sub">PRO</span></button>
+        <button class="tab-btn" onclick="switchTab('tab-lore')"><svg class="icon" aria-hidden="true"><use href="#i-bio"></use></svg> Biología del Cordyceps</button>
       </nav>
 
       <!-- RECOMMENDATION BANNER -->
       <div id="recommendation-banner" class="recommendation-banner">
-        <div class="title" id="rec-title">🟢 Recomendación del Comité de Contención</div>
+        <div class="title" id="rec-title">Recomendación del Comité de Contención</div>
         <p id="rec-text">Cargando escenario inicial de contención contra el brote de Cordyceps en Manta...</p>
       </div>
 
       <!-- TAB 1: KPIS & CHARTS -->
-      <div id="tab-kpis" class="tab-content" style="display: flex; flex-direction: column; gap: 1.25rem;">
-        
+      <div id="tab-kpis" class="tab-content" style="display: flex; flex-direction: column; gap: 1.15rem;">
+
         <!-- 4 IMPACT CARDS -->
         <div class="metrics-grid">
           <div class="metric-card green">
             <div class="metric-label">
               <span>Vidas Salvadas vs Sin Plan</span>
-              <span>🛡️</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>
             </div>
             <div class="metric-value" id="kpi-saved-none">--</div>
             <div class="metric-sub" id="kpi-saved-none-sub">Rango p5–p95: -- a -- personas</div>
@@ -922,7 +1798,7 @@
           <div class="metric-card gold">
             <div class="metric-label">
               <span>Salvadas vs Al Azar</span>
-              <span>🎲</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-dice"></use></svg>
             </div>
             <div class="metric-value" id="kpi-saved-random">--</div>
             <div class="metric-sub" id="kpi-saved-random-sub">Mismo presupuesto K</div>
@@ -931,7 +1807,7 @@
           <div class="metric-card red">
             <div class="metric-label">
               <span>Infectados CBI Activos</span>
-              <span>🧟</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-infected"></use></svg>
             </div>
             <div class="metric-value" id="kpi-attack">--</div>
             <div class="metric-sub" id="kpi-attack-sub">Con estrategia vs Sin plan</div>
@@ -940,7 +1816,7 @@
           <div class="metric-card blue">
             <div class="metric-label">
               <span>Ahorro Económico Neto</span>
-              <span>💰</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-money"></use></svg>
             </div>
             <div class="metric-value" id="kpi-savings">--</div>
             <div class="metric-sub" id="kpi-savings-sub">ROI estimado: --x inversión</div>
@@ -951,12 +1827,13 @@
         <div class="chart-panel">
           <div class="chart-header">
             <div class="chart-title">
-              <span>📈 Curva de Infectados Activos (Runners / Clickers) por Día</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-chart"></use></svg>
+              <span>Curva de Infectados Activos (Runners / Clickers) por Día</span>
             </div>
             <div class="chart-legend" id="chart-legend-infected">
-              <div class="legend-item"><span class="legend-dot" style="background:#10b981;"></span> Estrategia (con banda p5-p95)</div>
-              <div class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span> Al Azar (mismo presupuesto)</div>
-              <div class="legend-item"><span class="legend-dot" style="background:#ef4444;"></span> Sin Intervención (libre)</div>
+              <div class="legend-item"><span class="legend-dot dot-sage"></span> Estrategia (con banda p5-p95)</div>
+              <div class="legend-item"><span class="legend-dot dot-amber"></span> Al Azar (mismo presupuesto)</div>
+              <div class="legend-item"><span class="legend-dot dot-rust"></span> Sin Intervención (libre)</div>
             </div>
           </div>
           <div class="chart-svg-wrap">
@@ -968,13 +1845,14 @@
         <div class="chart-panel">
           <div class="chart-header">
             <div class="chart-title">
-              <span>🧬 Estados Epidemiológicos de la Estrategia (SEIR Cordyceps)</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-dna"></use></svg>
+              <span>Estados Epidemiológicos de la Estrategia (SEIR Cordyceps)</span>
             </div>
             <div class="chart-legend">
-              <div class="legend-item"><span class="legend-dot" style="background:#10b981;"></span> Sano (Susceptible)</div>
-              <div class="legend-item"><span class="legend-dot" style="background:#d97706;"></span> Mordido / Esporas (Incubación)</div>
-              <div class="legend-item"><span class="legend-dot" style="background:#ef4444;"></span> Infectado CBI (Infeccioso)</div>
-              <div class="legend-item"><span class="legend-dot" style="background:#2563eb;"></span> Inmune / Tratado</div>
+              <div class="legend-item"><span class="legend-dot dot-sage"></span> Sano (Susceptible)</div>
+              <div class="legend-item"><span class="legend-dot dot-amber"></span> Mordido / Esporas (Incubación)</div>
+              <div class="legend-item"><span class="legend-dot dot-rust"></span> Infectado CBI (Infeccioso)</div>
+              <div class="legend-item"><span class="legend-dot dot-blue"></span> Inmune / Tratado</div>
             </div>
           </div>
           <div class="chart-svg-wrap">
@@ -984,17 +1862,44 @@
       </div>
 
       <!-- TAB 2: TERRITORIAL MANTA MAP (NIVEL PRO) -->
-      <div id="tab-territorial" class="tab-content" style="display: none; flex-direction: column; gap: 1.25rem;">
-        <div class="chart-panel">
+      <div id="tab-territorial" class="tab-content" style="display: none; flex-direction: column; gap: 1.15rem;">
+        <div class="chart-panel map-panel">
           <div class="chart-header">
             <div class="chart-title">
-              <span>🗺️ Avance Territorial del Cordyceps en las 5 Parroquias de Manta</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-map"></use></svg>
+              <span>Mapa Táctico 3D · Avance Territorial del Cordyceps en Manta</span>
             </div>
-            <span class="pill green">Datos Censo INEC Manta 2022</span>
+            <div class="map-legend" aria-label="Niveles de riesgo territorial">
+              <span class="legend-item"><span class="risk-swatch Controlado"></span> Controlado</span>
+              <span class="legend-item"><span class="risk-swatch Alerta"></span> Alerta</span>
+              <span class="legend-item"><span class="risk-swatch Crítico"></span> Crítico</span>
+              <span class="pill green" style="color:#405a43;border-color:rgba(79,107,82,.55);background:rgba(79,107,82,.10);">
+                <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> Censo INEC 2022
+              </span>
+            </div>
           </div>
-          <p style="font-size: 0.82rem; color: #94a3b8;">
-            El cantón Manta se subdivide en 5 parroquias modeladas. La estrategia de contención prioriza cortar los puentes comerciales que conectan el Mercado de Tarqui con Manta Centro y las parroquias periféricas.
+          <p class="lead-note">
+            El cantón Manta se subdivide en 5 parroquias modeladas. La altura de cada bloque representa la incidencia sin intervención; el color, el nivel de riesgo con la estrategia activa. La estrategia prioriza cortar los puentes comerciales que conectan el Mercado de Tarqui con Manta Centro y las parroquias periféricas.
           </p>
+
+          <div class="map-layout">
+            <div class="map-stage" id="map-stage">
+              <div class="map-stage-tag">Límites reales OSM · 5 parroquias · Modelo SEIR</div>
+              <svg id="svg-parroquias-map" viewBox="0 0 720 640" role="group" aria-label="Mapa 3D interactivo de las parroquias de Manta"></svg>
+              <div class="map-tooltip" id="map-tooltip" role="tooltip" aria-hidden="true"></div>
+            </div>
+            <aside class="map-detail" id="map-detail" aria-live="polite">
+              <div class="map-detail-head">
+                <span class="map-detail-kicker">Ficha territorial</span>
+                <button type="button" class="btn-secondary" id="btn-all-parishes" aria-pressed="true" onclick="showAllParroquias()">Ver todas</button>
+              </div>
+              <h3 id="map-detail-name">Todas las parroquias</h3>
+              <div id="map-detail-risk" class="map-detail-risk"></div>
+              <dl class="map-detail-stats" id="map-detail-stats"></dl>
+              <div class="map-spark" id="map-spark"></div>
+            </aside>
+          </div>
+          <p class="map-hint">Selecciona una parroquia con clic, toque o Enter para fijar su ficha; pasa el cursor para el detalle rápido y usa “Ver todas” para el agregado cantonal. Límites parroquiales reales de OpenStreetMap (ODbL), simplificados para el tablero.</p>
 
           <div class="territory-grid" id="territory-grid">
             <!-- Rendered by JS -->
@@ -1004,7 +1909,12 @@
         <div class="chart-panel">
           <div class="chart-header">
             <div class="chart-title">
-              <span>📊 Casos de Cordyceps por Parroquia: Estrategia vs Inacción</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-chart"></use></svg>
+              <span>Casos de Cordyceps por Parroquia: Estrategia vs Inacción</span>
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-dot dot-sage"></span> Estrategia</div>
+              <div class="legend-item"><span class="legend-dot dot-rust"></span> Sin Plan</div>
             </div>
           </div>
           <div class="chart-svg-wrap" style="height: 220px;">
@@ -1014,13 +1924,15 @@
       </div>
 
       <!-- TAB 3: A QUIÉN VACUNAR PRIMERO -->
-      <div id="tab-priority" class="tab-content" style="display: none; flex-direction: column; gap: 1.25rem;">
+      <div id="tab-priority" class="tab-content" style="display: none; flex-direction: column; gap: 1.15rem;">
         <div class="table-panel">
-          <div class="panel-header" style="margin-bottom: 0.75rem;">
-            <h2>🎯 Lista de Asignación Prioritaria de Antígeno (Corrida 1)</h2>
-            <span class="pill green">✔ 0 personas infectadas o inmunes asignadas</span>
+          <div class="panel-header" style="margin-bottom: 0.7rem;">
+            <h2><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg> Lista de Asignación Prioritaria de Antígeno (Corrida 1)</h2>
+            <span class="pill green" style="color:#405a43;border-color:rgba(79,107,82,.55);background:rgba(79,107,82,.10);">
+              <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> 0 personas infectadas o inmunes asignadas
+            </span>
           </div>
-          <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 1rem;">
+          <p class="lead-note" style="margin-bottom: 0.9rem;">
             Se protege primero a los contactos directos del paciente cero (hogar y aula/bus) para ahogar el brote. Las dosis restantes se asignan a los comerciantes y hubs de mayor grado que actúan como superpropagadores en Manta.
           </p>
           <table class="data-table">
@@ -1051,15 +1963,19 @@
               <p>Comité Cantonal de Operaciones de Emergencia (COE) · Protocolo de Bioseguridad CBI</p>
             </div>
             <div class="memo-actions">
-              <button type="button" class="btn-memo" onclick="copyMemo()">📋 Copiar Texto</button>
-              <button type="button" class="btn-memo" onclick="window.print()">🖨️ Imprimir Dictamen</button>
+              <button type="button" class="btn-memo" onclick="copyMemo()">
+                <svg class="icon" aria-hidden="true"><use href="#i-copy"></use></svg> Copiar Texto
+              </button>
+              <button type="button" class="btn-memo" onclick="window.print()">
+                <svg class="icon" aria-hidden="true"><use href="#i-print"></use></svg> Imprimir Dictamen
+              </button>
             </div>
           </div>
 
           <div class="memo-section">
             <h4>1. Destinatario y Objeto</h4>
             <p><strong id="memo-destinatario">Alcalde del Cantón Manta y Miembros del COE Cantonal</strong></p>
-            <p><span style="color:#94a3b8;">Asunto:</span> <strong id="memo-asunto">Plan de Respuesta Inmediata ante el Brote de Cordyceps (CBI)</strong></p>
+            <p><span style="color:#555644;">Asunto:</span> <strong id="memo-asunto">Plan de Respuesta Inmediata ante el Brote de Cordyceps (CBI)</strong></p>
           </div>
 
           <div class="memo-section">
@@ -1092,29 +2008,30 @@
       </div>
 
       <!-- TAB 5: LORE & JUSTIFICACIÓN CORDYCEPS -->
-      <div id="tab-lore" class="tab-content" style="display: none; flex-direction: column; gap: 1.25rem;">
+      <div id="tab-lore" class="tab-content" style="display: none; flex-direction: column; gap: 1.15rem;">
         <div class="chart-panel">
           <div class="chart-header">
             <div class="chart-title">
-              <span>☣ Ficha Biológica: Infección Cerebral por Cordyceps (The Last of Us - CBI)</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-bio"></use></svg>
+              <span>Ficha Biológica: Infección Cerebral por Cordyceps (The Last of Us - CBI)</span>
             </div>
           </div>
-          <div style="font-size: 0.86rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 0.75rem; line-height: 1.6;">
+          <div class="lore-copy">
             <p>
               <strong>El Patógeno:</strong> Se trata de una mutación del hongo <em>Ophiocordyceps unilateralis</em> adaptada a mamíferos. A diferencia de un virus común, el hongo crece físicamente alrededor del sistema nervioso central del huésped hasta tomar el control de sus funciones motoras y de supervivencia.
             </p>
             <p>
-              <strong>Vectores en el Cantón Manta:</strong> 
+              <strong>Vectores en el Cantón Manta:</strong>
               En la ciudad de Manta, la propagación se da por dos mecanismos modelados en el grafo:
             </p>
-            <ul style="padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.35rem;">
+            <ul>
               <li><strong>Mordeduras y Arañazos (Contacto directísimo):</strong> Peso 1.0 en hogares. Cuando un miembro de la familia es mordido, el contacto estrecho genera el contagio primario.</li>
               <li><strong>Esporas Fúngicas en Espacios Cerrados:</strong> Peso ajustado en buses urbanos de Manta, aulas cerradas de colegios (UE Manta, Tarqui) y bodegas densas del Mercado Central y de Tarqui.</li>
             </ul>
             <p>
               <strong>Cronología de Infección (Parámetros Calibrados):</strong>
             </p>
-            <ul style="padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.35rem;">
+            <ul>
               <li><strong>Fase Latente (Mordido / Esporas, σ = 0.50):</strong> El hongo se expande hacia el cerebro durante ~2 días sin manifestaciones agresivas externas aún (no infeccioso).</li>
               <li><strong>Fase Activa (Runners / Clickers, γ = 0.25):</strong> El sujeto pierde la conciencia humana, ataca frenéticamente y expulsa esporas durante una media de ~4 días hasta su neutralización o aislamiento por fuerzas del Comité.</li>
               <li><strong>Inmunoterapia / Vacunación Fúngica:</strong> Sintetizada a partir de anticuerpos y antígenos fúngicos (similar a la inmunidad de Ellie). Administrada el Día 0 a las personas sanas del anillo de contacto, previniendo la fijación del micelio cerebral.</li>
@@ -1152,6 +2069,9 @@
   <script>
     let currentResult = null;
     let loading = false;
+    let territorialState = { barrios: [], curvas_estrategia: {}, curvas_nada: {} };
+    let selectedParroquiaIndex = -1;
+    let hoveredParroquiaIndex = -1;
 
     const DOM = {
       form: document.getElementById('sim-form'),
@@ -1207,6 +2127,16 @@
       territoryGrid: document.getElementById('territory-grid'),
       priorityTbody: document.getElementById('priority-tbody'),
 
+      // Mapa territorial 3D
+      svgParroquias: document.getElementById('svg-parroquias-map'),
+      mapStage: document.getElementById('map-stage'),
+      mapTooltip: document.getElementById('map-tooltip'),
+      mapDetailName: document.getElementById('map-detail-name'),
+      mapDetailRisk: document.getElementById('map-detail-risk'),
+      mapDetailStats: document.getElementById('map-detail-stats'),
+      mapSpark: document.getElementById('map-spark'),
+      btnAllParishes: document.getElementById('btn-all-parishes'),
+
       // Memo
       memoDest: document.getElementById('memo-destinatario'),
       memoAsunto: document.getElementById('memo-asunto'),
@@ -1252,8 +2182,9 @@
       DOM.runs.addEventListener('input', e => DOM.valRuns.textContent = e.target.value);
     }
 
-    function showToast(msg) {
+    function showToast(msg, isError = false) {
       DOM.toast.textContent = msg;
+      DOM.toast.classList.toggle('error', isError);
       DOM.toast.classList.add('show');
       setTimeout(() => DOM.toast.classList.remove('show'), 3000);
     }
@@ -1325,13 +2256,13 @@
         const data = await res.json();
         currentResult = data;
         renderDashboard(data);
-        showToast('✔ Simulación completada con éxito');
+        showToast('Simulación completada con éxito');
       } catch (err) {
-        alert('Error: ' + err.message);
+        showToast('Error: ' + err.message, true);
       } finally {
         loading = false;
         DOM.btnSubmit.disabled = false;
-        DOM.btnText.textContent = '⚡ Simular Contención Cordyceps';
+        DOM.btnText.textContent = 'Simular Contención Cordyceps';
       }
     }
 
@@ -1341,7 +2272,7 @@
       // RECOMMENDATION
       const saved = comparacion.salvados_vs_nada_media;
       DOM.recBanner.className = saved > 0 ? 'recommendation-banner' : 'recommendation-banner warn';
-      DOM.recTitle.textContent = saved > 0 ? '🟢 Dictamen Favorable del Comité' : '🔴 Advertencia: Estrategia Insuficiente';
+      DOM.recTitle.textContent = saved > 0 ? 'Dictamen Favorable del Comité' : 'Advertencia: Estrategia Insuficiente';
       DOM.recText.textContent = recomendacion;
 
       // IMPACT CARDS
@@ -1366,8 +2297,10 @@
 
       // TERRITORIAL (NIVEL PRO)
       if (territorial && territorial.barrios) {
+        territorialState = territorial;
         renderTerritory(territorial.barrios);
         renderTerritoryBars(territorial.barrios);
+        renderParroquiaMap(territorial);
       }
 
       // PRIORITY TABLE
@@ -1435,23 +2368,23 @@
         const yVal = Math.round((maxVal / 4) * step);
         const yPos = getY(yVal);
         gridLines += `
-          <line x1="${padL}" y1="${yPos}" x2="${W - padR}" y2="${yPos}" stroke="#1e293b" stroke-dasharray="3,3" />
-          <text x="${padL - 8}" y="${yPos + 4}" fill="#64748b" font-size="10" text-anchor="end">${yVal}</text>
+          <line x1="${padL}" y1="${yPos}" x2="${W - padR}" y2="${yPos}" stroke="#b3aa90" stroke-dasharray="3,3" />
+          <text x="${padL - 8}" y="${yPos + 4}" fill="#555644" font-size="10" text-anchor="end">${yVal}</text>
         `;
       }
       gridLines += `
-        <line x1="${padL}" y1="${padT + plotH}" x2="${W - padR}" y2="${padT + plotH}" stroke="#334155" />
-        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + plotH}" stroke="#334155" />
+        <line x1="${padL}" y1="${padT + plotH}" x2="${W - padR}" y2="${padT + plotH}" stroke="#6b6a55" />
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + plotH}" stroke="#6b6a55" />
       `;
 
       svg.innerHTML = `
         ${gridLines}
         <!-- Confidence Band p5-p95 -->
-        <path d="${bandPoly}" fill="rgba(16, 185, 129, 0.15)" stroke="none" />
+        <path d="${bandPoly}" fill="rgba(79, 107, 82, 0.14)" stroke="none" />
         <!-- Curves -->
-        <path d="${pathNone}" fill="none" stroke="#ef4444" stroke-width="2.5" />
-        <path d="${pathRand}" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,3" />
-        <path d="${pathStrat}" fill="none" stroke="#10b981" stroke-width="3" />
+        <path d="${pathNone}" fill="none" stroke="#9b3b2c" stroke-width="2.5" />
+        <path d="${pathRand}" fill="none" stroke="#b8843b" stroke-width="2" stroke-dasharray="4,3" />
+        <path d="${pathStrat}" fill="none" stroke="#4f6b52" stroke-width="3" />
       `;
     }
 
@@ -1486,35 +2419,40 @@
         const yVal = Math.round((maxVal / 4) * step);
         const yPos = getY(yVal);
         gridLines += `
-          <line x1="${padL}" y1="${yPos}" x2="${W - padR}" y2="${yPos}" stroke="#1e293b" stroke-dasharray="3,3" />
-          <text x="${padL - 8}" y="${yPos + 4}" fill="#64748b" font-size="10" text-anchor="end">${yVal}</text>
+          <line x1="${padL}" y1="${yPos}" x2="${W - padR}" y2="${yPos}" stroke="#b3aa90" stroke-dasharray="3,3" />
+          <text x="${padL - 8}" y="${yPos + 4}" fill="#555644" font-size="10" text-anchor="end">${yVal}</text>
         `;
       }
 
       svg.innerHTML = `
         ${gridLines}
-        <path d="${pS}" fill="none" stroke="#10b981" stroke-width="2.5" />
-        <path d="${pE}" fill="none" stroke="#d97706" stroke-width="2.5" />
-        <path d="${pI}" fill="none" stroke="#ef4444" stroke-width="2.5" />
-        <path d="${pR}" fill="none" stroke="#2563eb" stroke-width="2.5" />
+        <path d="${pS}" fill="none" stroke="#4f6b52" stroke-width="2.5" />
+        <path d="${pE}" fill="none" stroke="#b8843b" stroke-width="2.5" />
+        <path d="${pI}" fill="none" stroke="#9b3b2c" stroke-width="2.5" />
+        <path d="${pR}" fill="none" stroke="#4b6472" stroke-width="2.5" />
       `;
     }
 
     // RENDER TERRITORIAL CARDS
     function renderTerritory(barrios) {
-      DOM.territoryGrid.innerHTML = barrios.map(b => {
-        const isTarqui = b.nombre === 'Tarqui';
+      DOM.territoryGrid.innerHTML = barrios.map((b, idx) => {
+        const isHub = b.nombre === 'Tarqui';
+        const isSelected = selectedParroquiaIndex === idx;
         return `
-          <div class="barrio-card ${isTarqui ? 'focus' : ''}">
+          <div class="barrio-card ${isHub ? 'hub' : ''} ${isSelected ? 'selected' : ''}"
+               data-idx="${idx}" role="button" tabindex="0" aria-pressed="${isSelected}"
+               aria-label="Parroquia ${b.nombre}: ${b.poblacion} personas en muestra; ${Math.round(b.infectados_estrategia)} infectados con plan; ${Math.round(b.infectados_nada)} sin plan; riesgo ${b.nivel_riesgo}"
+               onclick="selectParroquia(${idx})"
+               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectParroquia(${idx});}">
             <div class="barrio-name">
               <span>${b.nombre}</span>
               <span class="risk-badge ${b.nivel_riesgo}">${b.nivel_riesgo}</span>
             </div>
             <div class="barrio-stats">
               <div>Población muestra: <strong>${b.poblacion}</strong></div>
-              <div>Infectados c/Plan: <strong style="color:${b.infectados_estrategia > 0 ? '#f87171' : '#34d399'}">${Math.round(b.infectados_estrategia)}</strong></div>
-              <div>Infectados s/Plan: <strong style="color:#ef4444">${Math.round(b.infectados_nada)}</strong></div>
-              <div>Vidas Salvadas: <strong style="color:#34d399">+${Math.round(b.salvados)}</strong></div>
+              <div>Infectados c/Plan: <strong style="color:${b.infectados_estrategia > 0 ? '#9b3b2c' : '#405a43'}">${Math.round(b.infectados_estrategia)}</strong></div>
+              <div>Infectados s/Plan: <strong style="color:#9b3b2c">${Math.round(b.infectados_nada)}</strong></div>
+              <div>Vidas Salvadas: <strong style="color:#405a43">+${Math.round(b.salvados)}</strong></div>
               <div>Tasa de Ataque: <strong>${(b.tasa_ataque * 100).toFixed(1)}%</strong></div>
             </div>
           </div>
@@ -1534,7 +2472,7 @@
       const barW = groupW * 0.32;
 
       let svgContent = `
-        <line x1="${padL}" y1="${padT + plotH}" x2="${W - padR}" y2="${padT + plotH}" stroke="#334155" />
+        <line x1="${padL}" y1="${padT + plotH}" x2="${W - padR}" y2="${padT + plotH}" stroke="#6b6a55" />
       `;
 
       barrios.forEach((b, idx) => {
@@ -1549,31 +2487,328 @@
         const yStrat = padT + plotH - hStrat;
 
         svgContent += `
-          <!-- Sin Plan (Rojo) -->
-          <rect x="${xNada}" y="${yNada}" width="${barW}" height="${hNada}" fill="#ef4444" rx="3" />
-          <text x="${xNada + barW/2}" y="${yNada - 5}" fill="#ef4444" font-size="10" text-anchor="middle" font-weight="600">${Math.round(b.infectados_nada)}</text>
+          <!-- Sin Plan (Oxido) -->
+          <rect x="${xNada}" y="${yNada}" width="${barW}" height="${hNada}" fill="#9b3b2c" />
+          <text x="${xNada + barW/2}" y="${yNada - 5}" fill="#9b3b2c" font-size="10" text-anchor="middle" font-weight="700">${Math.round(b.infectados_nada)}</text>
 
-          <!-- Estrategia (Verde) -->
-          <rect x="${xStrat}" y="${yStrat}" width="${barW}" height="${hStrat}" fill="#10b981" rx="3" />
-          <text x="${xStrat + barW/2}" y="${yStrat - 5}" fill="#10b981" font-size="10" text-anchor="middle" font-weight="600">${Math.round(b.infectados_estrategia)}</text>
+          <!-- Estrategia (Salvia) -->
+          <rect x="${xStrat}" y="${yStrat}" width="${barW}" height="${hStrat}" fill="#4f6b52" />
+          <text x="${xStrat + barW/2}" y="${yStrat - 5}" fill="#4f6b52" font-size="10" text-anchor="middle" font-weight="700">${Math.round(b.infectados_estrategia)}</text>
 
           <!-- Label -->
-          <text x="${xCenter}" y="${padT + plotH + 20}" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="'Chakra Petch', sans-serif">${b.nombre}</text>
+          <text x="${xCenter}" y="${padT + plotH + 20}" fill="#3d3f31" font-size="11" text-anchor="middle" font-family="'Archivo', sans-serif">${b.nombre}</text>
         `;
       });
 
       svg.innerHTML = svgContent;
     }
 
+    // --- MAPA TÁCTICO 3D: geometría, render, hover y selección ---
+    const PARISH_GEOMETRY = [
+      { idx: 0, name: 'Manta', short: 'MANTA', shape: [[433.1, 122.3], [444.3, 122.1], [441.5, 114.9], [444.9, 108.5], [458.1, 103.8], [469.6, 94.1], [470.5, 89.8], [464.6, 88.8], [472.1, 69.4], [482.8, 66.6], [493.6, 67.5], [497.9, 71.5], [505.6, 72.5], [515.5, 70.2], [515.6, 68.3], [515.7, 70.7], [528.0, 69.0], [528.1, 65.9], [529.3, 69.5], [542.1, 66.1], [579.3, 50.2], [590.0, 42.7], [591.8, 31.2], [599.5, 30.0], [592.1, 31.8], [592.3, 42.5], [580.4, 58.4], [588.0, 64.2], [585.2, 67.9], [593.7, 76.8], [605.2, 79.0], [607.9, 86.8], [604.3, 98.3], [590.5, 105.9], [581.1, 106.3], [578.5, 114.6], [570.4, 114.3], [564.9, 116.9], [559.7, 125.1], [548.7, 121.9], [548.2, 126.8], [541.9, 129.0], [542.9, 134.3], [536.4, 134.4], [547.6, 141.1], [530.6, 157.5], [517.1, 184.8], [511.0, 191.6], [512.8, 194.0], [511.4, 200.7], [505.7, 209.0], [505.8, 232.7], [501.9, 237.5], [502.9, 257.9], [477.6, 257.6], [477.3, 244.1], [471.9, 237.5], [469.2, 225.6], [477.7, 205.0], [494.2, 186.3], [501.4, 163.0], [493.7, 149.6], [478.2, 161.6], [478.5, 173.5], [457.5, 173.7], [457.6, 166.1], [433.0, 156.4]], label: [488.1, 145.3] },
+      { idx: 1, name: 'Tarqui', short: 'TARQUI', shape: [[527.1, 164.6], [538.5, 148.2], [547.6, 141.1], [536.4, 134.4], [542.9, 134.3], [541.9, 129.0], [548.2, 126.8], [548.7, 121.9], [559.7, 125.1], [564.9, 116.9], [570.4, 114.3], [578.1, 114.9], [581.1, 106.3], [590.5, 105.9], [604.3, 98.3], [607.9, 86.8], [614.3, 85.3], [631.8, 87.2], [632.1, 101.1], [643.1, 105.3], [655.4, 106.3], [638.8, 128.6], [651.5, 144.0], [658.8, 162.8], [642.0, 141.7], [600.1, 174.5], [610.2, 182.6], [608.5, 197.9], [614.8, 203.1], [593.0, 227.5], [586.7, 222.4], [584.5, 223.7], [566.6, 250.8], [560.6, 245.1], [564.8, 242.4], [579.0, 220.8], [562.6, 201.8], [554.1, 184.7], [557.5, 178.5], [564.9, 175.4], [564.1, 169.3], [558.9, 166.4], [558.4, 161.6], [544.3, 162.5], [540.5, 171.7]], label: [585.1, 167.8] },
+      { idx: 2, name: 'Eloy Alfaro', short: 'ELOY ALFARO', shape: [[624.5, 209.2], [608.5, 197.9], [610.2, 182.6], [600.1, 174.5], [642.0, 141.7], [658.8, 162.8], [672.2, 196.0], [669.3, 197.0], [668.4, 194.8], [658.2, 199.4], [656.7, 195.8], [643.1, 201.6], [645.2, 202.4], [646.9, 211.3], [634.2, 216.4], [634.9, 225.0], [629.3, 220.6]], label: [639.4, 188.7] },
+      { idx: 3, name: 'San Mateo', short: 'SAN MATEO', shape: [[333.5, 100.2], [342.5, 101.2], [349.1, 98.1], [348.1, 101.1], [353.8, 103.5], [346.5, 101.4], [342.3, 107.0], [346.4, 109.5], [347.6, 108.0], [346.8, 109.7], [349.2, 111.0], [351.9, 107.4], [349.3, 112.1], [357.7, 116.3], [380.3, 116.0], [397.8, 110.5], [403.4, 111.9], [414.4, 108.5], [434.8, 96.8], [472.1, 69.4], [464.6, 88.8], [470.5, 89.8], [469.6, 94.1], [458.1, 103.8], [444.9, 108.5], [441.5, 114.9], [444.3, 122.1], [441.8, 122.8], [362.1, 122.9], [357.9, 128.1], [357.2, 137.3], [344.1, 136.7], [335.4, 125.9], [325.9, 126.3], [328.3, 121.7], [327.1, 119.0], [322.9, 122.3], [315.0, 123.6], [315.9, 120.9], [325.3, 115.3]], label: [442.4, 102.4] },
+      { idx: 4, name: 'San Lorenzo', short: 'SAN LORENZO', shape: [[129.5, 610.0], [120.1, 579.5], [98.9, 532.7], [77.6, 457.3], [51.3, 402.6], [47.8, 399.9], [48.5, 395.3], [57.5, 394.0], [64.8, 389.2], [71.7, 375.7], [75.1, 350.4], [74.6, 337.2], [84.4, 330.2], [105.7, 329.9], [116.4, 323.7], [130.3, 311.7], [136.2, 298.1], [142.5, 290.5], [149.7, 289.1], [156.4, 283.5], [156.2, 321.5], [153.5, 328.6], [149.5, 332.5], [152.2, 336.6], [150.1, 341.0], [151.4, 343.0], [146.5, 346.1], [145.4, 350.2], [141.8, 350.8], [132.6, 359.0], [134.7, 362.2], [137.1, 362.1], [147.9, 354.6], [153.5, 359.6], [146.3, 364.9], [142.6, 364.6], [142.6, 375.8], [149.3, 378.2], [159.4, 374.5], [162.7, 370.5], [167.4, 371.6], [170.6, 366.5], [176.2, 377.4], [181.9, 378.2], [182.5, 381.3], [196.6, 382.0], [195.4, 370.5], [204.4, 371.6], [206.3, 369.2], [204.2, 366.3], [218.1, 364.3], [220.2, 359.8], [223.6, 360.4], [228.3, 357.4], [248.9, 355.7], [273.8, 334.6], [277.5, 329.4], [275.9, 320.3], [279.7, 312.4], [284.7, 308.8], [285.4, 305.4], [292.6, 302.6], [295.5, 295.5], [300.2, 292.5], [300.7, 286.4], [303.6, 286.1], [306.0, 280.5], [308.8, 280.4], [307.4, 277.9], [314.1, 276.5], [315.2, 272.2], [319.5, 270.7], [317.3, 249.3], [320.5, 247.9], [318.0, 243.2], [320.5, 240.2], [315.9, 225.1], [317.1, 203.3], [313.8, 200.9], [315.5, 192.9], [310.8, 187.1], [310.5, 180.3], [307.5, 176.5], [432.6, 176.5], [434.3, 186.1], [430.2, 189.3], [425.8, 202.1], [431.4, 223.9], [425.1, 231.3], [461.1, 231.3], [477.6, 257.6], [497.2, 257.6], [497.2, 266.8], [515.0, 275.5], [515.8, 281.0], [513.0, 283.9], [514.4, 286.8], [518.6, 288.0], [527.7, 285.3], [539.6, 302.7], [540.3, 307.2], [537.9, 312.1], [530.1, 310.4], [527.0, 317.4], [521.4, 320.7], [520.9, 334.9], [508.2, 334.5], [506.3, 339.1], [500.3, 342.3], [489.2, 337.7], [482.0, 339.8], [471.8, 354.6], [463.6, 358.8], [465.7, 365.5], [464.9, 373.2], [469.1, 383.9], [465.7, 405.3], [467.6, 423.5], [454.0, 421.1], [431.1, 434.4], [418.7, 435.5], [407.6, 432.2], [412.9, 434.0], [415.7, 440.9], [417.1, 506.7], [301.7, 506.7], [308.3, 512.8], [311.9, 529.3], [310.4, 534.9], [304.2, 539.1], [304.2, 558.8], [277.0, 583.9], [265.4, 585.9], [255.9, 580.9], [251.1, 582.0], [245.8, 587.3], [199.7, 587.3], [177.1, 610.0]], label: [264.5, 391.6] },
+    ];
+    const MAP_COAST_PATH = "M 98.9 532.7 L 77.6 457.3 L 51.3 402.6 L 47.8 399.9 L 48.5 395.3 L 57.5 394.0 L 64.8 389.2 L 71.7 375.7 L 75.1 350.4 L 74.6 337.2 L 84.4 330.2 L 105.7 329.9 L 116.4 323.7 L 130.3 311.7 L 136.2 298.1 L 142.5 290.5 L 149.7 289.1 L 156.4 283.5 L 156.2 321.5 L 153.5 328.6 L 149.5 332.5 L 152.2 336.6 L 150.1 341.0 L 151.4 343.0 L 146.5 346.1 L 145.4 350.2 L 141.8 350.8 L 132.6 359.0 L 134.7 362.2 L 137.1 362.1 L 147.9 354.6 L 153.5 359.6 L 146.3 364.9 L 142.6 364.6 L 142.6 375.8 L 149.3 378.2 L 159.4 374.5 L 162.7 370.5 L 167.4 371.6 L 170.6 366.5 L 176.2 377.4 L 181.9 378.2 L 182.5 381.3 L 196.6 382.0 L 195.4 370.5 L 204.4 371.6 L 206.3 369.2 L 204.2 366.3 L 218.1 364.3 L 220.2 359.8 L 223.6 360.4 L 228.3 357.4 L 248.9 355.7 L 273.8 334.6 L 277.5 329.4 L 275.9 320.3 L 279.7 312.4 L 284.7 308.8 L 285.4 305.4 L 292.6 302.6 L 295.5 295.5 L 300.2 292.5 L 300.7 286.4 L 303.6 286.1 L 306.0 280.5 L 308.8 280.4 L 307.4 277.9 L 314.1 276.5 L 315.2 272.2 L 319.5 270.7 L 317.3 249.3 L 320.5 247.9 L 318.0 243.2 L 320.5 240.2 L 315.9 225.1 L 317.1 203.3 L 313.8 200.9 L 315.5 192.9 L 310.8 187.1 L 310.5 180.3 L 307.5 176.5 L 432.6 176.5 L 434.3 186.1 L 430.2 189.3 L 425.8 202.1 L 431.4 223.9 L 425.1 231.3 L 461.1 231.3 L 477.6 257.6 L 477.3 244.1 L 471.9 237.5 L 469.2 225.6 L 477.7 205.0 L 494.2 186.3 L 501.4 163.0 L 493.7 149.6 L 478.2 161.6 L 478.5 173.5 L 457.5 173.7 L 457.6 166.1 L 433.0 156.4 L 433.1 122.8 L 362.1 122.9 L 357.9 128.1 L 357.2 137.3 L 344.1 136.7 L 335.4 125.9 L 325.9 126.3 L 328.3 121.7 L 327.1 119.0 L 322.9 122.3 L 315.0 123.6 L 315.9 120.9 L 325.3 115.3 L 333.5 100.2 L 342.5 101.2 L 349.1 98.1 L 348.1 101.1 L 353.8 103.5 L 346.5 101.4 L 342.3 107.0 L 346.4 109.5 L 347.6 108.0 L 346.8 109.7 L 349.2 111.0 L 351.9 107.4 L 349.3 112.1 L 357.7 116.3 L 380.3 116.0 L 397.8 110.5 L 403.4 111.9 L 414.4 108.5 L 434.8 96.8 L 472.1 69.4 L 482.8 66.6 L 493.6 67.5 L 497.9 71.5 L 505.6 72.5 L 515.5 70.2 L 515.6 68.3 L 515.7 70.7 L 528.0 69.0 L 528.1 65.9 L 529.3 69.5 L 542.1 66.1 L 579.3 50.2 L 590.0 42.7 L 591.8 31.2 L 599.5 30.0 L 592.1 31.8 L 592.3 42.5 L 580.4 58.4 L 588.0 64.2 L 585.2 67.9 L 593.7 76.8 L 605.2 79.0 L 607.9 86.8 L 614.3 85.3 L 631.8 87.2 L 632.1 101.1 L 643.1 105.3 L 655.4 106.3 L 638.8 128.6 L 651.5 144.0 L 658.8 162.8 L 672.2 196.0 L 669.3 197.0 L 668.4 194.8 L 658.2 199.4 L 656.7 195.8 L 643.1 201.6 L 645.2 202.4 L 646.9 211.3 L 634.2 216.4 L 634.9 225.0 L 629.3 220.6 L 624.5 209.2 L 608.5 197.9 L 614.8 203.1 L 593.0 227.5 L 586.7 222.4 L 584.5 223.7 L 566.6 250.8 L 560.6 245.1 L 564.8 242.4 L 579.0 220.8 L 562.6 201.8 L 554.1 184.7 L 557.5 178.5 L 564.9 175.4 L 564.1 169.3 L 558.9 166.4 L 558.4 161.6 L 544.3 162.5 L 540.5 171.7 L 527.1 164.6 L 535.1 153.2 L 530.6 157.5 L 517.1 184.8 L 511.0 191.6 L 512.8 194.0 L 511.4 200.7 L 505.7 209.0 L 505.8 232.7 L 501.9 237.5 L 502.9 257.9 L 497.2 257.8 L 497.2 266.8 L 515.0 275.5 L 515.8 281.0 L 513.0 283.9 L 514.4 286.8 L 518.6 288.0 L 527.7 285.3 L 539.6 302.7 L 540.3 307.2 L 537.9 312.1 L 530.1 310.4 L 527.0 317.4 L 521.4 320.7 L 520.9 334.9 L 508.2 334.5 L 506.3 339.1 L 500.3 342.3 L 489.2 337.7 L 482.0 339.8 L 471.8 354.6 L 463.6 358.8 L 465.7 365.5 L 464.9 373.2 L 469.1 383.9 L 465.7 405.3 L 467.6 423.5 L 454.0 421.1 L 431.1 434.4 L 418.7 435.5 L 407.6 432.2 L 412.9 434.0 L 415.7 440.9 L 417.1 506.7 L 301.7 506.7 L 308.3 512.8 L 311.9 529.3 L 310.4 534.9 L 304.2 539.1 L 304.2 558.8 L 277.0 583.9 L 265.4 585.9 L 255.9 580.9 L 251.1 582.0 L 245.8 587.3 L 199.7 587.3 L 177.1 610.0 L 129.5 610.0 L 120.1 579.5 Z";
+    const MAP_SCALE_5KM = 128.2;
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    }
+
+    function riskPalette(riesgo) {
+      if (riesgo === 'Crítico') return { top: '#7e2f24', side: '#4a1a13', edge: '#b24a37' };
+      if (riesgo === 'Alerta') return { top: '#8a5a1e', side: '#553811', edge: '#d2a052' };
+      return { top: '#4f5c3d', side: '#2f3825', edge: '#8b936c' };
+    }
+
+    function polygonPoints(points, dy = 0) {
+      return points.map(([x, y]) => `${x},${y + dy}`).join(' ');
+    }
+
+    function averageY(points) {
+      return points.reduce((acc, [, y]) => acc + y, 0) / points.length;
+    }
+
+    function riskForRate(rate) {
+      return rate > 0.35 ? 'Crítico' : (rate > 0.1 ? 'Alerta' : 'Controlado');
+    }
+
+    function aggregateBarrios() {
+      const barrios = territorialState.barrios;
+      const poblacion = barrios.reduce((a, b) => a + b.poblacion, 0);
+      const incS = barrios.reduce((a, b) => a + b.infectados_estrategia, 0);
+      const incN = barrios.reduce((a, b) => a + b.infectados_nada, 0);
+      const salvados = barrios.reduce((a, b) => a + b.salvados, 0);
+      const rate = incS / Math.max(1, poblacion);
+      return { nombre: 'Todas las parroquias', poblacion, infectados_estrategia: incS, infectados_nada: incN, salvados, tasa_ataque: rate, nivel_riesgo: riskForRate(rate) };
+    }
+
+    function sumCurves(key) {
+      const dict = territorialState[key] || {};
+      const names = Object.keys(dict);
+      if (!names.length) return null;
+      return dict[names[0]].map((_, i) => names.reduce((acc, name) => acc + (dict[name][i] || 0), 0));
+    }
+
+    function buildSparkline(seriesPlan, seriesNone) {
+      if (!seriesPlan || !seriesNone || seriesPlan.length < 2) {
+        return `<p class="map-spark-empty">Sin serie temporal disponible.</p>`;
+      }
+      const W = 280, H = 72, P = 4;
+      const max = Math.max(1, ...seriesPlan, ...seriesNone);
+      const x = i => P + (i / (seriesPlan.length - 1)) * (W - 2 * P);
+      const y = v => H - P - (v / max) * (H - 2 * P);
+      const line = arr => arr.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
+      return `
+        <div class="map-spark-head">
+          <span>Infectados activos por día</span>
+          <span class="map-spark-legend">
+            <span><i class="legend-dot dot-sage"></i> Plan</span>
+            <span><i class="legend-dot dot-rust"></i> Sin plan</span>
+          </span>
+        </div>
+        <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="${P}" y1="${H - P}" x2="${W - P}" y2="${H - P}" stroke="rgba(26,27,21,.28)" stroke-width="1" />
+          <path d="${line(seriesNone)}" fill="none" stroke="#9b3b2c" stroke-width="1.5" />
+          <path d="${line(seriesPlan)}" fill="none" stroke="#4f6b52" stroke-width="2" />
+        </svg>`;
+    }
+
+    function renderParroquiaMap(territorial) {
+      if (!DOM.svgParroquias || !territorial || !territorial.barrios || !territorial.barrios.length) return;
+      const barrios = territorial.barrios;
+      if (selectedParroquiaIndex >= barrios.length) selectedParroquiaIndex = -1;
+      const maxNada = Math.max(1, ...barrios.map(b => b.infectados_nada));
+
+      const defs = `
+        <defs>
+          <pattern id="map-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+            <path d="M28 0H0V28" fill="none" stroke="rgba(240,234,216,0.05)" stroke-width="1" />
+          </pattern>
+          <filter id="map-shadow" x="-35%" y="-35%" width="170%" height="170%">
+            <feGaussianBlur stdDeviation="6" />
+          </filter>
+          <radialGradient id="map-glow" cx="50%" cy="45%" r="62%">
+            <stop offset="0%" stop-color="rgba(111,122,84,0.18)" />
+            <stop offset="100%" stop-color="rgba(11,13,9,0)" />
+          </radialGradient>
+        </defs>`;
+
+      const background = `
+        <rect width="720" height="640" fill="#0e110b" />
+        <rect width="720" height="640" fill="url(#map-grid)" />
+        <rect width="720" height="640" fill="url(#map-glow)" />
+        <path d="${MAP_COAST_PATH}" fill="rgba(30,44,48,0.32)" stroke="rgba(150,180,190,0.4)" stroke-width="1.4" />
+        <text x="18" y="622" fill="rgba(150,180,190,0.6)" font-family="'Special Elite', monospace" font-size="10" letter-spacing="2">OCÉANO PACÍFICO</text>
+        <rect x="8" y="8" width="704" height="624" fill="none" stroke="rgba(240,234,216,0.08)" stroke-dasharray="2 6" />`;
+
+      const order = PARISH_GEOMETRY.slice().sort((a, b) => averageY(a.shape) - averageY(b.shape));
+      let blocks = '';
+      let labels = '';
+      order.forEach(geo => {
+        const b = barrios[geo.idx];
+        if (!b) return;
+        const pal = riskPalette(b.nivel_riesgo);
+        const depth = 16 + (b.infectados_nada / maxNada) * 30;
+        const topPoints = polygonPoints(geo.shape);
+        const bottomPoints = polygonPoints(geo.shape, depth);
+        const aria = `Parroquia ${b.nombre}: riesgo ${b.nivel_riesgo}, ${b.poblacion} personas en muestra, ${Math.round(b.infectados_estrategia)} infectados con plan y ${Math.round(b.infectados_nada)} sin plan.`;
+
+        blocks += `
+          <polygon points="${polygonPoints(geo.shape, depth + 8)}" fill="rgba(0,0,0,0.4)" filter="url(#map-shadow)" />
+          <g class="map-parish" data-idx="${geo.idx}" role="button" tabindex="0" aria-pressed="false" aria-label="${escapeHtml(aria)}">
+            <g class="parish-lift">
+              <polygon points="${bottomPoints}" fill="${pal.side}" stroke="${pal.side}" stroke-width="1" />
+              <polygon class="parish-top" points="${topPoints}" fill="${pal.top}" stroke="${pal.edge}" stroke-width="1.4" />
+            </g>
+          </g>`;
+        labels += `<text class="map-parish-label" x="${geo.label[0]}" y="${geo.label[1]}" text-anchor="middle" fill="#f0ead8">${geo.short}</text>`;
+      });
+
+      const compass = `
+        <g transform="translate(676,54)" aria-hidden="true">
+          <circle cx="0" cy="0" r="18" fill="rgba(11,13,9,0.55)" stroke="rgba(240,234,216,0.18)" />
+          <path d="M0 -13 L4 6 L0 3 L-4 6 Z" fill="#d2a052" />
+          <text x="0" y="-22" text-anchor="middle" fill="rgba(240,234,216,0.65)" font-family="'Special Elite', monospace" font-size="9">N</text>
+        </g>
+        <g transform="translate(520,620)" aria-hidden="true">
+          <line x1="0" y1="0" x2="${MAP_SCALE_5KM}" y2="0" stroke="rgba(240,234,216,0.5)" stroke-width="1.5" />
+          <line x1="0" y1="-4" x2="0" y2="4" stroke="rgba(240,234,216,0.5)" stroke-width="1.5" />
+          <line x1="${MAP_SCALE_5KM / 2}" y1="-3" x2="${MAP_SCALE_5KM / 2}" y2="3" stroke="rgba(240,234,216,0.5)" stroke-width="1.5" />
+          <line x1="${MAP_SCALE_5KM}" y1="-4" x2="${MAP_SCALE_5KM}" y2="4" stroke="rgba(240,234,216,0.5)" stroke-width="1.5" />
+          <text x="0" y="-8" fill="rgba(240,234,216,0.6)" font-family="'Special Elite', monospace" font-size="8">0</text>
+          <text x="${MAP_SCALE_5KM}" y="-8" text-anchor="end" fill="rgba(240,234,216,0.6)" font-family="'Special Elite', monospace" font-size="8">5 km</text>
+        </g>`;
+
+      DOM.svgParroquias.innerHTML = defs + background + blocks + labels + compass;
+      updateMapSelection();
+      updateMapDetail();
+    }
+
+    function updateMapSelection() {
+      document.querySelectorAll('.map-parish').forEach(group => {
+        const selected = Number(group.dataset.idx) === selectedParroquiaIndex;
+        group.classList.toggle('is-selected', selected);
+        group.setAttribute('aria-pressed', String(selected));
+      });
+      document.querySelectorAll('.barrio-card[data-idx]').forEach(card => {
+        const selected = Number(card.dataset.idx) === selectedParroquiaIndex;
+        card.classList.toggle('selected', selected);
+        card.setAttribute('aria-pressed', String(selected));
+      });
+      if (DOM.btnAllParishes) {
+        DOM.btnAllParishes.setAttribute('aria-pressed', String(selectedParroquiaIndex === -1));
+      }
+    }
+
+    function updateMapDetail() {
+      if (!DOM.mapDetailName) return;
+      const isAll = selectedParroquiaIndex < 0;
+      const b = isAll ? aggregateBarrios() : territorialState.barrios[selectedParroquiaIndex];
+      if (!b) return;
+      DOM.mapDetailName.textContent = b.nombre;
+      DOM.mapDetailRisk.innerHTML = `
+        <span class="risk-badge ${b.nivel_riesgo}">${b.nivel_riesgo}</span>
+        <span class="map-detail-sub">${isAll ? 'Agregado cantonal · 5 parroquias' : 'Parroquia modelada · Censo INEC'}</span>`;
+      const reduction = b.infectados_nada > 0 ? ((b.infectados_nada - b.infectados_estrategia) / b.infectados_nada) * 100 : 0;
+      DOM.mapDetailStats.innerHTML = `
+        <div class="map-stat"><dt>Población muestra</dt><dd>${b.poblacion}</dd></div>
+        <div class="map-stat"><dt>Tasa de ataque</dt><dd>${(b.tasa_ataque * 100).toFixed(1)}%</dd></div>
+        <div class="map-stat"><dt>Infectados c/Plan</dt><dd style="color:${b.infectados_estrategia > 0 ? 'var(--rust-deep)' : 'var(--sage)'}">${Math.round(b.infectados_estrategia)}</dd></div>
+        <div class="map-stat"><dt>Infectados s/Plan</dt><dd style="color:var(--rust-deep)">${Math.round(b.infectados_nada)}</dd></div>
+        <div class="map-stat"><dt>Vidas salvadas</dt><dd style="color:#3f5a43">+${Math.round(b.salvados)}</dd></div>
+        <div class="map-stat"><dt>Reducción</dt><dd>${reduction.toFixed(1)}%</dd></div>`;
+      const seriesPlan = isAll ? sumCurves('curvas_estrategia') : (territorialState.curvas_estrategia || {})[b.nombre];
+      const seriesNone = isAll ? sumCurves('curvas_nada') : (territorialState.curvas_nada || {})[b.nombre];
+      DOM.mapSpark.innerHTML = buildSparkline(seriesPlan, seriesNone);
+    }
+
+    function selectParroquia(idx) {
+      if (!territorialState.barrios.length) return;
+      if (idx < 0 || idx >= territorialState.barrios.length) return;
+      selectedParroquiaIndex = selectedParroquiaIndex === idx ? -1 : idx;
+      updateMapSelection();
+      updateMapDetail();
+      hideMapTooltip();
+    }
+
+    function showAllParroquias() {
+      selectedParroquiaIndex = -1;
+      updateMapSelection();
+      updateMapDetail();
+      hideMapTooltip();
+    }
+
+    function setMapHover(idx) {
+      if (hoveredParroquiaIndex === idx) return;
+      hoveredParroquiaIndex = idx;
+      document.querySelectorAll('.map-parish').forEach(group => {
+        group.classList.toggle('is-hover', Number(group.dataset.idx) === idx);
+      });
+    }
+
+    function buildTooltipHtml(b) {
+      return `
+        <div class="map-tooltip-top">
+          <span class="risk-swatch ${b.nivel_riesgo}"></span>
+          <strong>${escapeHtml(b.nombre)}</strong>
+          <span class="risk-badge ${b.nivel_riesgo}">${b.nivel_riesgo}</span>
+        </div>
+        <dl class="map-tooltip-stats">
+          <div><dt>Población</dt><dd>${b.poblacion}</dd></div>
+          <div><dt>Tasa de ataque</dt><dd>${(b.tasa_ataque * 100).toFixed(1)}%</dd></div>
+          <div><dt>Infectados c/Plan</dt><dd>${Math.round(b.infectados_estrategia)}</dd></div>
+          <div><dt>Infectados s/Plan</dt><dd>${Math.round(b.infectados_nada)}</dd></div>
+          <div><dt>Vidas salvadas</dt><dd>+${Math.round(b.salvados)}</dd></div>
+          <div><dt>Riesgo</dt><dd>${b.nivel_riesgo}</dd></div>
+        </dl>
+        <div class="map-tooltip-hint">Clic para fijar la ficha</div>`;
+    }
+
+    function showMapTooltip(idx, event, group) {
+      const b = territorialState.barrios[idx];
+      if (!b || !DOM.mapTooltip || !DOM.mapStage) return;
+      DOM.mapTooltip.innerHTML = buildTooltipHtml(b);
+      DOM.mapTooltip.classList.add('show');
+      DOM.mapTooltip.setAttribute('aria-hidden', 'false');
+      const stageRect = DOM.mapStage.getBoundingClientRect();
+      const tipRect = DOM.mapTooltip.getBoundingClientRect();
+      let x, y;
+      if (event) {
+        x = event.clientX - stageRect.left + 16;
+        y = event.clientY - stageRect.top + 16;
+        if (x + tipRect.width > stageRect.width - 8) x = event.clientX - stageRect.left - tipRect.width - 16;
+        if (y + tipRect.height > stageRect.height - 8) y = event.clientY - stageRect.top - tipRect.height - 16;
+      } else if (group) {
+        const rect = group.getBoundingClientRect();
+        x = rect.left - stageRect.left + rect.width / 2 - tipRect.width / 2;
+        y = rect.top - stageRect.top - tipRect.height - 10;
+      } else {
+        x = 16;
+        y = 16;
+      }
+      x = Math.max(8, Math.min(x, stageRect.width - tipRect.width - 8));
+      y = Math.max(8, Math.min(y, stageRect.height - tipRect.height - 8));
+      DOM.mapTooltip.style.left = `${x}px`;
+      DOM.mapTooltip.style.top = `${y}px`;
+    }
+
+    function hideMapTooltip() {
+      if (!DOM.mapTooltip) return;
+      DOM.mapTooltip.classList.remove('show');
+      DOM.mapTooltip.setAttribute('aria-hidden', 'true');
+    }
+
+    function clearMapHover() {
+      setMapHover(-1);
+      hideMapTooltip();
+    }
+
+    function bindMapInteractions() {
+      if (!DOM.svgParroquias) return;
+      DOM.svgParroquias.addEventListener('pointermove', event => {
+        if (event.pointerType === 'touch') return;
+        const group = event.target.closest ? event.target.closest('.map-parish') : null;
+        if (!group) { clearMapHover(); return; }
+        const idx = Number(group.dataset.idx);
+        setMapHover(idx);
+        showMapTooltip(idx, event);
+      });
+      DOM.svgParroquias.addEventListener('pointerleave', clearMapHover);
+      DOM.svgParroquias.addEventListener('click', event => {
+        const group = event.target.closest ? event.target.closest('.map-parish') : null;
+        if (!group) return;
+        selectParroquia(Number(group.dataset.idx));
+      });
+      DOM.svgParroquias.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        const group = event.target.closest ? event.target.closest('.map-parish') : null;
+        if (!group) return;
+        event.preventDefault();
+        selectParroquia(Number(group.dataset.idx));
+      });
+      DOM.svgParroquias.addEventListener('focusin', event => {
+        const group = event.target.closest ? event.target.closest('.map-parish') : null;
+        if (!group) return;
+        const idx = Number(group.dataset.idx);
+        setMapHover(idx);
+        showMapTooltip(idx, null, group);
+      });
+      DOM.svgParroquias.addEventListener('focusout', clearMapHover);
+    }
+
     // RENDER PRIORITY TABLE
     function renderPriorityTable(nodes) {
       if (!nodes.length) {
-        DOM.priorityTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#94a3b8;">No hay nodos seleccionados.</td></tr>`;
+        DOM.priorityTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#555644;">No hay nodos seleccionados.</td></tr>`;
         return;
       }
       DOM.priorityTbody.innerHTML = nodes.map((n, idx) => `
         <tr>
-          <td><strong style="color:#38bdf8;">#${n.id}</strong></td>
+          <td><strong style="color:#6f291e;">#${n.id}</strong></td>
           <td><span class="badge-role ${n.rol}">${n.rol}</span></td>
           <td>${n.barrio}</td>
           <td>Hogar #${n.hogar}</td>
@@ -1601,16 +2836,16 @@
       const data = getFormData();
       if (kind === 'doble') {
         data.beta = Math.min(1.0, Math.round(data.beta * 2 * 100) / 100);
-        showToast('☣ Brote de Esporas Masivo activado: Doble contagio β');
+        showToast('Brote de Esporas Masivo activado: Doble contagio β');
       } else if (kind === 'mitad') {
         data.vaccines = Math.max(0, Math.floor(data.vaccines / 2));
-        showToast('📉 Escasez Crítica: Mitad de dosis K');
+        showToast('Escasez Crítica: Mitad de dosis K');
       } else if (kind === 'mercado') {
         data.locus = 'mercado';
-        showToast('🏬 Brote Focalizado: Epicentro en Mercado Tarqui');
+        showToast('Brote Focalizado: Epicentro en Mercado Tarqui');
       } else if (kind === 'eficacia') {
         data.vaccine_efficacy = 0.60;
-        showToast('🧬 Mutación Fúngica: Eficacia parcial al 60%');
+        showToast('Mutación Fúngica: Eficacia parcial al 60%');
       }
       setFormData(data);
       void runSimulation(data);
@@ -1652,13 +2887,14 @@ Huella SHA-256: ${currentResult.huella}
       `.trim();
 
       navigator.clipboard.writeText(text).then(() => {
-        showToast('📋 Informe copiado al portapapeles');
+        showToast('Informe copiado al portapapeles');
       });
     }
 
     // INITIALIZATION
     window.addEventListener('DOMContentLoaded', () => {
       bindSync();
+      bindMapInteractions();
       DOM.form.addEventListener('submit', e => {
         e.preventDefault();
         void runSimulation(getFormData());
