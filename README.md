@@ -178,10 +178,12 @@ sam deploy -t infra/template.yaml --guided --region us-east-1 \
 ```
 
 ### 💰 Resumen de Declaración de Costos (Rúbrica Oficial)
-* **Gasto Real Acumulado del Evento:** **\$0,12 USD** (0,6% del presupuesto).
+* **Gasto Real Acumulado del Evento:** **\$0,00 USD** (100% cubierto por AWS Free Tier — evidencia en `docs/budget.png`).
 * **Estimado Mensual Operativo:** **\$5 a \$15 USD / mes** (100% Serverless bajo demanda, sin costos fijos).
 * **Alerta de Seguridad (AWS Budgets):** Activa en **\$20,00 USD** con alertas al 50% y 100% proyectado.
 * **Detalle y Desglose por Servicio:** Ver informe completo en [docs/costos.md](docs/costos.md).
+
+![Evidencia de AWS Budget](docs/budget.png)
 
 ---
 

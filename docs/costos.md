@@ -33,19 +33,16 @@ Monitoreo y corte de costos durante el desarrollo, despliegue y pruebas del hack
 
 | Concepto | Detalle / Métrica | Valor Registrado |
 | --- | --- | --- |
-| **Fecha de inicio / Despliegue del stack** | Creación del stack `spookython` en AWS SAM (`us-east-1`) | 26 de octubre de 2026 |
+| **Nombre del Presupuesto** | Presupuesto activo en la consola de AWS Budgets | `spookython-mensual` |
+| **Fecha de inicio del presupuesto** | Apertura del ciclo de monitoreo mensual | 2026-10-01 |
 | **Fecha de corte y entrega** | Corte previo a la entrega y demo final | 27 de octubre de 2026 |
-| **AWS Lambda** | Pruebas locales y ejecuciones en la nube (~650 invocaciones de test) | \$0,00 USD (Cubierto por AWS Free Tier: 1M gratis) |
-| **Amazon API Gateway** | Pruebas de integración HTTP REST (`/api/simulate`, `/health`) | \$0,01 USD (Fracción de centavo) |
-| **Amazon S3 & CloudFront** | Hosting estático de la SPA en CloudFront (`https://d30ze7fyeksj6z.cloudfront.net/`) y S3 | \$0,02 USD (Tráfico bajo en pruebas de equipo) |
-| **Amazon DynamoDB** | Modo On-Demand (lecturas/escrituras puntuales de prueba) | \$0,00 USD (Dentro de los 25 GB / WCU gratuitos) |
-| **AWS Step Functions** | Ensayos de Distributed Map para Monte Carlo | \$0,04 USD (Dentro del Free Tier de transiciones) |
-| **Amazon CloudWatch Logs** | Ingesta de métricas y logs de funciones Lambda (retención 7 días) | \$0,05 USD |
-| **AWS Budgets** | Alerta configurada para \$20 USD a `pilozocesar@gmail.com` | \$0,00 USD (Primeros 2 presupuestos mensuales gratis) |
-| **Gasto Real Acumulado del Evento** | Total facturado según AWS Billing / Cost Management | **\$0,12 USD** |
-| **Tope Presupuestado (Budget Alert)** | Límite mensual configurado en CloudFormation / SAM | **\$20,00 USD** |
-| **Porcentaje de Presupuesto Consumido** | Relación entre gasto real y tope de seguridad | **0,6% consumido** |
-| **Captura del Presupuesto** | Evidencia visual requerida por las bases del evento | [`docs/budget.png`](budget.png) |
+| **Gasto Real Acumulado (MTD)** | Importe gastado total confirmado por AWS Budgets (`Actual frente a presupuestado`) | **\$0,00 USD** |
+| **Tope Presupuestado (Budget Alert)** | Límite mensual configurado — `MonthlyBudgetUsd` | **\$20,00 USD** |
+| **Porcentaje de Presupuesto Consumido** | Relación entre gasto real y tope de seguridad | **0,00% consumido** |
+| **Estado del Presupuesto** | Semáforo de salud del presupuesto AWS | ✅ **En buen estado** |
+| **Alertas configuradas** | Umbral activo con notificación a `pilozocesar@gmail.com` (verificado) | 2 alertas activas |
+| **Tipo de presupuesto** | Modalidad de facturación | Presupuesto de costos mensual recurrente |
+| **Captura del Presupuesto** | Evidencia visual de la consola de AWS Budgets | [`docs/budget.png`](budget.png) |
 
 > **Nota de Gobernanza de Costos y Criterio de Desempate:**
-> El sistema se diseñó 100% Serverless con cobro por uso (*pay-as-you-go*) y sin aprovisionamiento de capacidad fija (cero EC2, cero NAT Gateways, cero bases de datos RDS con cobro por hora). Esto garantiza que durante el evento el gasto acumulado no superó los \$0,15 USD, y que ante el criterio de desempate de la rúbrica oficial (*"Gana el equipo con mejor nota en la Prueba de Fuego. Si persiste el empate, gana el de menor costo declarado"*), la solución mantiene una ventaja competitiva máxima con un costo proyectado mensual operativo de apenas **\$5 a \$15 USD** bajo carga regular.
+> El sistema se diseñó 100% Serverless con cobro por uso (*pay-as-you-go*) y sin aprovisionamiento de capacidad fija (cero EC2, cero NAT Gateways, cero bases de datos RDS con cobro por hora). Durante el evento, el gasto real acumulado fue de **\$0,00 USD** — completamente cubierto por el AWS Free Tier — con un tope de alerta activo en **\$20,00 USD** desde el primer día. Ante el criterio de desempate de la rúbrica oficial (*"Gana el equipo con mejor nota en la Prueba de Fuego. Si persiste el empate, gana el de menor costo declarado"*), la solución presenta el menor costo posible declarado: **cero dólares facturados**, con un costo mensual operativo proyectado en régimen de apenas **\$5 a \$15 USD** bajo carga real.
