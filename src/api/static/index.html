@@ -787,12 +787,12 @@
       width: 9px;
       height: 9px;
       display: inline-block;
-      border: 1px solid rgba(26, 27, 21, 0.4);
+      border: 1px solid rgba(245, 240, 251, 0.35);
       flex: 0 0 auto;
     }
-    .risk-swatch.Controlado { background: #4f5c3d; }
-    .risk-swatch.Alerta { background: #8a5a1e; }
-    .risk-swatch.Crítico { background: #7e2f24; }
+    .risk-swatch.Controlado { background: #15803d; border-color: #39ff14; }
+    .risk-swatch.Alerta { background: #ea580c; border-color: #ff7518; }
+    .risk-swatch.Crítico { background: #e11d48; border-color: #ff4d6d; }
 
     .map-layout {
       display: grid;
@@ -807,8 +807,8 @@
       overflow: hidden;
       border: 1px solid var(--steel-2);
       background:
-        radial-gradient(ellipse at 28% 14%, rgba(111, 122, 84, 0.18), transparent 55%),
-        linear-gradient(160deg, #151a11, #090b07 72%);
+        radial-gradient(ellipse at 28% 14%, rgba(168, 85, 247, 0.18), transparent 55%),
+        linear-gradient(160deg, #150d21, #07050b 72%);
       box-shadow:
         inset 0 0 0 1px rgba(240, 234, 216, 0.04),
         inset 0 20px 46px rgba(0, 0, 0, 0.4);
@@ -844,7 +844,7 @@
       border: 1px solid var(--ink);
       box-shadow:
         inset 0 0 0 3px var(--paper-3),
-        inset 0 0 0 4px rgba(26, 27, 21, 0.24),
+        inset 0 0 0 4px rgba(245, 240, 251, 0.14),
         0 10px 26px rgba(0, 0, 0, 0.5);
       opacity: 0;
       visibility: hidden;
@@ -882,7 +882,7 @@
     .map-tooltip-stats div {
       display: flex;
       flex-direction: column;
-      border-top: 1px solid rgba(26, 27, 21, 0.18);
+      border-top: 1px solid rgba(245, 240, 251, 0.16);
       padding-top: 0.18rem;
       min-width: 0;
     }
@@ -908,12 +908,12 @@
       font-size: 0.69rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      color: var(--rust-deep);
+      color: var(--pumpkin);
     }
 
     .map-detail {
       background: var(--paper-2);
-      border: 1px solid rgba(26, 27, 21, 0.4);
+      border: 1px solid var(--paper-edge);
       padding: 0.85rem 0.9rem;
       display: flex;
       flex-direction: column;
@@ -970,7 +970,7 @@
       margin-top: 0.1rem;
     }
     .map-stat {
-      border-top: 1px solid rgba(26, 27, 21, 0.2);
+      border-top: 1px solid rgba(245, 240, 251, 0.16);
       padding-top: 0.22rem;
       min-width: 0;
     }
@@ -992,7 +992,7 @@
     }
     .map-spark {
       margin-top: auto;
-      border-top: 1px solid rgba(26, 27, 21, 0.25);
+      border-top: 1px solid rgba(245, 240, 251, 0.16);
       padding-top: 0.35rem;
     }
     .map-spark-head {
@@ -1143,9 +1143,10 @@
       border: 1px solid currentColor;
       white-space: nowrap;
     }
-    .risk-badge.Controlado { color: #3f5a43; background: rgba(79, 107, 82, 0.10); }
-    .risk-badge.Alerta { color: #8a5a1e; background: rgba(184, 132, 59, 0.12); }
-    .risk-badge.Crítico { color: var(--rust-deep); background: rgba(155, 59, 44, 0.12); }
+    .risk-badge.Controlado { color: #39ff14; border-color: #39ff14; background: rgba(57, 255, 20, 0.10); }
+    .risk-badge.neutral { color: #39ff14; border-color: #39ff14; background: rgba(57, 255, 20, 0.10); }
+    .risk-badge.Alerta { color: #ff7518; border-color: #ff7518; background: rgba(255, 117, 24, 0.12); }
+    .risk-badge.Crítico { color: #ff4d6d; border-color: #ff4d6d; background: rgba(225, 29, 72, 0.14); }
     .barrio-stats {
       font-family: var(--font-mono);
       font-size: 0.72rem;
@@ -1984,18 +1985,18 @@
               <span class="legend-item"><span class="risk-swatch Controlado"></span> Controlado</span>
               <span class="legend-item"><span class="risk-swatch Alerta"></span> Alerta</span>
               <span class="legend-item"><span class="risk-swatch Crítico"></span> Crítico</span>
-              <span class="pill green" style="color:#405a43;border-color:rgba(79,107,82,.55);background:rgba(79,107,82,.10);">
+              <span class="pill green" style="color:var(--toxic-green);border-color:rgba(57,255,20,.55);background:rgba(57,255,20,.10);">
                 <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> Censo INEC 2022
               </span>
             </div>
           </div>
           <p class="lead-note">
-            El cantón Manta se subdivide en 5 parroquias modeladas. La altura de cada bloque representa la incidencia sin intervención; el color, el nivel de riesgo con la estrategia activa. La estrategia prioriza cortar los puentes comerciales que conectan el Mercado de Tarqui con Manta Centro y las parroquias periféricas.
+            El cantón Manta se subdivide en 5 parroquias modeladas. La altura de cada bloque representa la incidencia sin intervención; el color, el nivel de riesgo con la estrategia activa. Los Esteros y Santa Marianita se muestran con el color del modelo pero sin datos SEIR; Cabecera Cantonal y Urbimanta se incorporan a Manta. La estrategia prioriza cortar los puentes comerciales que conectan el Mercado de Tarqui con Manta Centro y las parroquias periféricas.
           </p>
 
           <div class="map-layout">
             <div class="map-stage" id="map-stage">
-              <div class="map-stage-tag">Límites reales OSM · 5 parroquias · Modelo SEIR</div>
+              <div class="map-stage-tag">Límites oficiales GAD Manta · 7 parroquias · Modelo SEIR</div>
               <svg id="svg-parroquias-map" viewBox="0 0 720 640" role="group" aria-label="Mapa 3D interactivo de las parroquias de Manta"></svg>
               <div class="map-tooltip" id="map-tooltip" role="tooltip" aria-hidden="true"></div>
             </div>
@@ -2004,13 +2005,13 @@
                 <span class="map-detail-kicker">Ficha territorial</span>
                 <button type="button" class="btn-secondary" id="btn-all-parishes" aria-pressed="true" onclick="showAllParroquias()">Ver todas</button>
               </div>
-              <h3 id="map-detail-name">Todas las parroquias</h3>
+              <h3 id="map-detail-name">Parroquias del modelo</h3>
               <div id="map-detail-risk" class="map-detail-risk"></div>
               <dl class="map-detail-stats" id="map-detail-stats"></dl>
               <div class="map-spark" id="map-spark"></div>
             </aside>
           </div>
-          <p class="map-hint">Selecciona una parroquia con clic, toque o Enter para fijar su ficha; pasa el cursor para el detalle rápido y usa “Ver todas” para el agregado cantonal. Límites parroquiales reales de OpenStreetMap (ODbL), simplificados para el tablero.</p>
+          <p class="map-hint">Selecciona una parroquia con clic, toque o Enter para fijar su ficha; pasa el cursor para el detalle rápido y usa “Ver todas” para el agregado de las 5 parroquias del modelo. Límites oficiales del GAD Manta (capa Parroquias). Los Esteros y Santa Marianita se muestran con el color del modelo pero no tienen datos SEIR; Cabecera Cantonal y Urbimanta se incorporan a Manta.</p>
 
           <div class="territory-grid" id="territory-grid">
             <!-- Rendered by JS -->
@@ -2039,7 +2040,7 @@
         <div class="table-panel">
           <div class="panel-header" style="margin-bottom: 0.7rem;">
             <h2><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg> Lista de Asignación Prioritaria de Antígeno (Corrida 1)</h2>
-            <span class="pill green" style="color:#405a43;border-color:rgba(79,107,82,.55);background:rgba(79,107,82,.10);">
+            <span class="pill green" style="color:var(--toxic-green);border-color:rgba(57,255,20,.55);background:rgba(57,255,20,.10);">
               <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> 0 personas infectadas o inmunes asignadas
             </span>
           </div>
@@ -2562,9 +2563,9 @@
             </div>
             <div class="barrio-stats">
               <div>Población muestra: <strong>${b.poblacion}</strong></div>
-              <div>Infectados c/Plan: <strong style="color:${b.infectados_estrategia > 0 ? '#9b3b2c' : '#405a43'}">${Math.round(b.infectados_estrategia)}</strong></div>
-              <div>Infectados s/Plan: <strong style="color:#9b3b2c">${Math.round(b.infectados_nada)}</strong></div>
-              <div>Vidas Salvadas: <strong style="color:#405a43">+${Math.round(b.salvados)}</strong></div>
+              <div>Infectados c/Plan: <strong style="color:${b.infectados_estrategia > 0 ? 'var(--rust)' : 'var(--sage)'}">${Math.round(b.infectados_estrategia)}</strong></div>
+              <div>Infectados s/Plan: <strong style="color:var(--rust)">${Math.round(b.infectados_nada)}</strong></div>
+              <div>Vidas Salvadas: <strong style="color:var(--sage)">+${Math.round(b.salvados)}</strong></div>
               <div>Tasa de Ataque: <strong>${(b.tasa_ataque * 100).toFixed(1)}%</strong></div>
             </div>
           </div>
@@ -2617,14 +2618,18 @@
 
     // --- MAPA TÁCTICO 3D: geometría, render, hover y selección ---
     const PARISH_GEOMETRY = [
-      { idx: 0, name: 'Manta', short: 'MANTA', shape: [[433.1, 122.3], [444.3, 122.1], [441.5, 114.9], [444.9, 108.5], [458.1, 103.8], [469.6, 94.1], [470.5, 89.8], [464.6, 88.8], [472.1, 69.4], [482.8, 66.6], [493.6, 67.5], [497.9, 71.5], [505.6, 72.5], [515.5, 70.2], [515.6, 68.3], [515.7, 70.7], [528.0, 69.0], [528.1, 65.9], [529.3, 69.5], [542.1, 66.1], [579.3, 50.2], [590.0, 42.7], [591.8, 31.2], [599.5, 30.0], [592.1, 31.8], [592.3, 42.5], [580.4, 58.4], [588.0, 64.2], [585.2, 67.9], [593.7, 76.8], [605.2, 79.0], [607.9, 86.8], [604.3, 98.3], [590.5, 105.9], [581.1, 106.3], [578.5, 114.6], [570.4, 114.3], [564.9, 116.9], [559.7, 125.1], [548.7, 121.9], [548.2, 126.8], [541.9, 129.0], [542.9, 134.3], [536.4, 134.4], [547.6, 141.1], [530.6, 157.5], [517.1, 184.8], [511.0, 191.6], [512.8, 194.0], [511.4, 200.7], [505.7, 209.0], [505.8, 232.7], [501.9, 237.5], [502.9, 257.9], [477.6, 257.6], [477.3, 244.1], [471.9, 237.5], [469.2, 225.6], [477.7, 205.0], [494.2, 186.3], [501.4, 163.0], [493.7, 149.6], [478.2, 161.6], [478.5, 173.5], [457.5, 173.7], [457.6, 166.1], [433.0, 156.4]], label: [488.1, 145.3] },
-      { idx: 1, name: 'Tarqui', short: 'TARQUI', shape: [[527.1, 164.6], [538.5, 148.2], [547.6, 141.1], [536.4, 134.4], [542.9, 134.3], [541.9, 129.0], [548.2, 126.8], [548.7, 121.9], [559.7, 125.1], [564.9, 116.9], [570.4, 114.3], [578.1, 114.9], [581.1, 106.3], [590.5, 105.9], [604.3, 98.3], [607.9, 86.8], [614.3, 85.3], [631.8, 87.2], [632.1, 101.1], [643.1, 105.3], [655.4, 106.3], [638.8, 128.6], [651.5, 144.0], [658.8, 162.8], [642.0, 141.7], [600.1, 174.5], [610.2, 182.6], [608.5, 197.9], [614.8, 203.1], [593.0, 227.5], [586.7, 222.4], [584.5, 223.7], [566.6, 250.8], [560.6, 245.1], [564.8, 242.4], [579.0, 220.8], [562.6, 201.8], [554.1, 184.7], [557.5, 178.5], [564.9, 175.4], [564.1, 169.3], [558.9, 166.4], [558.4, 161.6], [544.3, 162.5], [540.5, 171.7]], label: [585.1, 167.8] },
-      { idx: 2, name: 'Eloy Alfaro', short: 'ELOY ALFARO', shape: [[624.5, 209.2], [608.5, 197.9], [610.2, 182.6], [600.1, 174.5], [642.0, 141.7], [658.8, 162.8], [672.2, 196.0], [669.3, 197.0], [668.4, 194.8], [658.2, 199.4], [656.7, 195.8], [643.1, 201.6], [645.2, 202.4], [646.9, 211.3], [634.2, 216.4], [634.9, 225.0], [629.3, 220.6]], label: [639.4, 188.7] },
-      { idx: 3, name: 'San Mateo', short: 'SAN MATEO', shape: [[333.5, 100.2], [342.5, 101.2], [349.1, 98.1], [348.1, 101.1], [353.8, 103.5], [346.5, 101.4], [342.3, 107.0], [346.4, 109.5], [347.6, 108.0], [346.8, 109.7], [349.2, 111.0], [351.9, 107.4], [349.3, 112.1], [357.7, 116.3], [380.3, 116.0], [397.8, 110.5], [403.4, 111.9], [414.4, 108.5], [434.8, 96.8], [472.1, 69.4], [464.6, 88.8], [470.5, 89.8], [469.6, 94.1], [458.1, 103.8], [444.9, 108.5], [441.5, 114.9], [444.3, 122.1], [441.8, 122.8], [362.1, 122.9], [357.9, 128.1], [357.2, 137.3], [344.1, 136.7], [335.4, 125.9], [325.9, 126.3], [328.3, 121.7], [327.1, 119.0], [322.9, 122.3], [315.0, 123.6], [315.9, 120.9], [325.3, 115.3]], label: [442.4, 102.4] },
-      { idx: 4, name: 'San Lorenzo', short: 'SAN LORENZO', shape: [[129.5, 610.0], [120.1, 579.5], [98.9, 532.7], [77.6, 457.3], [51.3, 402.6], [47.8, 399.9], [48.5, 395.3], [57.5, 394.0], [64.8, 389.2], [71.7, 375.7], [75.1, 350.4], [74.6, 337.2], [84.4, 330.2], [105.7, 329.9], [116.4, 323.7], [130.3, 311.7], [136.2, 298.1], [142.5, 290.5], [149.7, 289.1], [156.4, 283.5], [156.2, 321.5], [153.5, 328.6], [149.5, 332.5], [152.2, 336.6], [150.1, 341.0], [151.4, 343.0], [146.5, 346.1], [145.4, 350.2], [141.8, 350.8], [132.6, 359.0], [134.7, 362.2], [137.1, 362.1], [147.9, 354.6], [153.5, 359.6], [146.3, 364.9], [142.6, 364.6], [142.6, 375.8], [149.3, 378.2], [159.4, 374.5], [162.7, 370.5], [167.4, 371.6], [170.6, 366.5], [176.2, 377.4], [181.9, 378.2], [182.5, 381.3], [196.6, 382.0], [195.4, 370.5], [204.4, 371.6], [206.3, 369.2], [204.2, 366.3], [218.1, 364.3], [220.2, 359.8], [223.6, 360.4], [228.3, 357.4], [248.9, 355.7], [273.8, 334.6], [277.5, 329.4], [275.9, 320.3], [279.7, 312.4], [284.7, 308.8], [285.4, 305.4], [292.6, 302.6], [295.5, 295.5], [300.2, 292.5], [300.7, 286.4], [303.6, 286.1], [306.0, 280.5], [308.8, 280.4], [307.4, 277.9], [314.1, 276.5], [315.2, 272.2], [319.5, 270.7], [317.3, 249.3], [320.5, 247.9], [318.0, 243.2], [320.5, 240.2], [315.9, 225.1], [317.1, 203.3], [313.8, 200.9], [315.5, 192.9], [310.8, 187.1], [310.5, 180.3], [307.5, 176.5], [432.6, 176.5], [434.3, 186.1], [430.2, 189.3], [425.8, 202.1], [431.4, 223.9], [425.1, 231.3], [461.1, 231.3], [477.6, 257.6], [497.2, 257.6], [497.2, 266.8], [515.0, 275.5], [515.8, 281.0], [513.0, 283.9], [514.4, 286.8], [518.6, 288.0], [527.7, 285.3], [539.6, 302.7], [540.3, 307.2], [537.9, 312.1], [530.1, 310.4], [527.0, 317.4], [521.4, 320.7], [520.9, 334.9], [508.2, 334.5], [506.3, 339.1], [500.3, 342.3], [489.2, 337.7], [482.0, 339.8], [471.8, 354.6], [463.6, 358.8], [465.7, 365.5], [464.9, 373.2], [469.1, 383.9], [465.7, 405.3], [467.6, 423.5], [454.0, 421.1], [431.1, 434.4], [418.7, 435.5], [407.6, 432.2], [412.9, 434.0], [415.7, 440.9], [417.1, 506.7], [301.7, 506.7], [308.3, 512.8], [311.9, 529.3], [310.4, 534.9], [304.2, 539.1], [304.2, 558.8], [277.0, 583.9], [265.4, 585.9], [255.9, 580.9], [251.1, 582.0], [245.8, 587.3], [199.7, 587.3], [177.1, 610.0]], label: [264.5, 391.6] },
+      { idx: 0, name: 'Manta', short: 'MANTA', model: true, area_ha: 2211.8678209, shapes: [[[493.2, 277.8], [490.1, 280.1], [466.5, 289.0], [467.1, 290.3], [459.5, 289.4], [454.2, 285.0], [451.2, 278.4], [443.0, 273.9], [438.6, 263.2], [438.7, 263.2], [420.3, 263.2], [420.3, 262.5], [405.4, 239.3], [372.6, 239.3], [378.3, 232.5], [373.2, 212.6], [379.1, 199.7], [379.3, 189.5], [266.8, 190.1], [265.0, 188.1], [264.4, 179.6], [260.7, 176.5], [263.5, 170.1], [261.6, 159.9], [259.2, 162.5], [226.1, 162.0], [243.5, 132.5], [245.9, 123.7], [247.0, 127.1], [256.3, 128.8], [273.0, 119.7], [281.6, 118.7], [288.7, 121.2], [282.0, 133.8], [273.5, 138.9], [272.5, 141.9], [279.6, 140.3], [283.4, 137.2], [284.7, 139.5], [282.7, 144.0], [291.2, 143.5], [299.0, 153.1], [311.1, 153.7], [311.5, 145.7], [315.2, 140.9], [380.9, 140.9], [380.9, 140.9], [389.9, 140.4], [386.7, 134.0], [390.0, 128.0], [398.9, 123.5], [402.9, 124.1], [405.1, 120.2], [413.2, 114.5], [413.8, 110.8], [408.4, 109.7], [415.4, 92.3], [425.4, 89.9], [435.5, 90.7], [438.8, 94.1], [445.5, 95.0], [466.4, 92.5], [466.2, 89.2], [466.6, 92.5], [479.2, 89.3], [519.4, 73.1], [522.4, 69.3], [523.9, 57.8], [531.1, 56.4], [524.3, 58.1], [525.1, 60.2], [530.1, 60.3], [524.4, 60.9], [524.4, 64.8], [529.6, 65.0], [524.4, 65.4], [524.3, 68.5], [513.8, 82.2], [520.7, 87.5], [518.4, 91.1], [526.4, 100.0], [536.3, 100.9], [533.4, 101.5], [533.4, 104.8], [538.9, 107.9], [536.0, 118.7], [523.0, 125.5], [514.2, 125.7], [511.9, 133.5], [505.2, 133.4], [499.3, 135.9], [495.0, 142.8], [484.7, 140.2], [484.5, 144.3], [478.8, 146.6], [479.4, 151.4], [473.7, 151.6], [483.8, 157.5], [494.5, 149.2], [495.8, 163.1], [511.7, 170.9], [508.3, 172.2], [509.9, 182.5], [514.6, 190.7], [525.2, 183.4], [536.2, 190.8], [541.7, 197.3], [539.4, 209.4], [545.3, 213.8], [524.5, 236.5], [529.3, 241.0], [526.3, 249.0], [542.5, 256.2], [516.0, 282.0], [508.9, 279.4], [503.8, 272.3], [499.1, 271.2], [500.5, 270.3], [495.5, 270.4]]], label: [429.7, 161.9] },
+      { idx: 1, name: 'Tarqui', short: 'TARQUI', model: true, area_ha: 1323.24447385, shapes: [[[531.7, 187.8], [525.2, 183.4], [514.6, 190.7], [508.5, 178.0], [508.3, 172.2], [511.7, 170.9], [495.8, 163.1], [494.5, 149.2], [483.8, 157.5], [473.7, 151.6], [479.4, 151.4], [478.8, 146.6], [484.5, 144.3], [484.7, 140.2], [495.0, 142.8], [499.3, 135.9], [505.2, 133.4], [511.9, 133.5], [514.2, 125.7], [523.0, 125.5], [536.0, 118.7], [538.9, 107.9], [560.4, 109.0], [560.8, 121.1], [571.6, 125.1], [582.0, 125.8], [566.9, 146.1], [578.1, 159.7], [585.0, 176.9], [569.8, 158.0]]], label: [532.5, 150.3] },
+      { idx: 2, name: 'Eloy Alfaro', short: 'ELOY ALFARO', model: true, area_ha: 454.005665409, shapes: [[[583.1, 207.0], [570.7, 212.3], [572.7, 213.0], [574.2, 221.1], [562.8, 225.8], [563.4, 233.7], [558.2, 229.5], [553.4, 218.7], [539.9, 210.3], [541.3, 196.0], [531.7, 187.8], [569.8, 158.0], [585.0, 176.9], [597.2, 207.2], [594.6, 208.1], [593.8, 206.2], [584.5, 210.3]]], label: [563.8, 191.9] },
+      { idx: 3, name: 'San Mateo', short: 'SAN MATEO', model: true, area_ha: 382.230111273, shapes: [[[272.5, 141.9], [273.5, 138.9], [282.0, 133.8], [288.7, 121.2], [297.1, 125.6], [300.2, 120.6], [303.2, 118.1], [301.2, 120.5], [307.8, 123.1], [301.2, 121.2], [297.4, 126.3], [301.1, 128.7], [302.2, 127.3], [301.5, 128.9], [303.6, 130.1], [306.0, 126.7], [302.9, 132.3], [311.6, 134.8], [332.3, 134.4], [362.5, 127.9], [381.2, 117.3], [414.1, 93.3], [413.5, 100.4], [408.4, 109.7], [413.8, 110.8], [413.2, 114.5], [405.1, 120.2], [402.9, 124.1], [398.9, 123.5], [390.0, 128.0], [386.7, 134.0], [389.9, 140.4], [315.2, 140.9], [311.5, 145.7], [311.1, 153.7], [299.0, 153.1], [291.2, 143.5], [282.7, 144.0], [284.7, 139.5], [283.4, 137.2], [279.6, 140.3]]], label: [387.0, 123.3] },
+      { idx: 4, name: 'San Lorenzo', short: 'SAN LORENZO', model: true, area_ha: 16272.7149963, shapes: [[[420.4, 262.7], [438.6, 263.2], [443.2, 274.2], [451.2, 278.4], [456.6, 287.8], [467.1, 290.3], [475.9, 303.0], [477.6, 308.9], [475.1, 313.0], [468.3, 311.3], [465.5, 317.7], [459.6, 319.9], [459.6, 333.6], [448.0, 333.2], [446.5, 337.3], [440.9, 340.3], [430.8, 336.1], [424.3, 338.1], [415.1, 351.5], [407.7, 355.3], [409.6, 361.3], [409.0, 368.3], [412.9, 379.2], [409.5, 397.8], [411.3, 414.0], [403.4, 411.4], [398.3, 412.1], [378.0, 423.9], [366.8, 425.0], [356.7, 422.0], [361.5, 423.7], [364.1, 429.8], [365.3, 489.7], [260.5, 489.7], [266.5, 495.3], [269.8, 510.2], [268.4, 515.4], [262.8, 519.1], [262.8, 537.0], [238.0, 559.8], [227.5, 561.7], [218.8, 557.1], [214.3, 558.2], [209.6, 562.9], [167.7, 562.9], [147.2, 583.6], [103.5, 583.6], [97.9, 564.6], [75.5, 512.2], [57.5, 446.0], [32.8, 393.0], [30.0, 390.5], [30.5, 388.5], [40.0, 387.3], [43.9, 384.2], [50.8, 371.9], [55.7, 352.2], [54.3, 335.7], [63.1, 329.4], [81.4, 329.5], [91.9, 323.3], [104.7, 312.7], [110.1, 300.3], [116.0, 293.2], [122.4, 292.0], [128.0, 287.1], [127.7, 321.3], [126.9, 326.4], [122.0, 331.3], [124.3, 340.6], [119.1, 343.8], [118.4, 348.0], [120.4, 350.8], [112.7, 356.0], [115.1, 359.7], [115.9, 370.7], [123.5, 372.6], [133.7, 366.0], [138.5, 366.6], [140.8, 362.4], [146.0, 372.0], [151.1, 373.1], [152.0, 375.3], [161.7, 375.3], [165.0, 367.3], [171.8, 366.5], [173.7, 364.7], [173.3, 361.7], [183.3, 360.5], [185.7, 356.5], [190.8, 355.7], [195.6, 347.2], [205.5, 344.1], [223.8, 331.7], [232.1, 335.6], [238.0, 328.9], [237.4, 318.8], [242.3, 310.7], [248.6, 304.4], [251.9, 304.3], [252.7, 300.0], [259.2, 294.6], [259.7, 289.5], [266.4, 283.8], [265.7, 281.3], [271.3, 280.3], [272.3, 276.7], [276.0, 274.9], [274.6, 255.9], [277.3, 254.2], [275.2, 251.3], [277.0, 247.1], [273.7, 236.5], [274.2, 215.0], [271.4, 211.6], [272.1, 201.7], [268.4, 199.0], [266.8, 190.1], [379.3, 189.5], [379.1, 199.7], [373.2, 212.6], [378.3, 232.5], [372.6, 239.3], [405.4, 239.3]]], label: [226.8, 385.7] },
+      { idx: 5, name: 'Los Esteros', short: 'LOS ESTEROS', model: false, area_ha: 1640.00567602, shapes: [[[629.1, 172.7], [619.6, 191.6], [615.7, 190.0], [607.9, 197.1], [609.4, 200.5], [602.2, 204.6], [600.4, 200.3], [595.3, 202.3], [578.4, 160.2], [566.9, 146.1], [582.0, 125.8], [571.6, 125.1], [560.8, 121.1], [560.4, 109.0], [581.8, 104.2], [588.6, 105.5], [590.6, 102.8], [617.0, 95.9], [652.6, 73.8], [663.1, 62.4], [669.8, 67.2], [682.1, 59.2], [690.0, 71.1], [682.2, 98.1], [683.3, 105.3], [675.3, 107.7], [675.0, 111.1], [664.2, 120.3], [663.2, 147.1], [654.0, 143.9], [641.9, 167.6], [634.9, 173.8], [631.2, 174.8]]], label: [619.5, 134.8] },
+      { idx: 6, name: 'Santa Marianita', short: 'SANTA MARIANITA', model: false, area_ha: 3712.57066769, shapes: [[[261.3, 159.8], [263.5, 170.0], [260.7, 176.5], [264.4, 179.6], [268.4, 198.9], [272.1, 201.7], [271.4, 211.7], [274.2, 215.0], [273.7, 236.5], [277.0, 247.1], [275.2, 251.3], [277.3, 254.2], [274.6, 255.9], [276.0, 274.9], [272.3, 276.7], [271.3, 280.3], [265.7, 281.3], [266.4, 283.8], [259.7, 289.5], [259.2, 294.6], [252.7, 300.0], [251.9, 304.3], [248.6, 304.4], [242.3, 310.7], [237.4, 318.8], [238.0, 328.9], [232.1, 335.6], [223.8, 331.7], [205.5, 344.1], [195.6, 347.2], [190.8, 355.7], [185.7, 356.5], [183.3, 360.5], [173.3, 361.7], [173.7, 364.7], [171.8, 366.5], [165.0, 367.3], [161.7, 375.3], [152.0, 375.3], [151.1, 373.1], [146.0, 372.0], [140.8, 362.4], [138.5, 366.6], [133.7, 366.0], [123.5, 372.6], [115.9, 370.7], [115.1, 359.7], [112.7, 356.0], [120.4, 350.8], [118.4, 348.0], [119.1, 343.8], [124.3, 340.6], [122.0, 331.3], [126.9, 326.4], [127.7, 321.3], [128.0, 287.1], [132.8, 283.1], [144.3, 264.6], [151.5, 247.5], [155.9, 243.6], [160.5, 232.4], [166.6, 225.5], [171.4, 224.5], [174.0, 219.9], [178.4, 221.5], [182.8, 218.6], [194.9, 202.2], [211.8, 185.0], [226.1, 162.0], [259.2, 162.5]]], label: [208.3, 269.8] },
     ];
-    const MAP_COAST_PATH = "M 98.9 532.7 L 77.6 457.3 L 51.3 402.6 L 47.8 399.9 L 48.5 395.3 L 57.5 394.0 L 64.8 389.2 L 71.7 375.7 L 75.1 350.4 L 74.6 337.2 L 84.4 330.2 L 105.7 329.9 L 116.4 323.7 L 130.3 311.7 L 136.2 298.1 L 142.5 290.5 L 149.7 289.1 L 156.4 283.5 L 156.2 321.5 L 153.5 328.6 L 149.5 332.5 L 152.2 336.6 L 150.1 341.0 L 151.4 343.0 L 146.5 346.1 L 145.4 350.2 L 141.8 350.8 L 132.6 359.0 L 134.7 362.2 L 137.1 362.1 L 147.9 354.6 L 153.5 359.6 L 146.3 364.9 L 142.6 364.6 L 142.6 375.8 L 149.3 378.2 L 159.4 374.5 L 162.7 370.5 L 167.4 371.6 L 170.6 366.5 L 176.2 377.4 L 181.9 378.2 L 182.5 381.3 L 196.6 382.0 L 195.4 370.5 L 204.4 371.6 L 206.3 369.2 L 204.2 366.3 L 218.1 364.3 L 220.2 359.8 L 223.6 360.4 L 228.3 357.4 L 248.9 355.7 L 273.8 334.6 L 277.5 329.4 L 275.9 320.3 L 279.7 312.4 L 284.7 308.8 L 285.4 305.4 L 292.6 302.6 L 295.5 295.5 L 300.2 292.5 L 300.7 286.4 L 303.6 286.1 L 306.0 280.5 L 308.8 280.4 L 307.4 277.9 L 314.1 276.5 L 315.2 272.2 L 319.5 270.7 L 317.3 249.3 L 320.5 247.9 L 318.0 243.2 L 320.5 240.2 L 315.9 225.1 L 317.1 203.3 L 313.8 200.9 L 315.5 192.9 L 310.8 187.1 L 310.5 180.3 L 307.5 176.5 L 432.6 176.5 L 434.3 186.1 L 430.2 189.3 L 425.8 202.1 L 431.4 223.9 L 425.1 231.3 L 461.1 231.3 L 477.6 257.6 L 477.3 244.1 L 471.9 237.5 L 469.2 225.6 L 477.7 205.0 L 494.2 186.3 L 501.4 163.0 L 493.7 149.6 L 478.2 161.6 L 478.5 173.5 L 457.5 173.7 L 457.6 166.1 L 433.0 156.4 L 433.1 122.8 L 362.1 122.9 L 357.9 128.1 L 357.2 137.3 L 344.1 136.7 L 335.4 125.9 L 325.9 126.3 L 328.3 121.7 L 327.1 119.0 L 322.9 122.3 L 315.0 123.6 L 315.9 120.9 L 325.3 115.3 L 333.5 100.2 L 342.5 101.2 L 349.1 98.1 L 348.1 101.1 L 353.8 103.5 L 346.5 101.4 L 342.3 107.0 L 346.4 109.5 L 347.6 108.0 L 346.8 109.7 L 349.2 111.0 L 351.9 107.4 L 349.3 112.1 L 357.7 116.3 L 380.3 116.0 L 397.8 110.5 L 403.4 111.9 L 414.4 108.5 L 434.8 96.8 L 472.1 69.4 L 482.8 66.6 L 493.6 67.5 L 497.9 71.5 L 505.6 72.5 L 515.5 70.2 L 515.6 68.3 L 515.7 70.7 L 528.0 69.0 L 528.1 65.9 L 529.3 69.5 L 542.1 66.1 L 579.3 50.2 L 590.0 42.7 L 591.8 31.2 L 599.5 30.0 L 592.1 31.8 L 592.3 42.5 L 580.4 58.4 L 588.0 64.2 L 585.2 67.9 L 593.7 76.8 L 605.2 79.0 L 607.9 86.8 L 614.3 85.3 L 631.8 87.2 L 632.1 101.1 L 643.1 105.3 L 655.4 106.3 L 638.8 128.6 L 651.5 144.0 L 658.8 162.8 L 672.2 196.0 L 669.3 197.0 L 668.4 194.8 L 658.2 199.4 L 656.7 195.8 L 643.1 201.6 L 645.2 202.4 L 646.9 211.3 L 634.2 216.4 L 634.9 225.0 L 629.3 220.6 L 624.5 209.2 L 608.5 197.9 L 614.8 203.1 L 593.0 227.5 L 586.7 222.4 L 584.5 223.7 L 566.6 250.8 L 560.6 245.1 L 564.8 242.4 L 579.0 220.8 L 562.6 201.8 L 554.1 184.7 L 557.5 178.5 L 564.9 175.4 L 564.1 169.3 L 558.9 166.4 L 558.4 161.6 L 544.3 162.5 L 540.5 171.7 L 527.1 164.6 L 535.1 153.2 L 530.6 157.5 L 517.1 184.8 L 511.0 191.6 L 512.8 194.0 L 511.4 200.7 L 505.7 209.0 L 505.8 232.7 L 501.9 237.5 L 502.9 257.9 L 497.2 257.8 L 497.2 266.8 L 515.0 275.5 L 515.8 281.0 L 513.0 283.9 L 514.4 286.8 L 518.6 288.0 L 527.7 285.3 L 539.6 302.7 L 540.3 307.2 L 537.9 312.1 L 530.1 310.4 L 527.0 317.4 L 521.4 320.7 L 520.9 334.9 L 508.2 334.5 L 506.3 339.1 L 500.3 342.3 L 489.2 337.7 L 482.0 339.8 L 471.8 354.6 L 463.6 358.8 L 465.7 365.5 L 464.9 373.2 L 469.1 383.9 L 465.7 405.3 L 467.6 423.5 L 454.0 421.1 L 431.1 434.4 L 418.7 435.5 L 407.6 432.2 L 412.9 434.0 L 415.7 440.9 L 417.1 506.7 L 301.7 506.7 L 308.3 512.8 L 311.9 529.3 L 310.4 534.9 L 304.2 539.1 L 304.2 558.8 L 277.0 583.9 L 265.4 585.9 L 255.9 580.9 L 251.1 582.0 L 245.8 587.3 L 199.7 587.3 L 177.1 610.0 L 129.5 610.0 L 120.1 579.5 Z";
-    const MAP_SCALE_5KM = 128.2;
+    const CONTEXT_GEOMETRY = [
+    ];
+    const MAP_COAST_PATH = "M 475.9 303.0 L 477.6 308.9 L 475.1 313.0 L 468.3 311.3 L 465.5 317.7 L 459.6 319.9 L 459.6 333.6 L 448.0 333.2 L 446.5 337.3 L 440.9 340.3 L 430.8 336.1 L 424.3 338.1 L 415.1 351.5 L 407.7 355.3 L 409.6 361.3 L 409.0 368.3 L 412.9 379.2 L 409.5 397.8 L 411.3 414.0 L 403.4 411.4 L 398.3 412.1 L 378.0 423.9 L 366.8 425.0 L 356.7 422.0 L 361.5 423.7 L 364.1 429.8 L 365.3 489.7 L 260.5 489.7 L 266.5 495.3 L 269.8 510.2 L 268.4 515.4 L 262.8 519.1 L 262.8 537.0 L 238.0 559.8 L 227.5 561.7 L 218.8 557.1 L 214.3 558.2 L 209.6 562.9 L 167.7 562.9 L 147.2 583.6 L 103.5 583.6 L 97.9 564.6 L 75.5 512.2 L 57.5 446.0 L 32.8 393.0 L 30.0 390.5 L 30.5 388.5 L 40.0 387.3 L 43.9 384.2 L 50.8 371.9 L 55.7 352.2 L 54.3 335.7 L 63.1 329.4 L 81.4 329.5 L 91.9 323.3 L 104.7 312.7 L 110.1 300.3 L 116.0 293.2 L 122.4 292.0 L 128.0 287.1 L 128.0 287.1 L 132.8 283.1 L 144.3 264.6 L 151.5 247.5 L 155.9 243.6 L 160.5 232.4 L 166.6 225.5 L 171.4 224.5 L 174.0 219.9 L 178.4 221.5 L 182.8 218.6 L 194.9 202.2 L 211.8 185.0 L 226.1 162.0 L 226.1 162.0 L 243.5 132.5 L 245.9 123.7 L 247.0 127.1 L 256.3 128.8 L 273.0 119.7 L 281.6 118.7 L 288.7 121.2 L 282.0 133.8 L 288.7 121.2 L 297.1 125.6 L 300.2 120.6 L 303.2 118.1 L 301.2 120.5 L 307.8 123.1 L 301.2 121.2 L 297.4 126.3 L 301.1 128.7 L 302.2 127.3 L 301.5 128.9 L 303.6 130.1 L 306.0 126.7 L 302.9 132.3 L 311.6 134.8 L 332.3 134.4 L 362.5 127.9 L 381.2 117.3 L 414.1 93.3 L 413.9 96.0 L 415.4 92.3 L 425.4 89.9 L 435.5 90.7 L 438.8 94.1 L 445.5 95.0 L 466.4 92.5 L 466.2 89.2 L 466.6 92.5 L 479.2 89.3 L 519.4 73.1 L 522.4 69.3 L 523.9 57.8 L 531.1 56.4 L 524.3 58.1 L 525.1 60.2 L 530.1 60.3 L 524.4 60.9 L 524.4 64.8 L 529.6 65.0 L 524.4 65.4 L 524.3 68.5 L 513.8 82.2 L 520.7 87.5 L 518.4 91.1 L 526.4 100.0 L 536.3 100.9 L 533.4 101.5 L 533.4 104.8 L 538.9 107.9 L 560.4 109.0 L 581.8 104.2 L 588.6 105.5 L 590.6 102.8 L 617.0 95.9 L 652.6 73.8 L 663.1 62.4 L 669.8 67.2 L 682.1 59.2 L 690.0 71.1 L 682.2 98.1 L 683.3 105.3 L 675.3 107.7 L 675.0 111.1 L 664.2 120.3 L 663.2 147.1 L 654.0 143.9 L 641.9 167.6 L 634.9 173.8 L 631.2 174.8 L 629.1 172.7 L 619.6 191.6 L 615.7 190.0 L 607.9 197.1 L 609.4 200.5 L 602.2 204.6 L 600.4 200.3 L 595.3 202.3 L 578.4 160.2 L 578.2 160.0 L 585.0 176.9 L 597.2 207.2 L 594.6 208.1 L 593.8 206.2 L 584.5 210.3 L 583.1 207.0 L 570.7 212.3 L 572.7 213.0 L 574.2 221.1 L 562.8 225.8 L 563.4 233.7 L 558.2 229.5 L 553.4 218.7 L 543.9 212.7 L 545.3 213.8 L 524.5 236.5 L 529.3 241.0 L 526.3 249.0 L 542.5 256.2 L 516.0 282.0 L 508.9 279.4 L 503.8 272.3 L 499.1 271.2 L 500.5 270.3 L 495.5 270.4 L 493.2 277.8 L 490.1 280.1 L 466.5 289.0 L 467.1 290.3 L 467.1 290.3 L 467.1 290.3 Z";
+    const MAP_SCALE_5KM = 116.5;
 
     function escapeHtml(value) {
       return String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
@@ -2656,7 +2661,7 @@
       const incN = barrios.reduce((a, b) => a + b.infectados_nada, 0);
       const salvados = barrios.reduce((a, b) => a + b.salvados, 0);
       const rate = incS / Math.max(1, poblacion);
-      return { nombre: 'Todas las parroquias', poblacion, infectados_estrategia: incS, infectados_nada: incN, salvados, tasa_ataque: rate, nivel_riesgo: riskForRate(rate) };
+      return { nombre: 'Parroquias del modelo', poblacion, infectados_estrategia: incS, infectados_nada: incN, salvados, tasa_ataque: rate, nivel_riesgo: riskForRate(rate) };
     }
 
     function sumCurves(key) {
@@ -2685,15 +2690,15 @@
         </div>
         <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
           <line x1="${P}" y1="${H - P}" x2="${W - P}" y2="${H - P}" stroke="rgba(26,27,21,.28)" stroke-width="1" />
-          <path d="${line(seriesNone)}" fill="none" stroke="#9b3b2c" stroke-width="1.5" />
-          <path d="${line(seriesPlan)}" fill="none" stroke="#4f6b52" stroke-width="2" />
+          <path d="${line(seriesNone)}" fill="none" stroke="#ff1e42" stroke-width="1.5" />
+          <path d="${line(seriesPlan)}" fill="none" stroke="#39ff14" stroke-width="2" />
         </svg>`;
     }
 
     function renderParroquiaMap(territorial) {
       if (!DOM.svgParroquias || !territorial || !territorial.barrios || !territorial.barrios.length) return;
       const barrios = territorial.barrios;
-      if (selectedParroquiaIndex >= barrios.length) selectedParroquiaIndex = -1;
+      if (selectedParroquiaIndex >= PARISH_GEOMETRY.length) selectedParroquiaIndex = -1;
       const maxNada = Math.max(1, ...barrios.map(b => b.infectados_nada));
 
       const defs = `
@@ -2705,38 +2710,45 @@
             <feGaussianBlur stdDeviation="6" />
           </filter>
           <radialGradient id="map-glow" cx="50%" cy="45%" r="62%">
-            <stop offset="0%" stop-color="rgba(111,122,84,0.18)" />
+            <stop offset="0%" stop-color="rgba(168,85,247,0.18)" />
             <stop offset="100%" stop-color="rgba(11,13,9,0)" />
           </radialGradient>
         </defs>`;
 
       const background = `
-        <rect width="720" height="640" fill="#0e110b" />
+        <rect width="720" height="640" fill="#0e0916" />
         <rect width="720" height="640" fill="url(#map-grid)" />
         <rect width="720" height="640" fill="url(#map-glow)" />
         <path d="${MAP_COAST_PATH}" fill="rgba(30,44,48,0.32)" stroke="rgba(150,180,190,0.4)" stroke-width="1.4" />
-        <text x="18" y="622" fill="rgba(150,180,190,0.6)" font-family="'Special Elite', monospace" font-size="10" letter-spacing="2">OCÉANO PACÍFICO</text>
+        <text x="30" y="300" transform="rotate(-90 30 300)" text-anchor="middle" fill="rgba(150,180,190,0.6)" font-family="'Special Elite', monospace" font-size="10" letter-spacing="2">OCÉANO PACÍFICO</text>
         <rect x="8" y="8" width="704" height="624" fill="none" stroke="rgba(240,234,216,0.08)" stroke-dasharray="2 6" />`;
 
-      const order = PARISH_GEOMETRY.slice().sort((a, b) => averageY(a.shape) - averageY(b.shape));
-      let blocks = '';
+      const order = PARISH_GEOMETRY.slice().sort((a, b) => averageY(a.shapes[0]) - averageY(b.shapes[0]));
+      let context = '';
+      if (typeof CONTEXT_GEOMETRY !== 'undefined') {
+        context = CONTEXT_GEOMETRY.map(c => `<polygon points="${polygonPoints(c.shape)}" fill="#242a20" stroke="rgba(150,180,190,0.22)" stroke-width="1" />`).join('');
+      }
+      let shadows = '';
+      let sides = '';
+      let tops = '';
       let labels = '';
       order.forEach(geo => {
-        const b = barrios[geo.idx];
-        if (!b) return;
-        const pal = riskPalette(b.nivel_riesgo);
-        const depth = 16 + (b.infectados_nada / maxNada) * 30;
-        const topPoints = polygonPoints(geo.shape);
-        const bottomPoints = polygonPoints(geo.shape, depth);
-        const aria = `Parroquia ${b.nombre}: riesgo ${b.nivel_riesgo}, ${b.poblacion} personas en muestra, ${Math.round(b.infectados_estrategia)} infectados con plan y ${Math.round(b.infectados_nada)} sin plan.`;
+        const isModel = geo.model && geo.idx < barrios.length;
+        const b = isModel ? barrios[geo.idx] : null;
+        if (isModel && !b) return;
+        const pal = isModel ? riskPalette(b.nivel_riesgo) : riskPalette('Controlado');
+        const depth = isModel ? 16 + (b.infectados_nada / maxNada) * 30 : 8;
+        const areaKm2 = geo.area_ha ? (geo.area_ha / 100).toFixed(1) : '--';
+        const aria = isModel
+          ? `Parroquia ${b.nombre}: riesgo ${b.nivel_riesgo}, ${b.poblacion} personas en muestra, ${Math.round(b.infectados_estrategia)} infectados con plan y ${Math.round(b.infectados_nada)} sin plan.`
+          : `Parroquia ${geo.name}: área oficial ${areaKm2} kilómetros cuadrados, fuera del modelo SEIR.`;
+        const topPolys = geo.shapes.map(ring => `<polygon class="parish-top" points="${polygonPoints(ring)}" fill="${pal.top}" stroke="${pal.edge}" stroke-width="1.4" />`).join('');
+        const bottomPolys = geo.shapes.map(ring => `<polygon points="${polygonPoints(ring, depth)}" fill="${pal.side}" stroke="${pal.side}" stroke-width="1" />`).join('');
 
-        blocks += `
-          <polygon points="${polygonPoints(geo.shape, depth + 8)}" fill="rgba(0,0,0,0.4)" filter="url(#map-shadow)" />
-          <g class="map-parish" data-idx="${geo.idx}" role="button" tabindex="0" aria-pressed="false" aria-label="${escapeHtml(aria)}">
-            <g class="parish-lift">
-              <polygon points="${bottomPoints}" fill="${pal.side}" stroke="${pal.side}" stroke-width="1" />
-              <polygon class="parish-top" points="${topPoints}" fill="${pal.top}" stroke="${pal.edge}" stroke-width="1.4" />
-            </g>
+        shadows += geo.shapes.map(ring => `<polygon points="${polygonPoints(ring, depth + 6)}" fill="rgba(0,0,0,0.22)" filter="url(#map-shadow)" />`).join('');
+        sides += bottomPolys;
+        tops += `<g class="map-parish" data-idx="${geo.idx}" role="button" tabindex="0" aria-pressed="false" aria-label="${escapeHtml(aria)}">
+            <g class="parish-lift">${topPolys}</g>
           </g>`;
         labels += `<text class="map-parish-label" x="${geo.label[0]}" y="${geo.label[1]}" text-anchor="middle" fill="#f0ead8">${geo.short}</text>`;
       });
@@ -2756,7 +2768,7 @@
           <text x="${MAP_SCALE_5KM}" y="-8" text-anchor="end" fill="rgba(240,234,216,0.6)" font-family="'Special Elite', monospace" font-size="8">5 km</text>
         </g>`;
 
-      DOM.svgParroquias.innerHTML = defs + background + blocks + labels + compass;
+      DOM.svgParroquias.innerHTML = defs + background + context + shadows + sides + tops + labels + compass;
       updateMapSelection();
       updateMapDetail();
     }
@@ -2780,12 +2792,33 @@
     function updateMapDetail() {
       if (!DOM.mapDetailName) return;
       const isAll = selectedParroquiaIndex < 0;
+      const isExtra = !isAll && selectedParroquiaIndex >= territorialState.barrios.length;
+
+      if (isExtra) {
+        const geo = PARISH_GEOMETRY[selectedParroquiaIndex];
+        if (!geo) return;
+        const areaKm2 = geo.area_ha ? (geo.area_ha / 100).toFixed(1) : '--';
+        DOM.mapDetailName.textContent = geo.name;
+        DOM.mapDetailRisk.innerHTML = `
+          <span class="risk-badge neutral">Sin datos SEIR</span>
+          <span class="map-detail-sub">Parroquia oficial · fuera del modelo</span>`;
+        DOM.mapDetailStats.innerHTML = `
+          <div class="map-stat"><dt>Área oficial</dt><dd>${areaKm2} km²</dd></div>
+          <div class="map-stat"><dt>Modelo SEIR</dt><dd>No incluida</dd></div>
+          <div class="map-stat"><dt>Población muestra</dt><dd>--</dd></div>
+          <div class="map-stat"><dt>Infectados c/Plan</dt><dd>--</dd></div>
+          <div class="map-stat"><dt>Infectados s/Plan</dt><dd>--</dd></div>
+          <div class="map-stat"><dt>Vidas salvadas</dt><dd>--</dd></div>`;
+        DOM.mapSpark.innerHTML = `<p class="map-spark-empty">Sin serie temporal: esta parroquia no forma parte del modelo SEIR.</p>`;
+        return;
+      }
+
       const b = isAll ? aggregateBarrios() : territorialState.barrios[selectedParroquiaIndex];
       if (!b) return;
       DOM.mapDetailName.textContent = b.nombre;
       DOM.mapDetailRisk.innerHTML = `
         <span class="risk-badge ${b.nivel_riesgo}">${b.nivel_riesgo}</span>
-        <span class="map-detail-sub">${isAll ? 'Agregado cantonal · 5 parroquias' : 'Parroquia modelada · Censo INEC'}</span>`;
+        <span class="map-detail-sub">${isAll ? 'Agregado cantonal · 5 parroquias del modelo' : 'Parroquia modelada · Censo INEC'}</span>`;
       const reduction = b.infectados_nada > 0 ? ((b.infectados_nada - b.infectados_estrategia) / b.infectados_nada) * 100 : 0;
       DOM.mapDetailStats.innerHTML = `
         <div class="map-stat"><dt>Población muestra</dt><dd>${b.poblacion}</dd></div>
@@ -2801,7 +2834,7 @@
 
     function selectParroquia(idx) {
       if (!territorialState.barrios.length) return;
-      if (idx < 0 || idx >= territorialState.barrios.length) return;
+      if (idx < 0 || idx >= PARISH_GEOMETRY.length) return;
       selectedParroquiaIndex = selectedParroquiaIndex === idx ? -1 : idx;
       updateMapSelection();
       updateMapDetail();
@@ -2841,10 +2874,26 @@
         <div class="map-tooltip-hint">Clic para fijar la ficha</div>`;
     }
 
+    function buildExtraTooltipHtml(geo) {
+      const areaKm2 = geo.area_ha ? (geo.area_ha / 100).toFixed(1) : '--';
+      return `
+        <div class="map-tooltip-top">
+          <span class="risk-swatch Controlado"></span>
+          <strong>${escapeHtml(geo.name)}</strong>
+          <span class="risk-badge neutral">Sin datos SEIR</span>
+        </div>
+        <dl class="map-tooltip-stats">
+          <div><dt>Área oficial</dt><dd>${areaKm2} km²</dd></div>
+          <div><dt>Modelo SEIR</dt><dd>No incluida</dd></div>
+        </dl>
+        <div class="map-tooltip-hint">Clic para fijar la ficha</div>`;
+    }
+
     function showMapTooltip(idx, event, group) {
-      const b = territorialState.barrios[idx];
-      if (!b || !DOM.mapTooltip || !DOM.mapStage) return;
-      DOM.mapTooltip.innerHTML = buildTooltipHtml(b);
+      const geo = PARISH_GEOMETRY[idx];
+      if (!geo || !DOM.mapTooltip || !DOM.mapStage) return;
+      const b = idx < territorialState.barrios.length ? territorialState.barrios[idx] : null;
+      DOM.mapTooltip.innerHTML = b ? buildTooltipHtml(b) : buildExtraTooltipHtml(geo);
       DOM.mapTooltip.classList.add('show');
       DOM.mapTooltip.setAttribute('aria-hidden', 'false');
       const stageRect = DOM.mapStage.getBoundingClientRect();
