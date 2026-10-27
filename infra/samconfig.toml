@@ -1,0 +1,13 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "spookython"
+resolve_s3 = true
+s3_prefix = "spookython"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "AlertEmail=\"pilozocesar@gmail.com\" MonthlyBudgetUsd=\"20\""
+image_repositories = []
+
+[default.global.parameters]
+region = "us-east-1"

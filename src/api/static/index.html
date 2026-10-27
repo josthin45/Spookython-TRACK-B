@@ -2357,7 +2357,8 @@
       DOM.btnText.innerHTML = `<span class="spinner"></span> Simulando Monte Carlo...`;
 
       try {
-        const res = await fetch('/simulate', {
+        const API_BASE = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? '' : '/api';
+        const res = await fetch(`${API_BASE}/simulate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(params)
