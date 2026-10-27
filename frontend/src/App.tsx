@@ -1,18 +1,23 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { playSpookySound, toggleAudioFX } from "./audio";
 import { Chart } from "./Chart";
+import { Cobwebs, SpookyCanvas } from "./halloween";
 import { DEFAULTS, type FormState, type Scenario } from "./types";
 
-const STRATEGY = "#0f6e56";
-const RANDOM = "#b7791f";
-const NONE = "#9d2c2c";
+const STRATEGY = "#39ff14";
+const RANDOM = "#ff7518";
+const NONE = "#ff1e42";
 
 export function App() {
   const [form, setForm] = useState<FormState>(DEFAULTS);
   const [result, setResult] = useState<Scenario | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [audioOn, setAudioOn] = useState(false);
+  const [audioLabel, setAudioLabel] = useState("Audio FX");
 
   async function run(next: FormState) {
+    playSpookySound("conjure");
     setLoading(true);
     setError(null);
     try {
@@ -48,6 +53,7 @@ export function App() {
   }
 
   function surprise(kind: "doble" | "mitad" | "mercado" | "eficacia") {
+    playSpookySound("curse");
     const next = { ...form };
     if (kind === "doble") next.beta = round(Math.min(1, form.beta * 2), 2);
     if (kind === "mitad") next.vaccines = Math.max(0, Math.floor(form.vaccines / 2));
@@ -59,16 +65,44 @@ export function App() {
 
   const saved = result?.comparacion.salvados_vs_nada_media ?? 0;
 
+  function onToggleAudio() {
+    const enabled = toggleAudioFX();
+    setAudioOn(enabled);
+    setAudioLabel(enabled ? "Audio FX: Activado" : "Audio FX: Desactivado");
+  }
+
   return (
-    <main className="app">
-      <header>
-        <p className="kicker">Spookython 2026 · Track B · Manta · The Last of Us</p>
-        <h1>Comité de Contención — Cordyceps (CBI)</h1>
-        <p>
-          El hongo Cordyceps (CBI) se propaga por mordeduras y esporas en hogares, aulas, buses y mercados de Manta. Hay pocas dosis de antígeno. Esta mesa compara
-          vacunar por anillo y centralidad contra no hacer nada y contra gastar las mismas dosis al azar.
-        </p>
+    <>
+      <SpookyCanvas />
+      <Cobwebs />
+      <header className="topbar">
+        <div className="brand">
+          <div className="pumpkin-badge" title="Noche de Halloween — Spookython 2026" aria-hidden="true">
+            🎃
+          </div>
+          <div className="brand-text">
+            <h1>SPOOKYTHON 2026 · BROTE CORDYCEPS MANTA</h1>
+            <p className="kicker">Spookython 2026 · Track B · Manta · The Last of Us</p>
+          </div>
+        </div>
+        <div className="status-tags">
+          <button type="button" className="btn-sound" aria-pressed={audioOn} onClick={onToggleAudio}>
+            <span aria-hidden="true">{audioOn ? "🔊" : "🔈"}</span>
+            <span>{audioLabel}</span>
+          </button>
+          <span
+            className="pill"
+            title="Entrega 28 de octubre de 2026, 10:00 hora de Ecuador. Pitch el 30 de octubre."
+          >
+            Entrega 28 oct 10:00 · Pitch 30 oct
+          </span>
+        </div>
       </header>
+      <main className="app">
+      <p className="lede">
+        El hongo Cordyceps (CBI) se propaga por mordeduras y esporas en hogares, aulas, buses y mercados de Manta. Hay pocas dosis de antígeno. Esta mesa compara
+        vacunar por anillo y centralidad contra no hacer nada y contra gastar las mismas dosis al azar.
+      </p>
 
       <div className="layout">
         <form className="panel" onSubmit={submit}>
@@ -213,7 +247,7 @@ export function App() {
           </Field>
           <div className="actions">
             <button className="primary" type="submit" disabled={loading}>
-              {loading ? "Simulando…" : "Simular brote"}
+              {loading ? "Simulando…" : "🎃 Conjurar simulación de contención"}
             </button>
             <button
               className="ghost"
@@ -230,6 +264,7 @@ export function App() {
 
         <section>
           <div className="presets" aria-label="Brote sorpresa">
+            <p className="surprise-title">Brote sorpresa</p>
             <button type="button" onClick={() => surprise("doble")}>
               Doble contagio
             </button>
@@ -253,7 +288,7 @@ export function App() {
                 <p>{result.recomendacion}</p>
               </div>
               <div className="cards">
-                <article className="card">
+                <article className="card accent-sage">
                   <span>Salvadas frente a no intervenir</span>
                   <strong>{people(result.comparacion.salvados_vs_nada_media)}</strong>
                   <span>
@@ -262,7 +297,7 @@ export function App() {
                     {percent(result.comparacion.reduccion_vs_nada)} menos contagios
                   </span>
                 </article>
-                <article className="card">
+                <article className="card accent-pumpkin">
                   <span>Salvadas frente al azar</span>
                   <strong>{people(result.comparacion.salvados_vs_azar_media)}</strong>
                   <span>
@@ -271,7 +306,7 @@ export function App() {
                     {result.comparacion.corridas_mejor_que_azar}/{result.comparacion.corridas} corridas
                   </span>
                 </article>
-                <article className="card">
+                <article className="card accent-blood">
                   <span>Contagios con la estrategia</span>
                   <strong>{people(result.estrategias.estrategia.incidencia_media)}</strong>
                   <span>
@@ -291,7 +326,7 @@ export function App() {
                   color: STRATEGY,
                 }}
                 series={[
-                  { name: result.leyenda.estrategia, color: STRATEGY, values: result.estrategias.estrategia.curvas.I },
+                  { name: result.leyenda.estrategia, color: STRATEGY, values: result.estrategias.estrategia.curvas.I, glow: true },
                   { name: result.leyenda.azar, color: RANDOM, values: result.estrategias.azar.curvas.I },
                   { name: result.leyenda.nada, color: NONE, values: result.estrategias.nada.curvas.I },
                 ]}
@@ -300,10 +335,10 @@ export function App() {
                 title="Estados con la estrategia"
                 days={result.dias}
                 series={[
-                  { name: "Sano", color: "#4d7c0f", values: result.estrategias.estrategia.curvas.S },
-                  { name: "Mordido", color: "#b7791f", values: result.estrategias.estrategia.curvas.E },
-                  { name: "Zombie", color: "#9d2c2c", values: result.estrategias.estrategia.curvas.I },
-                  { name: "Exorcizado", color: "#1d4e89", values: result.estrategias.estrategia.curvas.R },
+                  { name: "Sano", color: "#39ff14", values: result.estrategias.estrategia.curvas.S },
+                  { name: "Mordido", color: "#ff7518", values: result.estrategias.estrategia.curvas.E },
+                  { name: "Zombie", color: "#ff1e42", values: result.estrategias.estrategia.curvas.I },
+                  { name: "Exorcizado", color: "#a855f7", values: result.estrategias.estrategia.curvas.R },
                 ]}
               />
 
@@ -312,7 +347,7 @@ export function App() {
                 <p className="meta">
                   Primeras personas del ranking en la corrida 1. No incluye al paciente cero: ya está
                   infectado. Con eficacia total, el día 0 esas personas pasan a inmunes y por eso la
-                  curva azul no arranca en cero.
+                  curva de exorcizados no arranca en cero.
                 </p>
                 <table>
                   <thead>
@@ -352,6 +387,7 @@ export function App() {
         </section>
       </div>
     </main>
+    </>
   );
 }
 
