@@ -6,6 +6,7 @@ __pycache__/
 .ruff_cache/
 .aws-sam/
 *.zip
+infra/samconfig.toml
 .DS_Store
 
 frontend/node_modules/
