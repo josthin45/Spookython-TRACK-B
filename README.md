@@ -56,6 +56,8 @@ El reto permite modelar una plaga inspirada en la ficción o en la realidad. Se 
 | Criterio | Anillo | Anillo del caso cero (hogar y contactos directos) + hubs de grado |
 | Corridas | 8 | Corridas Monte Carlo con media, percentil 5 (p05) y percentil 95 (p95) |
 
+β, σ y γ salen de `src/engine/config.py` (`beta = 0.16`, `sigma = 0.5`, `gamma = 0.25`). El origen de esos tres parámetros y de los costos 25 / 15 / 200 USD está en la sección 6: son un supuesto del equipo, no un dataset citado. INEC solo respalda población, hogares y la fracción de 0 a 14 años.
+
 ---
 
 ## 🌟 3. Resumen de Cambios Aplicados (Nivel Base + Nivel PRO)
@@ -74,7 +76,7 @@ Se implementaron de forma estructurada y modular todos los requisitos faltantes 
 
 ### C. Modelo Económico y Retorno de Inversión (Nivel PRO)
 * **Archivo:** `src/engine/compare.py` (`_calcular_economia`).
-* **Costos Unitarios:** \$25 USD por dosis de antígeno/vacuna vs \$200 USD en costo hospitalario, descontaminación y contención por cada caso de Cordyceps.
+* **Costos unitarios (supuesto del equipo, no un dataset citado):** \$25 USD por dosis de vacuna, \$15 USD por cuarentena y \$200 USD por caso. Están fijos en `src/engine/compare.py` (`_calcular_economia`). El detalle está en la sección 6. No es el estimado AWS de `docs/costos.md` (\$5 a \$15 al mes).
 * **Métricas:** Calcula la inversión de la intervención, costo total sin intervención, ahorro económico neto para el Municipio y Retorno de Inversión (ROI).
 
 ### D. Dictamen Ejecutivo Oficial para el Alcalde (Nivel PRO)
@@ -187,11 +189,15 @@ sam deploy -t infra/template.yaml --guided --region us-east-1 \
 
 ---
 
-## 📊 6. Datos de Referencia Oficiales
+## 📊 6. Datos de Referencia y supuestos
 
-- **INEC, Censo 2022:** Cantón Manta con **271.145 habitantes**; Provincia de Manabí con 1.592.840 habitantes; 25,8% de población entre 0 y 14 años (tasa estudiantil del modelo).
-- **INEC, Estructura de Hogares:** Promedio nacional de **3,2 personas por hogar**.
-- **CDC & Biología de Infecciones:** Parámetros de incubación adaptados al avance del micelio del Cordyceps cerebral (24-48h).
+- **INEC, Censo 2022:** Cantón Manta con **271.145 habitantes**; Provincia de Manabí con 1.592.840 habitantes; 25,8% de población entre 0 y 14 años (tasa estudiantil del modelo). Manta 271.145 y el 25,8% de 0 a 14 años en Manabí también están en `src/engine/network.py`.
+- **INEC, Estructura de Hogares:** Promedio nacional de **3,2 personas por hogar** (`src/engine/network.py`).
+
+**β, σ, γ y los costos 25 / 15 / 200 USD no salen de INEC ni de otro dataset citado en el repositorio.** Son un supuesto del equipo.
+
+- **β = 0,16, σ = 0,50, γ = 0,25.** Valores por defecto en `src/engine/config.py`. `docs/cambios_arquitectura.md` los explica como escenario Cordyceps del equipo: incubación media ≈ 2 días (σ = 0,50), fase infecciosa media ≈ 4 días (γ = 0,25) y β = 0,16 elegido para dejar ventana de intervención. `docs/pitch.pdf` repite la latencia de 24–48 h (σ = 0,50) y γ = 0,25, sin una fuente externa. El reto (`Spookython 2026 - Track B.pdf`) no fija estos números: la organización no entrega la enfermedad y cada equipo define transmisión, incubación y contagio.
+- **25 USD (vacuna), 15 USD (cuarentena), 200 USD (caso).** Están escritos en `src/engine/compare.py` (`_calcular_economia`: 25 si la intervención es vacuna, 15 si es cuarentena, 200 por caso). `docs/cambios_arquitectura.md` repite los tres importes. `docs/pitch.pdf` y `docs/pitch_guion.md` mencionan 25 y 200 dentro del pitch del equipo, sin una tarifa externa. `docs/costos.md` documenta el gasto AWS (estimado \$5 a \$15 al mes y tope de \$20), no estos precios unitarios.
 
 ---
 
@@ -200,5 +206,5 @@ sam deploy -t infra/template.yaml --guided --region us-east-1 \
 * **Tope síncrono de 30 corridas.** El motor (`RUNS_MAX` en `src/engine/config.py`) y la Lambda de la demo (`SYNC_MAX_RUNS: "30"`) calculan el escenario en la misma petición solo hasta 30 corridas. El formulario de la SPA pública también corta en 30 y no consulta `/api/jobs`. Si existe la state machine y se piden más de 30 (hasta `BATCH_MAX_RUNS`, 400), el orquestador responde `202` y deja el trabajo en Step Functions.
 * **La SPA en vivo no pinta el mapa 3D, el memorando del alcalde ni la economía.** Esas vistas están en `src/api/static/index.html` y se abren con `python run.py`. La URL de CloudFront sirve el build de `frontend/` (`App.tsx`): curvas, tarjetas y el ranking. Los tipos `economia`, `territorial` e `informe_ejecutivo` están en `frontend/src/types.ts`, pero la SPA no los dibuja.
 * **El azar del canvas no entra en la semilla.** En la SPA, `makeVisualRng` (`frontend/src/halloween.tsx`) es ruido visual con semilla fija propia: no lee el formulario, no va en `POST /api/simulate` y no entra en la huella SHA-256. En la UI local, esporas y murciélagos usan `Math.random()` y tampoco alimentan la semilla del escenario.
-* **URL pública.** `https://d30ze7fyeksj6z.cloudfront.net/` es el dominio de CloudFront. Sirve el SPA del bucket privado (OAC) después de subir `frontend/dist`; el bucket no es de acceso público. `/api/*` en ese mismo host se reenvía a API Gateway. Esa página no es la UI de FastAPI en `http://127.0.0.1:8000/`.
+* **URL pública.** `https://d30ze7fyeksj6z.cloudfront.net/` sirve el build estático del SPA (`frontend/dist` en S3 vía CloudFront). `/api/*` en ese mismo host es la API. No es la página de FastAPI en `127.0.0.1`.
 
