@@ -2,6 +2,7 @@ type Series = {
   name: string;
   color: string;
   values: number[];
+  glow?: boolean;
 };
 
 type Band = {
@@ -75,7 +76,14 @@ export function Chart({ title, days, series, band }: ChartProps) {
         </text>
         {bandPath ? <path d={bandPath} fill={band?.color} opacity={0.18} /> : null}
         {series.map((item) => (
-          <path key={item.name} d={path(item.values)} fill="none" stroke={item.color} strokeWidth={2.4} />
+          <path
+            key={item.name}
+            d={path(item.values)}
+            fill="none"
+            stroke={item.color}
+            strokeWidth={item.glow ? 3 : 2.4}
+            style={item.glow ? { filter: "drop-shadow(0 0 6px rgba(57,255,20,0.6))" } : undefined}
+          />
         ))}
       </svg>
       <ul className="legend">
