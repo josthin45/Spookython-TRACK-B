@@ -17,7 +17,7 @@
 [1:55 - 2:40]  Diapositiva 4: Estrategia Científica vs las 2 Líneas Base (No Intervenir y Azar)
 [2:40 - 3:20]  Diapositiva 5: Nivel PRO — Territorio, Retorno Financiero & Memorando Alcalde
 [3:20 - 4:05]  Diapositiva 6: Preparación para el Brote Sorpresa (Respuesta en Vivo)
-[4:05 - 4:40]  Diapositiva 7: Arquitectura AWS Serverless & Gobernanza de Costos ($0,12 USD)
+[4:05 - 4:40]  Diapositiva 7: Arquitectura AWS Serverless & Gobernanza de Costos ($0,00 USD)
 [4:40 - 5:00]  Diapositiva 8: Cierre & Invitación a la Prueba de Fuego (Semilla del Jurado)
 ```
 
@@ -66,7 +66,7 @@
 > *"Toda la solución está desplegada y operativa en producción sobre una arquitectura Serverless en `us-east-1` (URL: `https://d30ze7fyeksj6z.cloudfront.net/`):  
 > Interfaz táctica distribuida en S3 y CloudFront, API REST en API Gateway, y orquestación con AWS Lambda y Step Functions Distributed Map para cómputo masivo.  
 > Seguridad: cero credenciales en código y roles IAM de mínimo privilegio.  
-> **Costos y criterio de desempate:** Nuestro gasto real acumulado durante todo el hackathon fue de apenas **\$0,12 USD**, con un tope de alerta en AWS Budgets de \$20 USD (apenas 0,6% consumido). El costo operativo mensual en producción no supera los \$5 a \$15 USD. Si la competencia empata en la Prueba de Fuego, ganamos por ser la solución más eficiente económicamente."*
+> **Costos y criterio de desempate:** Nuestro gasto real acumulado durante todo el hackathon fue de apenas **\$0,00 USD**, con un tope de alerta en AWS Budgets de \$20,00 USD (apenas 0,00% consumido). El costo operativo mensual en producción no supera los \$5 a \$15 USD. Si la competencia empata en la Prueba de Fuego, ganamos por ser la solución más eficiente económicamente."*
 
 ### Diapositiva 8: Conclusión & Demostración en Vivo (4:40 - 5:00)
 > *"En conclusión: entregamos un producto usable, matemáticamente riguroso, alineado a la demografía de Manta y económicamente viable.  
@@ -85,7 +85,7 @@
 ### P3: "¿Por qué no vacunar a personas que ya presentan síntomas?"
 * **Respuesta:** *"Porque en virología e inmunología el antígeno es profiláctico: estimula anticuerpos en tejido sano. Aplicar una vacuna de \$25 USD a un huésped donde el hongo ya colonizó el sistema nervioso central es un desperdicio del 100% del recurso público. Nuestro selector filtra rigurosamente el estado del nodo antes de inocular."*
 
-### P4: "¿Por qué los costos en AWS son tan bajos (\$0,12 USD)?"
+### P4: "¿Por qué los costos en AWS son tan bajos (\$0,00 USD)?"
 * **Respuesta:** *"Porque no tenemos infraestructura ociosa: no hay servidores EC2 ni clústeres encendidos 24/7 esperando peticiones. Todo el cómputo corre bajo demanda en AWS Lambda y Step Functions, aprovechando los tramos gratuitos (Free Tier) de 1 millón de invocaciones mensuales y almacenamiento S3 de bajo costo."*
 
 ---

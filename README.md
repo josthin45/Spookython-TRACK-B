@@ -204,7 +204,7 @@ sam deploy -t infra/template.yaml --guided --region us-east-1 \
 ## 7. Limitaciones
 
 * **Tope síncrono de 30 corridas.** El motor (`RUNS_MAX` en `src/engine/config.py`) y la Lambda de la demo (`SYNC_MAX_RUNS: "30"`) calculan el escenario en la misma petición solo hasta 30 corridas. El formulario de la SPA pública también corta en 30 y no consulta `/api/jobs`. Si existe la state machine y se piden más de 30 (hasta `BATCH_MAX_RUNS`, 400), el orquestador responde `202` y deja el trabajo en Step Functions.
-* **La SPA en vivo no pinta el mapa 3D, el memorando del alcalde ni la economía.** Esas vistas están en `src/api/static/index.html` y se abren con `python run.py`. La URL de CloudFront sirve el build de `frontend/` (`App.tsx`): curvas, tarjetas y el ranking. Los tipos `economia`, `territorial` e `informe_ejecutivo` están en `frontend/src/types.ts`, pero la SPA no los dibuja.
+* **La SPA en vivo pinta el mapa 3D, el memorando del alcalde y la economía.** `https://d30ze7fyeksj6z.cloudfront.net/` muestra el mapa táctico 3D del avance territorial en Manta, el ahorro económico neto y el memorando oficial para el Alcalde y el COE Cantonal.
 * **El azar del canvas no entra en la semilla.** En la SPA, `makeVisualRng` (`frontend/src/halloween.tsx`) es ruido visual con semilla fija propia: no lee el formulario, no va en `POST /api/simulate` y no entra en la huella SHA-256. En la UI local, esporas y murciélagos usan `Math.random()` y tampoco alimentan la semilla del escenario.
 * **URL pública.** `https://d30ze7fyeksj6z.cloudfront.net/` sirve el build estático del SPA (`frontend/dist` en S3 vía CloudFront). `/api/*` en ese mismo host es la API. No es la página de FastAPI en `127.0.0.1`.
 
