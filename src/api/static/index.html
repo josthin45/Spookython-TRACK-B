@@ -387,9 +387,13 @@
       outline: none;
       transition: border-color 0.15s ease, box-shadow 0.15s ease;
       font-family: var(--font-mono);
-      color-scheme: light;
+      color-scheme: dark;
       width: 100%;
       min-width: 0;
+    }
+    .field select option {
+      background: var(--paper-3);
+      color: var(--ink);
     }
     .field input::placeholder { color: var(--ink-3); }
     .field input:focus,

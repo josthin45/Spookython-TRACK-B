@@ -1,5 +1,9 @@
 # Spookython 2026 — Track B · La plaga zombie: CORDYCEPS (The Last of Us)
 
+> 🌐 **App Desplegada en Producción (AWS CloudFront):**  
+> **[https://d30ze7fyeksj6z.cloudfront.net/](https://d30ze7fyeksj6z.cloudfront.net/)**  
+> *(Acceso público oficial para la evaluación del jurado, operativo y funcional).*
+
 Mesa del Comité de Contención Epidemiológica para Manta frente al brote de la **Infección Cerebral por Cordyceps (CBI - The Last of Us)**. Simula día a día la propagación por mordeduras y esporas fúngicas sobre una red de hogares, aulas, buses y mercados, determinando científicamente a quién cubrir primero cuando los recursos y dosis de antígeno son limitados.
 
 La estrategia se compara rigurosamente contra dos líneas base bajo la **misma semilla** y la **misma suerte de transmisión**: no intervenir, y gastar el mismo presupuesto al azar. El motor es determinista y matemáticamente reproducible.
@@ -109,7 +113,9 @@ Spookython-TRACK-B/
 │   ├── arquitectura.svg       # Diagrama de arquitectura AWS
 │   ├── arquitectura.drawio    # Fuente editable del diagrama
 │   ├── costos.md              # Declaración de costos mensualizados AWS
-│   └── budget.png             # Evidencia de AWS Budgets
+│   ├── budget.png             # Evidencia de AWS Budgets
+│   ├── pitch.pdf              # [NUEVO] Diapositivas oficiales del Pitch en PDF (16:9, máx 20 MB)
+│   └── pitch_guion.md         # [NUEVO] Guion verbal cronometrado a 5 min y defensa Q&A
 │
 ├── src/
 │   ├── api/                   # Capa de Servicio Web (FastAPI)
@@ -150,6 +156,8 @@ Spookython-TRACK-B/
 
 ## ☁️ 5. Despliegue en AWS (us-east-1)
 
+* 🌐 **URL Pública Operativa:** **[https://d30ze7fyeksj6z.cloudfront.net/](https://d30ze7fyeksj6z.cloudfront.net/)**
+
 La arquitectura desacoplada permite ejecutar el sistema en local o desplegarlo en AWS mediante AWS SAM:
 
 | Componente AWS | Rol en la Arquitectura |
@@ -169,6 +177,12 @@ sam deploy -t infra/template.yaml --guided --region us-east-1 \
   --parameter-overrides AlertEmail=tu-correo@ejemplo.com MonthlyBudgetUsd=20
 ```
 
+### 💰 Resumen de Declaración de Costos (Rúbrica Oficial)
+* **Gasto Real Acumulado del Evento:** **\$0,12 USD** (0,6% del presupuesto).
+* **Estimado Mensual Operativo:** **\$5 a \$15 USD / mes** (100% Serverless bajo demanda, sin costos fijos).
+* **Alerta de Seguridad (AWS Budgets):** Activa en **\$20,00 USD** con alertas al 50% y 100% proyectado.
+* **Detalle y Desglose por Servicio:** Ver informe completo en [docs/costos.md](docs/costos.md).
+
 ---
 
 ## 📊 6. Datos de Referencia Oficiales
@@ -176,3 +190,4 @@ sam deploy -t infra/template.yaml --guided --region us-east-1 \
 - **INEC, Censo 2022:** Cantón Manta con **271.145 habitantes**; Provincia de Manabí con 1.592.840 habitantes; 25,8% de población entre 0 y 14 años (tasa estudiantil del modelo).
 - **INEC, Estructura de Hogares:** Promedio nacional de **3,2 personas por hogar**.
 - **CDC & Biología de Infecciones:** Parámetros de incubación adaptados al avance del micelio del Cordyceps cerebral (24-48h).
+
