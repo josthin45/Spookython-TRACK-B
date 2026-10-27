@@ -5,6 +5,7 @@ Comité de Contención de Manta.
 """
 
 import os
+import socket
 import sys
 import threading
 import time
@@ -32,11 +33,28 @@ def open_browser(url: str, delay: float = 1.0):
         print(f"[!] No se pudo abrir el navegador automáticamente: {exc}")
 
 
+def find_available_port(host: str = "127.0.0.1", preferred: int = 8000) -> int:
+    env_port = os.environ.get("PORT")
+    if env_port:
+        try:
+            return int(env_port)
+        except ValueError:
+            pass
+    for p in [preferred, 8080, 8001, 8002, 8888]:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind((host, p))
+                return p
+            except OSError:
+                continue
+    return preferred
+
+
 def main():
     import uvicorn
 
     host = "127.0.0.1"
-    port = 8000
+    port = find_available_port(host, 8000)
     url = f"http://{host}:{port}/"
 
     banner = rf"""

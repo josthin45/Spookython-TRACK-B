@@ -13,6 +13,7 @@ frontend/dist/
 frontend/.vite/
 
 src/**/__pycache__/
+powershell.cmd
 
 # Contexto y artefactos de diseño generados por IA (Impeccable)
 PRODUCT.md
