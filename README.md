@@ -163,7 +163,7 @@ La arquitectura desacoplada permite ejecutar el sistema en local o desplegarlo e
 | Componente AWS | Rol en la Arquitectura |
 | --- | --- |
 | **Amazon S3 + CloudFront** | Aloja y distribuye la interfaz web estática de forma pública y segura (OAC). |
-| **API Gateway** | Expone la API REST segura (`/api/simulate`, CORS restringido). |
+| **API Gateway** | Expone la API REST (`/api/simulate`). La plantilla deja el origen abierto (`AllowOrigin: '*'`, `CORS_ORIGIN: "*"`) hasta fijar el hostname de CloudFront. |
 | **AWS Lambda (Orquestador)** | Procesa solicitudes síncronas de la prueba en vivo en < 2 segundos. |
 | **AWS Step Functions + Lambda Simulator** | Orquestación paralela para corridas masivas Monte Carlo (Distributed Map). |
 | **Amazon DynamoDB & Amazon S3** | Persistencia de resultados, trazabilidad y huellas con TTL de 14 días. |
@@ -192,4 +192,13 @@ sam deploy -t infra/template.yaml --guided --region us-east-1 \
 - **INEC, Censo 2022:** Cantón Manta con **271.145 habitantes**; Provincia de Manabí con 1.592.840 habitantes; 25,8% de población entre 0 y 14 años (tasa estudiantil del modelo).
 - **INEC, Estructura de Hogares:** Promedio nacional de **3,2 personas por hogar**.
 - **CDC & Biología de Infecciones:** Parámetros de incubación adaptados al avance del micelio del Cordyceps cerebral (24-48h).
+
+---
+
+## 7. Limitaciones
+
+* **Tope síncrono de 30 corridas.** El motor (`RUNS_MAX` en `src/engine/config.py`) y la Lambda de la demo (`SYNC_MAX_RUNS: "30"`) calculan el escenario en la misma petición solo hasta 30 corridas. El formulario de la SPA pública también corta en 30 y no consulta `/api/jobs`. Si existe la state machine y se piden más de 30 (hasta `BATCH_MAX_RUNS`, 400), el orquestador responde `202` y deja el trabajo en Step Functions.
+* **La SPA en vivo no pinta el mapa 3D, el memorando del alcalde ni la economía.** Esas vistas están en `src/api/static/index.html` y se abren con `python run.py`. La URL de CloudFront sirve el build de `frontend/` (`App.tsx`): curvas, tarjetas y el ranking. Los tipos `economia`, `territorial` e `informe_ejecutivo` están en `frontend/src/types.ts`, pero la SPA no los dibuja.
+* **El azar del canvas no entra en la semilla.** En la SPA, `makeVisualRng` (`frontend/src/halloween.tsx`) es ruido visual con semilla fija propia: no lee el formulario, no va en `POST /api/simulate` y no entra en la huella SHA-256. En la UI local, esporas y murciélagos usan `Math.random()` y tampoco alimentan la semilla del escenario.
+* **URL pública.** `https://d30ze7fyeksj6z.cloudfront.net/` es el dominio de CloudFront. Sirve el SPA del bucket privado (OAC) después de subir `frontend/dist`; el bucket no es de acceso público. `/api/*` en ese mismo host se reenvía a API Gateway. Esa página no es la UI de FastAPI en `http://127.0.0.1:8000/`.
 
